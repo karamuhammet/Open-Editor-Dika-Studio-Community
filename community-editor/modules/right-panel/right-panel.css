@@ -1,0 +1,1050 @@
+/* right-panel module — the #p-* property-editor styles live in styles.css for now (shared
+   .plabel/.prow/etc.). This file exists so the loader never 404s on right-panel.css; the
+   per-section styles move here / into sub-module CSS during the Faz 6b-2 split. */
+
+/* ===== co-located from css/styles.css (right-panel (property editor + layers/structure)) ===== */
+/* ─── 10. RIGHT PANEL ─────────────────────────────────────────── */
+
+.rpanel {
+  width: var(--rpanel);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: width 0.25s ease, opacity 0.2s ease;
+}
+
+.rpanel.rp-collapsed {
+  width: 0;
+  border-left-color: transparent;
+  overflow: hidden;
+}
+
+/* Toggle button — sibling before rpanel in workspace */
+.rp-toggle-btn {
+  width: 28px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: none;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s, background 0.15s, width 0.15s;
+  z-index: 2;
+}
+
+.rp-toggle-btn:hover {
+  color: var(--gold);
+  background: var(--surface2);
+}
+
+.rpanel::-webkit-scrollbar {
+  width: 3px;
+}
+
+.rpanel::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 2px;
+}
+
+.rp-section {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rp-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Right Panel Accordion ─────────────────────── */
+.rp-accordion {
+  border-bottom: 1px solid var(--border);
+}
+
+.rp-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.rp-accordion-header:hover {
+  background: var(--surface2);
+}
+
+.rp-accordion-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.rp-accordion-arrow {
+  font-size: 10px;
+  color: var(--text-faint);
+  transition: transform 0.2s ease;
+}
+
+.rp-accordion.open .rp-accordion-arrow {
+  transform: rotate(0deg);
+}
+
+.rp-accordion:not(.open) .rp-accordion-arrow {
+  transform: rotate(-90deg);
+}
+
+.rp-accordion-body {
+  padding: 0 12px 12px;
+  display: none;
+}
+
+.rp-accordion.open .rp-accordion-body {
+  display: block;
+}
+
+/* ─── 15. STRUCTURE / LAYERS PANEL (floating) ─────────────────── */
+
+.structure-panel {
+  position: fixed;
+  z-index: 600;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  width: 260px;
+  min-height: 200px;
+  max-height: 70vh;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.structure-panel.show {
+  display: flex;
+}
+
+.structure-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: move;
+  user-select: none;
+}
+
+.structure-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.structure-body::-webkit-scrollbar {
+  width: 3px;
+}
+
+.structure-body::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 2px;
+}
+
+.structure-page-indicator {
+  padding: 5px 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: all 0.1s;
+  border-left: 3px solid transparent;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.layer-item:hover {
+  background: var(--surface2);
+}
+
+.layer-item.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border-left-color: var(--gold);
+}
+
+.layer-grid-cell {
+  border-left: 2px solid transparent;
+  transition: border-color .15s, background .15s;
+}
+
+.layer-grid-cell.active {
+  border-left-color: var(--gold);
+}
+
+.layer-item.dragging {
+  opacity: 0.5;
+}
+
+.layer-item .layer-icon {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.layer-item .layer-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-item .layer-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.layer-item:hover .layer-actions {
+  opacity: 1;
+}
+
+.layer-group-block {
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.layer-group-header {
+  background: rgba(255,255,255,0.04);
+}
+
+.layer-group-toggle {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.layer-group-children {
+  border-top: 1px solid var(--border);
+}
+
+.layer-child {
+  padding-left: 28px !important;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.layer-child:hover {
+  opacity: 1;
+}
+
+/* ── Linked frame ↔ image (Photoshop style: SINGLE ROW) ── */
+.layer-linked-row {
+  border-left: 3px solid var(--gold, #f2ff58);
+  background: rgba(242, 255, 88, 0.06);
+}
+
+.layer-linked-row:hover {
+  background: rgba(242, 255, 88, 0.12);
+}
+
+.layer-linked-row .layer-linked-frame-icon {
+  opacity: 0.7;
+}
+
+.layer-chain-icon {
+  font-size: 11px;
+  margin: 0 3px;
+  opacity: 0.6;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.structure-footer {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── COLOR PICKER PANEL ──────────────────────────────────────── */
+
+.rp-color-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ═══ Right Panel Dual Tab ════════════════════════════════════ */
+
+.rp-tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.rp-tab {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.rp-tab:hover { color: var(--text); }
+
+.rp-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.rp-properties-wrap {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ── Layout Panel ── */
+.rp-layout-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 2px;
+}
+
+.rp-layers-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.rp-layers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.rp-layers-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rp-layers-gear {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r-xs);
+  transition: all 0.15s;
+}
+
+.rp-layers-gear:hover { color: var(--gold); background: var(--surface2); }
+
+.rp-layers-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+/* ── Layer Items ── */
+.rp-layer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-left: 2px solid transparent;
+  font-size: 12px;
+}
+
+.rp-layer-item:hover {
+  background: var(--surface2);
+}
+
+.rp-layer-item.active {
+  background: var(--gold-dim);
+  border-left-color: var(--gold);
+}
+
+.rp-layer-item.hidden-layer {
+  opacity: 0.4;
+}
+
+.rp-layer-item.locked .rp-layer-name {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.rp-layer-grip {
+  color: var(--text-faint);
+  font-size: 10px;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.rp-layer-icon {
+  color: var(--text-dim);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Linked frame+image single row ── */
+.rp-layer-linked {
+  border-left: 3px solid var(--gold, #f2ff58);
+  background: rgba(242, 255, 88, 0.05);
+}
+
+.rp-layer-linked:hover {
+  background: rgba(242, 255, 88, 0.12);
+}
+
+.rp-layer-chain {
+  font-size: 10px;
+  opacity: 0.55;
+  flex-shrink: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.rp-layer-frame-icon {
+  opacity: 0.6;
+}
+
+/* ── Grid Layout in Layers ── */
+.rp-grid-chevron {
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: var(--text-dim);
+  transition: color .12s;
+}
+
+.rp-grid-chevron:hover { color: var(--gold); }
+
+.rp-layer-grid-header {
+  font-weight: 600;
+}
+
+.rp-layer-grid-cell {
+  font-size: 11px;
+  border-left: 2px solid transparent;
+  transition: border-color .15s, background .15s;
+}
+
+.rp-layer-grid-cell.active {
+  background: var(--gold-dim, rgba(242, 255, 88,0.08));
+  color: var(--gold);
+  border-left-color: var(--gold);
+}
+
+.rp-layer-grid-cell .rp-layer-name {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.rp-layer-grid-cell.active .rp-layer-name {
+  color: var(--gold);
+}
+
+.rp-layer-name {
+  flex: 1;
+  color: var(--text);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rp-layer-vis,
+.rp-layer-lock {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  transition: all 0.1s;
+}
+
+.rp-layer-vis:hover,
+.rp-layer-lock:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+/* ── Layer Context Menu ── */
+.rp-layers-wrap { position: relative; }
+
+.rp-layer-ctx {
+  position: absolute;
+  z-index: 1000;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 6px 0;
+  min-width: 180px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  font-size: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.rp-ctx-item {
+  padding: 7px 14px;
+  cursor: pointer;
+  color: var(--text);
+  transition: background 0.1s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rp-ctx-item:hover {
+  background: var(--surface2);
+}
+
+.rp-ctx-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.rp-ctx-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.rp-ctx-label {
+  padding: 6px 14px 2px;
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.rp-ctx-colors {
+  display: flex;
+  gap: 6px;
+  padding: 6px 14px 8px;
+}
+
+.rp-ctx-color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.15s;
+}
+
+.rp-ctx-color-dot:hover {
+  transform: scale(1.2);
+}
+
+.rp-ctx-color-dot.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+/* ── Layers Header Actions ── */
+.rp-layers-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rp-layers-add-folder {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r-xs);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.rp-layers-add-folder:hover {
+  color: var(--gold);
+  background: var(--surface2);
+}
+
+/* ── Folder Rows ── */
+.rp-layer-folder {
+  background: rgba(255,255,255,0.02);
+}
+
+.rp-layer-folder:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.rp-folder-chevron {
+  font-size: 10px;
+  color: var(--text-dim);
+  cursor: pointer;
+  width: 12px;
+  text-align: center;
+  flex-shrink: 0;
+  user-select: none;
+  transition: color 0.1s;
+}
+
+.rp-folder-chevron:hover {
+  color: var(--gold);
+}
+
+/* ── Drag & Drop ── */
+.rp-layer-item.rp-drag-source {
+  opacity: 0.4;
+}
+
+.rp-layer-item.rp-drag-over {
+  border-top: 2px solid var(--gold);
+}
+
+.rp-layer-item.rp-drag-into-folder {
+  background: rgba(242, 255, 88, 0.15);
+  outline: 1px dashed var(--gold);
+  outline-offset: -1px;
+}
+
+/* ── Rename Input ── */
+.rp-layer-rename-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--gold);
+  color: var(--text);
+  font-size: 11px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* ── Move to Folder Popup ── */
+.rp-move-folder-popup {
+  position: absolute;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  width: 220px;
+  max-height: 280px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.rp-mf-header {
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.rp-mf-search {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rp-mf-search-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: var(--r-sm);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.rp-mf-search-input:focus {
+  border-color: var(--gold);
+}
+
+.rp-mf-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.rp-mf-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 11px;
+  transition: background 0.1s;
+}
+
+.rp-mf-item:hover {
+  background: var(--surface2);
+}
+
+.rp-mf-item.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.rp-mf-item-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.rp-mf-item-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Figma-style property panel (rpf-*) — compact, grouped sections:
+   label-above + segmented type selectors + bordered value fields.
+   Reuses the existing #p-* inputs (IDs preserved → bindings intact).
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* top toolbar: object name + align row + delete */
+.rpf-bar { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.rpf-bar-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.rpf-objname { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--text); min-width: 0; }
+.rpf-objname svg { width: 15px; height: 15px; color: var(--text-dim); flex: none; }
+.rpf-objname span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rpf-del { background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; border-radius: var(--r-sm); display: flex; flex: none; }
+.rpf-del:hover { background: rgba(224, 107, 107, 0.14); color: #e06b6b; }
+.rpf-del svg { width: 15px; height: 15px; }
+.rpf-align { display: flex; align-items: center; gap: 8px; }
+.rpf-align .rpf-seg { flex: 0 0 auto; }
+.rpf-align .rpf-seg button { flex: 0 0 auto; padding: 5px 7px; }
+.rpf-align svg { width: 15px; height: 15px; }
+
+/* section: gray label on its own line, controls below */
+.rpf-sec { padding: 9px 12px 11px; border-bottom: 1px solid var(--border); }
+.rpf-lab { font-size: 11px; color: var(--text-dim); font-weight: 500; margin-bottom: 7px; display: flex; align-items: center; justify-content: space-between; }
+.rpf-lab .rpf-star { color: var(--gold); font-size: 11px; }
+.rpf-lab .rpf-lab-act { color: var(--text-faint); cursor: pointer; display: flex; }
+.rpf-lab .rpf-lab-act:hover { color: var(--gold); }
+.rpf-lab .rpf-lab-act svg { width: 13px; height: 13px; }
+
+/* segmented type selector (fill / border style / shadow) */
+.rpf-seg { display: flex; background: var(--bg); border: 1px solid var(--border2); border-radius: var(--r-md); overflow: hidden; margin-bottom: 7px; }
+.rpf-seg button { flex: 1; padding: 6px 0; background: none; border: none; border-left: 1px solid var(--border2); color: var(--text-dim); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rpf-seg button:first-child { border-left: none; }
+.rpf-seg button:hover { color: var(--text); background: var(--surface2); }
+.rpf-seg button.on { background: var(--gold); color: #1a1a1a; }
+.rpf-seg svg { width: 14px; height: 14px; }
+
+/* bordered value field: [swatch/icon] value … [chevron] */
+.rpf-field { display: flex; align-items: center; gap: 7px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 5px 8px; min-width: 0; }
+.rpf-field:focus-within { border-color: var(--gold); }
+.rpf-field .rpf-ic { color: var(--text-dim); display: flex; flex: none; }
+.rpf-field .rpf-ic svg { width: 14px; height: 14px; }
+.rpf-field .rpf-ch { margin-left: auto; color: var(--text-faint); display: flex; flex: none; }
+.rpf-field .rpf-ch svg { width: 13px; height: 13px; }
+/* Clickable trailing icon inside a field (the Clip background's clear). Same geometry as
+   .rpf-ch, but it needs its own rule: .rpf-lab-act is scoped to `.rpf-lab .rpf-lab-act`, so a
+   button placed in a FIELD kept the browser's default chrome and its viewBox-only <svg>
+   collapsed to 0x0. Measured before this: the button rendered 4x19 with a rgb(240,240,240)
+   background, which is the white sliver the owner reported. */
+.rpf-field .rpf-act { margin-left: auto; flex: none; display: flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 0; cursor: pointer; color: var(--text-faint); }
+.rpf-field .rpf-act:hover { color: var(--gold); }
+.rpf-field .rpf-act svg { width: 13px; height: 13px; }
+.rpf-field input[type="text"], .rpf-field input[type="number"], .rpf-field select {
+  flex: 1; min-width: 0; background: none; border: none; color: var(--text);
+  font: 12px 'DM Sans', sans-serif; outline: none; padding: 0; -webkit-appearance: none; appearance: none;
+}
+/* The closed select inherits color:var(--text) over a dark ancestor and reads
+   fine, but the OPEN popup is drawn by the OS on its own (white) background -
+   light-on-white, unreadable. The select's own transparent background does not
+   reach the popup, so the option needs its own pair. Same fix as .em-select
+   option (export-manager.css) and .ai-provider-select option (styles.css). */
+.rpf-field select option { background: var(--surface2, #1d1d23); color: var(--text, #ededf0); }
+/* optgroup needs its own pair for the same reason. Without this the group headers keep
+   color:var(--text) but fall back to a TRANSPARENT background, so they render near-white
+   on the OS popup's white background (invisible) between correctly dark option rows.
+   #p-df-field (Design field) is the only select in the app that uses optgroup, which is
+   why the option rule above was enough until now. */
+.rpf-field select optgroup { background: var(--surface2, #1d1d23); color: var(--text-dim, #a0a0aa); }
+.rpf-field select optgroup option { color: var(--text, #ededf0); }
+.rpf-field input[type="number"]::-webkit-inner-spin-button { opacity: 0; }
+.rpf-field .rpf-val { font-size: 12px; color: var(--text); font-family: 'DM Sans', sans-serif; }
+.rpf-field .rpf-pct { font-size: 12px; color: var(--text-dim); flex: none; }
+
+/* Weight dropdown (google-fonts ff-picker) → dissolve the fancy trigger INTO the rpf-field so the
+   Weight box matches the Size input beside it: borderless/transparent, same height, numeric label,
+   one small chevron. The open menu still lists the descriptive names. */
+.rpf-field .ff-picker-weight { flex: 1; min-width: 0; display: flex; position: relative; }
+.rpf-field .ff-picker-weight .ff-weight-trigger {
+  width: 100%; min-height: 0; border: none; background: none; border-radius: 0; padding: 0; gap: 4px;
+  transition: none;
+}
+.rpf-field .ff-picker-weight .ff-weight-trigger:hover,
+.rpf-field .ff-picker-weight .ff-weight-trigger:focus-visible {
+  border: none; background: none; box-shadow: none; transform: none;
+}
+.rpf-field .ff-picker-weight .ff-weight-label { font: 12px 'DM Sans', sans-serif; font-weight: 400; color: var(--text); }
+.rpf-field .ff-picker-weight .ff-trigger-arrow { color: var(--text-faint); flex: none; }
+.rpf-field .ff-picker-weight .ff-trigger-arrow svg { width: 13px; height: 13px; }
+/* the field's own static chevron is redundant next to the picker's own arrow */
+.rpf-field .ff-picker-weight ~ .rpf-ch { display: none; }
+
+/* Font FAMILY picker → same dissolve as Weight (owner 2026-07-13: the .ff-trigger's own dark box
+   (#121216 + border, pushed down 6px) rendered as a "black box inside the box"; drop its box so the
+   .rpf-field is the single field, matching every other input). */
+.rpf-field .ff-picker-family { flex: 1; min-width: 0; margin-top: 0; }
+.rpf-field .ff-picker-family .ff-trigger {
+  min-height: 0; border: none; background: none; border-radius: 0; padding: 0; transition: none;
+}
+.rpf-field .ff-picker-family .ff-trigger:hover,
+.rpf-field .ff-picker-family .ff-trigger:focus-visible {
+  border: none; background: none; box-shadow: none; transform: none;
+}
+.rpf-field .ff-picker-family ~ .rpf-ch { display: none; }
+
+/* colour swatch (wraps an overlaid native colour input) */
+.rpf-swatch { width: 16px; height: 16px; border-radius: var(--r-xs); flex: none; border: 1px solid var(--border2); position: relative; overflow: hidden; padding: 0; cursor: pointer; }
+/* the colour-picker module injects its own round swatch next to each #p-* colour input — redundant inside our Figma fields (we have our own swatch + quick palette) */
+.rpf-field .cp-swatch-btn { display: none !important; }
+
+/* page background panel: transparent checkerboard media drop + choose button (Figma parity) */
+.rpf-bg-drop { height: 116px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; background-color: #2a2a2e; background-image: linear-gradient(45deg, #3a3a40 25%, transparent 25%), linear-gradient(-45deg, #3a3a40 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #3a3a40 75%), linear-gradient(-45deg, transparent 75%, #3a3a40 75%); background-size: 18px 18px; background-position: 0 0, 0 9px, 9px -9px, -9px 0; }
+.rpf-bg-drop.has-img { background-image: none; background-size: cover; background-position: center; background-repeat: no-repeat; }
+.rpf-bg-choose { display: inline-flex; align-items: center; background: #ff6a3d; color: #fff; border: none; border-radius: var(--r-md); padding: 9px 16px; font: 600 12px 'DM Sans', sans-serif; cursor: pointer; }
+.rpf-bg-choose:hover { background: #ff7d56; }
+.rpf-bg-remove { width: 100%; background: none; border: 1px solid var(--border2); border-radius: var(--r-md); color: var(--text-dim); padding: 7px; font: 500 11.5px 'DM Sans', sans-serif; cursor: pointer; }
+.rpf-bg-remove:hover { color: #e06b6b; border-color: #5a2b2b; }
+.rpf-bg-dropbtns { display: flex; flex-direction: column; gap: 8px; }
+.rpf-bg-makeimg { display: inline-flex; align-items: center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--border2); border-radius: var(--r-md); padding: 8px 14px; font: 600 12px 'DM Sans', sans-serif; cursor: pointer; }
+.rpf-bg-makeimg:hover { background: rgba(0,0,0,0.66); }
+.rpf-bg-fill .rpf-val, .rpf-bg-dd .rpf-val { flex: 1; }
+.rpf-bg-dd { padding: 6px 8px; }
+.rpf-bg-dd .rpf-ch svg, .rpf-bg-fill .rpf-ch svg { width: 12px; height: 12px; }
+
+/* generic popup shell (Overlay / Layer blur) */
+.rpf-pop2 { position: fixed; z-index: 10001; width: 234px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg); box-shadow: 0 14px 44px rgba(0,0,0,0.6); display: none; }
+.rpf-pop2.show { display: block; }
+.rpf-pop2-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.rpf-pop2-title { font-size: 12px; color: var(--text); font-weight: 600; }
+.rpf-pop2-x { background: none; border: none; color: var(--text-dim); cursor: pointer; display: flex; padding: 2px; }
+.rpf-pop2-x:hover { color: var(--text); }
+.rpf-pop2-x svg { width: 14px; height: 14px; }
+.rpf-pop2-body { padding: 11px 12px; display: flex; flex-direction: column; gap: 9px; }
+.rpf-pop2-row { display: flex; align-items: center; gap: 9px; }
+.rpf-pop2-row input[type="range"] { flex: 1; }
+.rpf-pop2-row .rpf-pct { font-size: 12px; color: var(--text-dim); min-width: 34px; text-align: right; }
+
+/* Effects dropdown (rpfBgEffectsPop) — section headers, inline slider labels, preset chips */
+.rpf-fx-h { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: var(--text-faint); margin: 0; }
+.rpf-pop2-row .rpf-fx-k { margin: 0; flex: none; width: 54px; color: var(--text-dim); font-size: 11px; }
+.rpf-fx-presets { display: flex; gap: 4px; }
+.rpf-fx-presets .sbtn { flex: 1; padding: 6px 0; font-size: 11px; text-align: center; }
+.rpf-fx-presets .sbtn.on { border-color: var(--gold); color: var(--gold); }
+.rpf-fx-reset { width: 100%; padding: 7px 0; font-size: 11px; text-align: center; border: 1px solid var(--gold); color: var(--gold); }
+
+/* Fill dropdown menu — orange selected (Figma) */
+.rpf-menu.rpf-menu-fill button.sel { background: #ff6a3d; color: #fff; }
+.rpf-menu.rpf-menu-fill button .rpf-fillcheck { width: 14px; display: inline-flex; }
+
+/* canvas transparency checkerboard — image bg type with no image (the white/grey checker) */
+.bg-checker { background-color: #ffffff !important;
+  background-image: linear-gradient(45deg, #d6d6d6 25%, transparent 25%), linear-gradient(-45deg, #d6d6d6 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #d6d6d6 75%), linear-gradient(-45deg, transparent 75%, #d6d6d6 75%) !important;
+  background-size: 22px 22px !important; background-position: 0 0, 0 11px, 11px -11px, -11px 0 !important; }
+
+/* gradient picker popup */
+.rpf-bg-gradprev { width: 16px; height: 16px; border-radius: var(--r-xs); flex: none; border: 1px solid var(--border2); background: linear-gradient(90deg, #000, #6c63ff); }
+.rpf-grad-bar { height: 22px; border-radius: var(--r-md); border: 1px solid var(--border2); background: linear-gradient(90deg, #000, #6c63ff); box-shadow: inset 0 0 0 1px rgba(0,0,0,.25); }
+.rpf-grad-stops { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+.rpf-grad-stoprow { display: flex; align-items: center; gap: 8px; padding: 4px 5px; border-radius: var(--r-md); border: 1px solid transparent; transition: background .12s, border-color .12s; }
+.rpf-grad-stoprow:hover { background: var(--surface2); }
+.rpf-grad-stoprow.sel { background: var(--surface2); border-color: rgba(242,255,88,.35); }
+.rpf-grad-stopsw { width: 20px; height: 20px; }
+.rpf-grad-stoppos { width: 46px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text); font: 11.5px 'DM Sans', sans-serif; padding: 5px 4px; text-align: center; outline: none; -webkit-appearance: none; -moz-appearance: textfield; appearance: none; }
+.rpf-grad-stoppos:focus { border-color: var(--gold); }
+.rpf-grad-stoppos::-webkit-inner-spin-button, .rpf-grad-stoppos::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.rpf-grad-pct { font-size: 11px; color: var(--text-dim); margin-left: -4px; }
+.rpf-grad-stopdel { margin-left: auto; background: none; border: 1px solid var(--border2); border-radius: var(--r-md); color: var(--text-dim); width: 26px; height: 26px; cursor: pointer; line-height: 1; transition: color .12s, border-color .12s; }
+.rpf-grad-stopdel:hover:not([disabled]) { color: #e06b6b; border-color: rgba(224,107,107,.5); }
+.rpf-grad-stopdel[disabled] { opacity: 0.4; cursor: default; }
+.rpf-grad-add { margin-top: 10px; width: 100%; background: none; border: 1px dashed var(--border2); border-radius: var(--r-md); color: var(--text-dim); padding: 8px; font: 500 11.5px 'DM Sans', sans-serif; cursor: pointer; transition: color .12s, border-color .12s; }
+.rpf-grad-add:hover { color: var(--gold); border-color: var(--gold); }
+
+/* grouped canvas-size preset menu */
+.rpf-menu-presets { min-width: 210px; overflow-y: auto; }
+.rpf-menu-grp { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.4px; padding: 8px 10px 3px; }
+.rpf-menu-grp:first-child { padding-top: 3px; }
+.rpf-menu-presets button { justify-content: space-between; gap: 14px; }
+.rpf-menu-dim { font: 600 10px 'Space Mono', monospace; color: var(--text-dim); flex: none; }
+/* canvas-size: one compact combined field — [W] × [H] [px ▾] */
+.rpf-size-field { gap: 6px; }
+.rpf-size-field input { flex: 1; min-width: 0; width: auto; background: none; border: none; color: var(--text); font: 12px 'DM Sans', sans-serif; outline: none; text-align: left; -webkit-appearance: none; appearance: none; padding: 0; }
+.rpf-size-field input::-webkit-inner-spin-button, .rpf-size-field input::-webkit-outer-spin-button { opacity: 0; -webkit-appearance: none; }
+.rpf-size-x { color: var(--text-faint); font-size: 12px; flex: none; }
+.rpf-size-unit { display: flex; align-items: center; gap: 3px; background: none; border: none; border-left: 1px solid var(--border); padding: 2px 0 2px 8px; margin-left: 2px; color: var(--text-dim); cursor: pointer; font: 12px 'DM Sans', sans-serif; flex: none; }
+.rpf-size-unit:hover { color: var(--text); }
+.rpf-size-unit svg { width: 12px; height: 12px; }
+.rpf-swatch input[type="color"] { position: absolute; inset: -4px; width: 200%; height: 200%; border: none; padding: 0; margin: 0; cursor: pointer; background: none; }
+
+/* two-column (Border: colour | width) */
+.rpf-two { display: flex; gap: 8px; }
+.rpf-two > div { flex: 1; min-width: 0; }
+.rpf-mini { font-size: 10.5px; color: var(--text-faint); margin-bottom: 5px; }
+
+/* range row (opacity / shadow) */
+/* ─── Image inspector: tabs + tab-scoped sections ─────────────────────────────
+   The tab is an ATTRIBUTE on #rp-image, not a display write per section, so the two sections that
+   own their own inline display (border block, clip block, both driven by syncImage) keep deciding
+   for themselves - an inline style beats this rule, and an empty one lets it through. */
+/* The TAB BAR itself is the video clip inspector's (.ve-insp-docktabs, video-editor.css) so the two
+   panels that share this slot cannot drift apart. Only the show/hide rule lives here. */
+#rp-image > [data-imgtab] { display: none; }
+#rp-image[data-tab="basic"] > [data-imgtab="basic"],
+#rp-image[data-tab="color"] > [data-imgtab="color"],
+#rp-image[data-tab="effect"] > [data-imgtab="effect"],
+#rp-image[data-tab="ai"] > [data-imgtab="ai"] { display: block; }
+/* The Basic blocks are MOVED into accordion bodies, so once adopted they are no longer direct
+   children and the rule above stops applying to them - which is correct, the section owns them. */
+.rpf-imgacts { display: flex; flex-direction: column; gap: 6px; }
+#rp-image[data-tab="basic"] > .rpf-imgacts { display: flex; }
+/* Inside an accordion body the moved blocks lose their own section chrome: the accordion already
+   provides the padding and the divider, so a nested .rpf-sec would double both. */
+#rp-image .ve-insp-section-body > .rpf-sec { padding: 0; border-bottom: none; }
+#rp-image .ve-insp-section-body > .rpf-sec > .rpf-lab:first-child { display: none; }
+#rp-image .ve-insp-section-body > #rp-fig-bar,
+#rp-image .ve-insp-section-body > #rp-uni-appearance { margin: 0; }
+#rp-image .ve-insp-section-body > #rp-uni-appearance > .rpf-sec:last-child { padding-bottom: 0; }
+
+.rpf-range { display: flex; align-items: center; gap: 9px; }
+.rpf-range input[type="range"] { flex: 1; }
+.rpf-range .rpf-pct { font-size: 12px; color: var(--text-dim); min-width: 38px; text-align: right; }
+
+/* selection colours list */
+.rpf-selrow { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+.rpf-selrow .rpf-nm { font-size: 12px; color: var(--text); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rpf-selrow .rpf-pct { font-size: 11px; color: var(--text-dim); }
+
+/* design-field note popover */
+.rpf-pop { position: fixed; z-index: 9999; width: 244px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); padding: 11px; display: none; }
+.rpf-pop.show { display: block; }
+.rpf-pop-title { font-size: 11px; color: var(--text-dim); margin-bottom: 7px; display: flex; align-items: center; gap: 5px; }
+.rpf-pop-title svg { width: 13px; height: 13px; color: var(--gold); }
+.rpf-pop textarea { width: 100%; height: 84px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text); font: 11px 'DM Sans', sans-serif; padding: 8px; resize: vertical; outline: none; box-sizing: border-box; }
+.rpf-pop textarea:focus { border-color: var(--gold); }
+
+/* quick color palette popup (recent + page colours + wheel → full picker) */
+.rpf-pal { position: fixed; z-index: 10002; width: 220px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); padding: 11px; display: none; }
+.rpf-pal.show { display: block; }
+.rpf-pal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.rpf-pal-head .t { font-size: 11.5px; color: var(--text); font-weight: 600; }
+.rpf-pal-wheel { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 1.5px solid var(--border2); padding: 0; background: conic-gradient(from 0deg, #ff0000, #ffe000, #00d000, #00d0d0, #0040ff, #d000ff, #ff0000); }
+.rpf-pal-wheel:hover { border-color: var(--gold); }
+.rpf-pal-sec { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.4px; margin: 10px 0 6px; }
+.rpf-pal-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.rpf-pal-sw { width: 20px; height: 20px; border-radius: var(--r-sm); cursor: pointer; border: 1px solid var(--border2); padding: 0; transition: transform 0.1s; }
+.rpf-pal-sw:hover { transform: scale(1.14); border-color: var(--gold); }
+.rpf-pal-empty { font-size: 10.5px; color: var(--text-faint); }
+.rpf-pal-hex { display: flex; align-items: center; gap: 7px; margin-top: 11px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 5px 8px; }
+.rpf-pal-hex:focus-within { border-color: var(--gold); }
+.rpf-pal-hex input { flex: 1; min-width: 0; background: none; border: none; color: var(--text); font: 12px 'Space Mono', monospace; outline: none; text-transform: uppercase; }
+.rpf-pal-hex .sw { width: 16px; height: 16px; border-radius: var(--r-xs); border: 1px solid var(--border2); flex: none; }
+
+/* in-field ▾ dropdown trigger + preset menu (opacity / corners) */
+.rpf-ddbtn { background: none; border: none; color: var(--text-faint); cursor: pointer; padding: 0 1px; display: flex; align-items: center; flex: none; }
+.rpf-ddbtn:hover { color: var(--text); }
+.rpf-ddbtn svg { width: 13px; height: 13px; }
+.rpf-numin { width: 42px; flex: none; background: none; border: none; color: var(--text); font: 12px 'DM Sans', sans-serif; outline: none; text-align: right; -webkit-appearance: none; appearance: none; }
+.rpf-numin::-webkit-inner-spin-button { opacity: 0; }
+.rpf-menu { position: fixed; z-index: 10000; min-width: 132px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-md); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55); padding: 5px; display: none; max-height: 280px; overflow-y: auto; }
+.rpf-menu.show { display: block; }
+.rpf-menu button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; background: none; border: none; color: var(--text); font: 12px 'DM Sans', sans-serif; padding: 6px 10px; border-radius: var(--r-sm); cursor: pointer; text-align: left; }
+.rpf-menu button:hover { background: var(--surface2); }
+.rpf-menu button.on { color: var(--gold); }
+
+/* Layout tab — rebuilt to the rpf-field language (Position&Size, Align, Arrange dropdowns) */
+.lp-k { font-size: 11px; color: var(--text-faint); flex: none; }
+.lp-wh { display: flex; align-items: center; gap: 6px; margin-top: 7px; }
+.lp-wh .rpf-field { flex: 1; }
+.lp-lock { flex: none; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text-faint); cursor: pointer; }
+.lp-lock:hover { color: var(--text); }
+.lp-lock.on { color: var(--gold); border-color: rgba(242,255,88,.4); }
+.lp-lock svg { width: 14px; height: 14px; }
+.lp-rot-field { margin-top: 7px; }
+.lp-dd { flex: 1; min-width: 0; cursor: pointer; text-align: left; }
+.lp-dd:disabled { opacity: .45; cursor: default; }
+.rpf-menu .lp-menu-item { justify-content: flex-start; gap: 9px; }
+.rpf-menu .lp-menu-item svg { width: 14px; height: 14px; flex: none; }

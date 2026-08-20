@@ -1,0 +1,10 @@
+{
+  "children": [
+    "dynamic",
+    "effects",
+    "pairings",
+    "quickadd",
+    "styles"
+  ],
+  "id": "left-panel.text"
+}

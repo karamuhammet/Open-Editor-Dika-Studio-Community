@@ -1,0 +1,67 @@
+/* Upscale - dialog + progress. Self-contained: no class or var is shared with any
+   other tool, so this file can be deleted without touching anything else.
+   Editor CSS vars with literal fallbacks (the standalone host has no theme vars). */
+
+.ups-ov {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(2px);
+}
+
+.ups-modal {
+  width: min(400px, calc(100vw - 32px));
+  background: var(--surface, #17171b);
+  color: var(--text, #e8e8ea);
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .5);
+  overflow: hidden; font-size: 13px;
+}
+.ups-head { padding: 14px 16px; font-weight: 600; font-size: 14px; border-bottom: 1px solid var(--border, #2a2a31); }
+.ups-body { padding: 14px 16px; }
+.ups-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid rgba(255, 255, 255, .05);
+}
+.ups-row:last-of-type { border-bottom: 0; }
+.ups-row span { color: var(--text-dim, #9a9aa4); }
+.ups-row b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ups-note {
+  margin-top: 10px; padding: 9px 10px;
+  background: rgba(255, 255, 255, .04); border-radius: 6px;
+  font-size: 11px; line-height: 1.5; color: var(--text-dim, #9a9aa4);
+}
+.ups-note b { color: var(--text, #e8e8ea); font-weight: 600; }
+
+.ups-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border, #2a2a31); }
+.ups-btn {
+  padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer;
+  background: transparent; color: var(--text, #e8e8ea); border: 1px solid var(--border, #2a2a31);
+}
+.ups-btn:hover { background: rgba(255, 255, 255, .06); }
+.ups-btn-go { background: var(--gold, #f2ff58); color: #16161b; border-color: var(--gold, #f2ff58); font-weight: 600; }
+.ups-btn-go:hover { filter: brightness(1.06); background: var(--gold, #f2ff58); }
+.ups-btn:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 2px; }
+
+/* progress */
+.ups-card {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 22px 28px; min-width: 260px;
+  background: var(--surface, #17171b);
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 12px; box-shadow: 0 18px 48px rgba(0, 0, 0, .5);
+}
+.ups-spin {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border, #2a2a31); border-top-color: var(--gold, #f2ff58);
+  animation: ups-spin .8s linear infinite;
+}
+@keyframes ups-spin { to { transform: rotate(360deg); } }
+.ups-msg { font-size: 13px; color: var(--text, #e8e8ea); text-align: center; }
+.ups-bar { width: 100%; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.ups-bar i { display: block; height: 100%; width: 0; background: var(--gold, #f2ff58); transition: width .2s ease; }
+.ups-pct { font-size: 12px; color: var(--text-dim, #9a9aa4); font-variant-numeric: tabular-nums; min-height: 15px; }
+.ups-cancel { margin-top: 2px; }
+
+@media (prefers-reduced-motion: reduce) { .ups-spin { animation-duration: 2.4s; } }

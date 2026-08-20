@@ -1,0 +1,4 @@
+{
+  "id": "system.first-run",
+  "note": "The setup wizard, shown once. Its whole reason for existing is screen 2: this build stores everything in one browser profile and clearing site data deletes it."
+}

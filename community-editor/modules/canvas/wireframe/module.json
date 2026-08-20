@@ -1,0 +1,9 @@
+{
+  "id": "canvas.wireframe",
+  "children": [
+    "elements",
+    "right-panel",
+    "settings",
+    "templates"
+  ]
+}

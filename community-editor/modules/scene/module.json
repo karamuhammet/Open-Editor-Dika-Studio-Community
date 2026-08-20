@@ -1,0 +1,21 @@
+{
+  "id": "scene",
+  "title": "Scene (frames)",
+  "icon": "layout-grid",
+  "note": "Frame-canvas / infinite-canvas subsystem (post-modular alpha feature). A THIRD page mode beside video-editor + slide-deck: takes over the single fabric.Canvas for _productType==='scene' pages, rendering an infinite world of freely-placed frames. FLAG-GATED behind ccFlag('scene') (core/flags.js) — Faz 0 is a no-op skeleton (loads, does nothing) so classic/video/slide are byte-identical. children[] auto-maintained by tools/build-manifest.mjs. See docs/frame-canvas-migration-plan.md.",
+  "children": [
+    "core",
+    "covers",
+    "export",
+    "frame-bars",
+    "frame-draw",
+    "frame-edit",
+    "frame-filter",
+    "frame-object",
+    "frames",
+    "sleep",
+    "templates",
+    "toolbar",
+    "world"
+  ]
+}

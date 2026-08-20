@@ -1,0 +1,13 @@
+/* scene/world styles. */
+
+/* Scene fills the whole canvas-area and drives the viewport via fabric's transform, so the classic
+   card-stage drop-shadow + rounded corners (meant for a single centered "page") must be neutralized —
+   otherwise the full-area stage reads as one giant card. The fabric canvas is transparent in scene mode
+   (no painted backdrop), so the .canvas-area dotted grid shows through edge-to-edge. */
+.canvas-area.scene-active .card-stage {
+  box-shadow: none;
+  border-radius: 0;
+}
+.canvas-area.scene-active .card-stage:hover {
+  box-shadow: none;
+}

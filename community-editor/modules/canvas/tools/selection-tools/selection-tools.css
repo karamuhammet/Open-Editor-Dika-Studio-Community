@@ -1,0 +1,72 @@
+/* selection-tools — no styles yet. */
+
+/* ===== co-located from css/styles.css (selection tools) ===== */
+/* ── Refine Edge Panel ── */
+.qs-refine-panel {
+  position: fixed;
+  z-index: 600;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: 14px 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+  min-width: 270px;
+  font-size: 11px;
+  color: var(--text);
+}
+
+.qs-refine-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f2ff58;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+.qs-refine-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.qs-refine-lbl {
+  min-width: 72px;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.qs-refine-slider {
+  flex: 1;
+  accent-color: #f2ff58;
+  height: 4px;
+}
+
+.qs-refine-val {
+  min-width: 26px;
+  text-align: right;
+  color: var(--text);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.qs-refine-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 5px 14px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+  transition: all .15s;
+}
+
+.qs-refine-btn:hover { border-color: var(--text-dim); color: var(--text); }
+
+.qs-refine-btn.qs-refine-ok { background: rgba(242, 255, 88,0.12); border-color: #f2ff58; color: #f2ff58; }
+
+.qs-refine-btn.qs-refine-ok:hover { background: rgba(242, 255, 88,0.22); }

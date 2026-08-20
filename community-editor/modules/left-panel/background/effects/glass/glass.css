@@ -1,0 +1,3 @@
+/* Sub-module: effects/glass — no styles of its own; the Efektler menu chrome
+   lives in effects.css and its thumbnails are canvases. File kept so the loader
+   and the bundle walker find the expected <name>.css beside <name>.js. */

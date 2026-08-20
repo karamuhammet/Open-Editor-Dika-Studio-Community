@@ -1,0 +1,70 @@
+
+
+/* ===== co-located from css/styles.css (core: custom modals) ===== */
+/* ── dika studio Custom Modal (ccmodal) ── */
+.ccmodal-overlay {
+  animation: ccmodal-fadein 0.15s ease;
+}
+
+.ccmodal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+  overflow: hidden;
+  animation: ccmodal-scalein 0.15s ease;
+}
+
+.ccmodal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; color: var(--text); font-weight: 500;
+}
+
+.ccmodal-close {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none;
+  color: var(--text-dim); cursor: pointer;
+  border-radius: var(--r-xs); transition: background 0.12s;
+}
+
+.ccmodal-close:hover { background: var(--surface3); color: var(--text); }
+
+.ccmodal-body { padding: 12px 14px; }
+
+.ccmodal-footer {
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 8px; padding: 10px 14px;
+  border-top: 1px solid var(--border);
+}
+
+.ccmodal-btn {
+  padding: 6px 16px;
+  font-size: 11px; font-weight: 500;
+  border-radius: var(--r-sm); cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background 0.12s;
+}
+
+.ccmodal-btn-cancel {
+  background: var(--surface2); color: var(--text);
+}
+
+.ccmodal-btn-cancel:hover { background: var(--surface3); }
+
+.ccmodal-btn-primary {
+  background: var(--gold); color: #000; border-color: var(--gold);
+}
+
+.ccmodal-btn-primary:hover { filter: brightness(1.1); }
+
+.ccmodal-btn-danger {
+  background: #e53e3e; color: #fff; border-color: #e53e3e;
+}
+
+.ccmodal-btn-danger:hover { filter: brightness(1.15); }
+
+.ccmodal-input:focus { border-color: var(--gold) !important; }

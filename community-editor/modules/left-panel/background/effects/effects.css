@@ -1,0 +1,128 @@
+/* Module: left-panel/background/effects — the Efektler menu.
+   Effect cards reuse the items .items-slider strip (same horizontal-scroll
+   idiom); the style grid inside a drill-in is a 2-col card grid matching
+   .wf-cat-card's visual language. */
+
+/* .items-slider-cell is a 60px square; a style preview needs a wide landscape
+   box, so override the size but keep the strip/scroll behaviour from items. */
+.fx-cell {
+  width: auto;
+  height: auto;
+  flex: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  padding: 5px 5px 7px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+}
+
+.fx-cell:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.fx-cell:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.fx-cell canvas {
+  display: block;
+  width: 88px;
+  height: 66px;
+  border-radius: var(--r-sm);
+  /* several styles are semi-transparent by design: show a checker under them */
+  background:
+    linear-gradient(45deg, var(--bg2) 25%, transparent 25%, transparent 75%, var(--bg2) 75%),
+    linear-gradient(45deg, var(--bg2) 25%, var(--surface3) 25%, var(--surface3) 75%, var(--bg2) 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+}
+
+.fx-cell-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 88px;
+}
+
+#effects-style-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.fx-style-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 6px 6px 8px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.fx-style-cell:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.fx-style-cell:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.fx-style-cell canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-sm);
+  background:
+    linear-gradient(45deg, var(--bg2) 25%, transparent 25%, transparent 75%, var(--bg2) 75%),
+    linear-gradient(45deg, var(--bg2) 25%, var(--surface3) 25%, var(--surface3) 75%, var(--bg2) 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 6px;
+}
+
+.fx-style-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* #rp-effect's one checkbox (Ters çevir); the rpf-* kit has no checkbox row. */
+.fx-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.fx-check input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.fx-hint {
+  margin-top: 10px;
+  font-size: 10px;
+  line-height: 1.45;
+  color: var(--text-dim);
+}

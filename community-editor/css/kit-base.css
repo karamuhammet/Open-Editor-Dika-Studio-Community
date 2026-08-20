@@ -1,0 +1,80 @@
+/* ============================================================
+   dika studio editor — KIT BASE (E0).
+   Kit-aligned base control classes (.k-*) for new/rewritten editor
+   UI, PLUS kit shape-mapping for the editor's most common existing
+   controls (radius / border / hover / focus). Built on kit-tokens.css.
+   Loaded LAST. Per-phase work (E1+) migrates each region's bespoke
+   CSS onto these tokens/classes.
+   ============================================================ */
+
+/* ---------- base controls (use these in new/rewritten markup) ---------- */
+.k-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  height: var(--ctl-md); padding: 0 var(--sp-4);
+  font: 600 13px/1 var(--font-ui);
+  border: 1px solid transparent; border-radius: var(--r-md);
+  cursor: pointer; white-space: nowrap; text-decoration: none; box-sizing: border-box;
+  transition: background .15s, border-color .15s, box-shadow .15s, color .15s;
+}
+.k-btn--primary { background: var(--gold); color: #0b0b0d; }
+.k-btn--primary:hover { background: var(--gold-light); }
+.k-btn--primary:active { transform: translateY(1px); }
+.k-btn--ghost { background: var(--surface2); color: var(--text); border-color: var(--border); }
+.k-btn--ghost:hover { background: var(--surface3); border-color: var(--border2); }
+.k-btn--icon { width: var(--ctl-sm); height: var(--ctl-sm); padding: 0; }
+.k-btn:focus-visible { outline: none; box-shadow: var(--ring); }
+
+.k-input {
+  height: var(--ctl-md); padding: 0 var(--sp-3);
+  background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  font: 400 13px/1 var(--font-ui); outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.k-input::placeholder { color: var(--text-dim); }
+.k-input:focus { border-color: var(--gold); box-shadow: var(--ring-dim); }
+
+.k-chip {
+  display: inline-flex; align-items: center; gap: var(--sp-1);
+  height: 28px; padding: 0 var(--sp-3);
+  background: var(--surface2); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: var(--r-pill);
+  font: 500 12px/1 var(--font-ui); cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.k-chip:hover { background: var(--surface3); color: var(--text); }
+.k-chip.active { background: var(--gold-dim); color: var(--text); border-color: var(--gold); }
+
+.k-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
+.k-popover { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  box-shadow: 0 14px 40px rgba(0,0,0,.5); }
+.k-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 7px;
+  border-radius: var(--r-sm); font: 600 10px/1 var(--font-ui); }
+
+/* ---------- kit shape-mapping for existing editor controls ---------- */
+/* small controls → kit md radius */
+.tbtn, .gear-btn, .pinput, .pg-quicknav-btn, .page-tab-add, .page-tab-preview,
+.pg-qnav-search, .pg-group-chip, .pg-color-picker, .wiz-input {
+  border-radius: var(--r-md);
+}
+/* page tabs → kit top radius */
+.page-tab { border-radius: var(--r-md) var(--r-md) 0 0; }
+/* popovers / dropdowns → kit lg radius */
+.page-add-menu, .pg-quicknav-dropdown { border-radius: var(--r-lg); }
+
+/* toolbar buttons: kit control feel */
+.tbtn, .gear-btn {
+  font-weight: 600; min-height: var(--ctl-sm);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.tbtn:hover, .gear-btn:hover { border-color: var(--border2); background: var(--surface3); }
+
+/* inputs: kit focus = volt border + ring */
+.pinput:focus, .wiz-input:focus, .pg-qnav-search:focus {
+  border-color: var(--gold); box-shadow: var(--ring-dim); outline: none;
+}
+/* focus-visible everywhere → volt ring (kit a11y), no thick outline */
+.tbtn:focus-visible, .gear-btn:focus-visible, .page-tab:focus-visible,
+.page-tab-add:focus-visible, .pg-quicknav-btn:focus-visible {
+  outline: none; box-shadow: var(--ring);
+}

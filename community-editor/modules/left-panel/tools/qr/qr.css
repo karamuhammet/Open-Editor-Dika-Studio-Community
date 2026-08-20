@@ -1,0 +1,3 @@
+/* tools/qr (QR Studio) — the panel reuses the shared .bc-* "studio" styles in styles.css
+   (shared with the barcode generator). No QR-specific CSS yet; this file exists so the
+   loader never 404s on qr.css. */

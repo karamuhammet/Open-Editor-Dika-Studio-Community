@@ -1,0 +1,7 @@
+{
+  "id": "shared.fonts",
+  "children": [
+    "font-manager",
+    "google-fonts"
+  ]
+}

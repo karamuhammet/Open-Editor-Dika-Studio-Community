@@ -1,0 +1,10 @@
+{
+  "id": "shared.color-picker",
+  "children": [
+    "engine",
+    "gradient",
+    "panel",
+    "solid",
+    "swatches"
+  ]
+}

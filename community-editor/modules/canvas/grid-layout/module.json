@@ -1,0 +1,12 @@
+{
+  "id": "canvas.grid-layout",
+  "children": [
+    "cells",
+    "core",
+    "menu",
+    "panel",
+    "select",
+    "toolbar",
+    "video"
+  ]
+}

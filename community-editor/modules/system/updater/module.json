@@ -1,0 +1,4 @@
+{
+  "id": "system.updater",
+  "note": "Desktop only: returns immediately when window.CCDesktop is absent, so the browser build behaves identically. PRESENTATION ONLY. Every decision - the URL, the signature, the hash, the host pin, the version comparison - is made in the main process (apps/community-desktop/updater.js), because this tree ships unpacked into a user-writable directory and is served with 'unsafe-eval'. Nothing here can choose what gets downloaded or run. Record: docs/desktop-update-channel-plan.md"
+}

@@ -1,0 +1,74 @@
+
+
+/* ===== co-located from css/styles.css (core: floating-toolbar) ===== */
+/* ─── 9. FLOATING TOOLBAR ─────────────────────────────────────── */
+
+.float-tb {
+  position: fixed;
+  z-index: 500;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: 4px 5px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+  transform: translateX(-50%);
+}
+
+.float-tb.show {
+  display: flex;
+}
+
+.float-tb .ft-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 2px;
+}
+
+/* Dropdown trigger buttons in toolbar */
+.float-tb .ft-dd-trigger {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  width: 32px;
+  height: 30px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+}
+
+.float-tb .ft-dd-trigger:hover,
+.float-tb .ft-dd-trigger.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+/* ── Floating dropdown panels (position:fixed, JS-positioned) ── */
+.ft-panel {
+  position: fixed;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  min-width: 190px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.ft-panel.open {
+  display: flex;
+}
+
+.ft-panel-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 3px 6px;
+}

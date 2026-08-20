@@ -1,0 +1,51 @@
+/* right-panel/design-fields - Design field aranabilir combobox stilleri.
+   Native #p-df-field gizlenir (durum tasiyici olarak DOM'da kalir);
+   .dfc-trigger onun gorsel yerine gecer, .dfc-pop fixed acilir liste. */
+
+.dfc-host select#p-df-field { display: none; }
+.dfc-host .rpf-ch { display: none; }
+
+.dfc-trigger {
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+  width: 100%; padding: 7px 10px; cursor: pointer; text-align: left;
+  background: var(--surface2); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  font-size: 11.5px;
+}
+.dfc-trigger:hover { border-color: var(--border2); color: var(--text); }
+.dfc-trigger.open, .dfc-trigger:focus-visible { outline: none; border-color: var(--gold); }
+.dfc-trigger.has-val { color: var(--text); }
+.dfc-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dfc-ch { display: flex; color: var(--text-faint); flex: 0 0 auto; }
+.dfc-trigger.open .dfc-ch { transform: rotate(180deg); }
+
+.dfc-pop {
+  position: fixed; z-index: 10001;
+  background: var(--surface, #1c1c22); border: 1px solid var(--border2);
+  border-radius: var(--r-md); box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  padding: 6px; display: flex; flex-direction: column; gap: 6px;
+}
+.dfc-search {
+  width: 100%; padding: 6px 8px; font-size: 11.5px;
+  background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+}
+.dfc-search:focus { outline: none; border-color: var(--gold); }
+.dfc-list { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; }
+.dfc-group {
+  font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-faint); padding: 6px 8px 3px;
+}
+.dfc-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; padding: 6px 8px; cursor: pointer; text-align: left;
+  background: none; border: none; border-radius: var(--r-sm);
+  font-size: 11.5px; color: var(--text);
+}
+.dfc-row:hover, .dfc-row.active { background: var(--surface2); }
+.dfc-row.sel { color: var(--gold); }
+.dfc-key {
+  font-size: 9px; color: var(--text-faint);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 45%;
+}
+.dfc-empty { font-size: 11px; color: var(--text-faint); padding: 10px 8px; }

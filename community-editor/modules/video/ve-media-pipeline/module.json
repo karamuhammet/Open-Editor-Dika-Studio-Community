@@ -1,0 +1,11 @@
+{
+  "id": "video.ve-media-pipeline",
+  "children": [
+    "demux",
+    "format",
+    "framecache",
+    "proxy",
+    "thumbnails",
+    "waveform"
+  ]
+}

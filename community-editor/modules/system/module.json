@@ -1,0 +1,21 @@
+{
+  "id": "system",
+  "title": "System",
+  "icon": "settings",
+  "note": "App-level infrastructure & chrome (Faz 8): keyboard-manager + shortcuts (keyboard system), settings, tutorial/onboarding, comments. Not canvas, not a rail panel. Top-level group; children[] auto-maintained by tools/build-manifest.mjs.",
+  "children": [
+    "ads",
+    "desktop",
+    "first-run",
+    "keyboard-manager",
+    "page-sleep",
+    "readonly",
+    "register-wizard",
+    "settings",
+    "shortcuts",
+    "telemetry",
+    "tutorial",
+    "updater",
+    "work-stats"
+  ]
+}

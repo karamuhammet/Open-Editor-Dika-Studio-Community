@@ -1,0 +1,8 @@
+{
+  "id": "right-panel.typography",
+  "title": "Typography",
+  "icon": "type",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "Typography category sub-module of the right panel (Faz 6b-2). Owns #p-font/#p-size/#p-bold/#p-italic (the data-accordion=\"typography\" block in index.html). appliesTo text objects. Parent delegates sync to window.syncTypography; bindings self-init on cc:canvas-ready, fault-isolated via cc.safe."
+}

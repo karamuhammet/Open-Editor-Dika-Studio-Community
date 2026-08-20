@@ -1,0 +1,4 @@
+{
+  "id": "video.ve-frame-source",
+  "note": "Sequential frame reader for export (video-export-pipeline-plan phase 2). Decodes a clip's media with Mediabunny CanvasSink instead of seeking an HTMLVideoElement per frame. Measured before this: decode was 89% of export wall time."
+}

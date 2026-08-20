@@ -1,0 +1,6 @@
+{
+  "id": "slide-deck.deck-ui",
+  "parent": "slide-deck",
+  "title": "Slide deck UI",
+  "note": "Clean from-scratch slide-deck UI (owner-ordered rebuild 2026-07-12): strip, present, transition+animation modal, layers, notes, export/import. Replaces the deleted slide-deck-runtime + slide-deck-final + slide-suite and the 3712-line slide-deck.css. New .sd-* classes only, no legacy CSS."
+}

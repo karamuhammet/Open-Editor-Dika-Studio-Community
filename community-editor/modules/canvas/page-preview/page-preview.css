@@ -1,0 +1,456 @@
+/* page-preview — no styles yet. */
+
+/* ===== co-located from css/styles.css (page preview) ===== */
+/* ── Profile Settings Accordions ── */
+.sp-accordion { border: 1px solid var(--border); border-radius: var(--r-md); margin-bottom: 10px; overflow: hidden; }
+
+.sp-acc-header {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  cursor: pointer; background: rgba(255,255,255,0.02); user-select: none;
+  transition: background 0.15s;
+}
+
+.sp-acc-header:hover { background: rgba(255,255,255,0.05); }
+
+.sp-acc-ico { display: flex; align-items: center; color: var(--gold); }
+
+.sp-acc-title { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+
+.sp-acc-arrow { font-size: 10px; color: var(--text-dim); transition: transform 0.15s; }
+
+.sp-accordion.open .sp-acc-arrow { transform: rotate(0deg); }
+
+.sp-accordion:not(.open) .sp-acc-arrow { transform: rotate(-90deg); }
+
+.sp-acc-body { display: none; padding: 10px 14px 14px; }
+
+.sp-accordion.open .sp-acc-body { display: block; }
+
+.sp-accordion { max-width: 520px; }
+
+/* ── Search ── */
+.sp-search {
+  padding: 5px 10px 5px 28px;
+  font-size: 11px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  outline: none;
+  width: 160px;
+  transition: border-color 0.15s;
+}
+
+.sp-search:focus {
+  border-color: var(--gold);
+}
+
+/* ── Custom Dropdown Trigger ── */
+.sp-drop-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-size: 11px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.sp-drop-trigger:hover {
+  border-color: var(--gold);
+  background: var(--surface2);
+}
+
+.sp-drop-arrow {
+  font-size: 9px;
+  color: var(--text-faint);
+}
+
+/* ── Custom Dropdown Menu ── */
+.sp-drop-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 150px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  z-index: 90;
+  padding: 4px;
+  display: none;
+}
+
+.sp-drop-menu.open {
+  display: block;
+}
+
+.sp-drop-item {
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-dim);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.sp-drop-item:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.sp-drop-item.active {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ── Selection Bar (floating bottom) ── */
+.sp-sel-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 6px 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  animation: spBarIn .18s ease-out;
+}
+
+.sp-sel-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  white-space: nowrap;
+  margin-right: 2px;
+}
+
+.sp-sel-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.sp-bulk-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.sp-bulk-btn:hover {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.sp-bulk-btn.danger:hover {
+  background: rgba(224,82,82,0.12);
+  border-color: var(--red, #e74c3c);
+  color: var(--red, #e74c3c);
+}
+
+.sp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.sp-rename-input {
+  width: 100px;
+  padding: 2px 6px;
+  font-size: 11px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-xs);
+  outline: none;
+  text-align: center;
+}
+
+.sp-grp-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: var(--r-md);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sp-size-info {
+  font-size: 9px;
+  color: var(--text-faint);
+}
+
+/* ── Thumbnail Wrapper with Checkbox ── */
+.sp-thumb-wrap {
+  position: relative;
+  display: inline-block;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.sp-thumb {
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: #0d0d0d;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  display: block;
+}
+
+.sp-thumb-wrap:hover .sp-thumb {
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px rgba(255,195,0,0.25);
+}
+
+/* ── Checkbox on card (gallery-like) ── */
+.sp-card-cb {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-sm);
+  background: rgba(0,0,0,0.55);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.sp-thumb-wrap:hover .sp-card-cb {
+  opacity: 1;
+}
+
+.sp-card-cb.checked {
+  opacity: 1;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.split-page-card.sp-selected .sp-card-cb {
+  opacity: 1;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.split-page-card.sp-selected .sp-thumb {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold-dim);
+}
+
+/* ── Card 3-dot Menu Button ── */
+.sp-card-menu-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-sm);
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.sp-thumb-wrap:hover .sp-card-menu-btn {
+  opacity: 1;
+}
+
+.sp-card-menu-btn:hover {
+  background: var(--gold);
+  color: #111;
+}
+
+/* ── Context Menu ── */
+.sp-ctx-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 180px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.5);
+  z-index: 100;
+  padding: 4px;
+  animation: fmFadeIn .12s;
+}
+
+.sp-ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: var(--text);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.sp-ctx-item:hover {
+  background: var(--surface2);
+}
+
+.sp-ctx-ico {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+
+.sp-ctx-item:hover .sp-ctx-ico {
+  color: var(--gold);
+}
+
+.sp-ctx-danger {
+  color: var(--red);
+}
+
+.sp-ctx-danger .sp-ctx-ico {
+  color: var(--red);
+}
+
+.sp-ctx-danger:hover {
+  background: rgba(224,82,82,0.1);
+}
+
+.sp-ctx-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
+}
+
+/* ── Hidden Page Overlay ── */
+.sp-hidden-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.sp-page-hidden .sp-size-info {
+  opacity: 0.4;
+}
+
+/* ══ Preview grid: uniform tiles, N per row (owner 2026-08-06) ══════════════════════════════
+   Was flex-wrap with each card sized from its own page, so a long page name widened its card and
+   the rows went ragged. A real grid with fixed columns fixes the alignment; the name is clipped
+   to the card instead of stretching it. */
+.sp-grid {
+  display: grid;
+  gap: 18px 14px;
+  align-content: start;
+  padding: 18px 20px 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+  /* thin, grey, translucent scrollbar (owner) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+.sp-grid::-webkit-scrollbar { width: 8px; height: 8px; }
+.sp-grid::-webkit-scrollbar-track { background: transparent; }
+.sp-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.sp-grid:hover::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.22); background-clip: padding-box; }
+.sp-grid::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.34); background-clip: padding-box; }
+
+.sp-grid .split-page-card {
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+  gap: 6px;
+}
+
+/* The name row ends where the card ends. */
+.sp-grid .sp-card-header {
+  width: 100%;
+  min-width: 0;
+  justify-content: flex-start;
+  gap: 5px;
+}
+.sp-grid .split-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.sp-grid .sp-grp-badge,
+.sp-grid .sp-size-info { flex: 0 0 auto; }
+.sp-grid .sp-grp-badge { max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
+.sp-grid .sp-rename-input { width: 100%; }
+
+/* One square tile per page: a portrait and a landscape page take the same box, contained. */
+.sp-grid .sp-thumb-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--r-md);
+}
+.sp-grid .sp-thumb {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Denser grids drop the secondary text rather than squeezing it. */
+.sp-cols-9 .sp-size-info { display: none; }
+.sp-cols-9 .split-label { font-size: 10px; letter-spacing: 0; }
+.sp-cols-9 .sp-grp-badge { display: none; }
+.sp-cols-6 .split-label { font-size: 10.5px; letter-spacing: 0.2px; }

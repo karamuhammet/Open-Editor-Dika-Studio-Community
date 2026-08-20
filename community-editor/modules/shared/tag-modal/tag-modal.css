@@ -1,0 +1,126 @@
+/* shared/tag-modal — CCTagModal. Center overlay (CCImageModal chrome), left group rail + right chip grid,
+   inline create/edit form with swatch + Lucide icon pickers. Dark tokens; --gold = selection accent. */
+
+.cctm-overlay {
+  position: fixed; inset: 0; z-index: 9300;   /* above works-browser (9200) so bulk-tag opens on top */
+  display: flex; align-items: center; justify-content: center; padding: 32px;
+  background: rgba(6, 6, 8, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none; transition: opacity 0.16s ease;
+}
+.cctm-overlay.show { opacity: 1; pointer-events: auto; }
+
+.cctm {
+  width: min(760px, 94vw); height: min(560px, 88vh);
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-xl);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6); overflow: hidden;
+  transform: translateY(8px) scale(0.99); transition: transform 0.16s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+.cctm-overlay.show .cctm { transform: none; }
+
+.cctm-head { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border); flex: none; }
+.cctm-title { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 14px; font-weight: 700; }
+.cctm-title svg { color: var(--text-dim); width: 17px; height: 17px; }
+.cctm-x { margin-left: auto; background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; border-radius: var(--r-md); display: flex; }
+.cctm-x:hover { background: var(--surface2); color: var(--text); }
+
+.cctm-body { flex: 1; display: flex; min-height: 0; }
+
+/* ── left group rail ── */
+.cctm-side { width: 184px; flex: none; border-right: 1px solid var(--border); padding: 8px; overflow-y: auto; scrollbar-width: thin; }
+.cctm-side-item {
+  display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 9px; margin-bottom: 2px;
+  border: none; border-radius: var(--r-md); background: transparent; color: var(--text-dim); cursor: pointer;
+  font: 500 12.5px 'DM Sans', sans-serif; text-align: left;
+}
+.cctm-side-item:hover { background: var(--surface2); color: var(--text); }
+.cctm-side-item.on { background: var(--surface3); color: var(--text); }
+.cctm-side-ico { display: flex; align-items: center; }
+.cctm-side-ico svg { width: 15px; height: 15px; }
+.cctm-side-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.cctm-side-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cctm-side-cnt { color: var(--text-dim); font: 600 10px 'Space Mono', monospace; opacity: 0.7; }
+.cctm-rule { display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 15px; padding: 0 3px; border-radius: var(--r-xs); background: var(--surface3); color: var(--text-dim); font: 700 9px 'Space Mono', monospace; }
+.cctm-groupnew .cctm-select { width: auto; }
+.cctm-side-sep { height: 1px; margin: 8px 4px; background: var(--border); }
+
+/* ── right main ── */
+.cctm-main { flex: 1; min-width: 0; padding: 12px 14px; overflow-y: auto; scrollbar-width: thin; }
+.cctm-actions { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.cctm-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border: 1px solid var(--border2);
+  border-radius: var(--r-md); background: var(--surface2); color: var(--text); cursor: pointer; font: 600 12px 'DM Sans', sans-serif;
+}
+.cctm-btn:hover { background: var(--surface3); }
+.cctm-btn svg { width: 14px; height: 14px; }
+.cctm-hint { color: var(--text-dim); font-size: 11.5px; }
+
+/* chips */
+.cctm-chips { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.cctm-chip {
+  position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px 6px 8px;
+  border: 1px solid var(--border2); border-radius: var(--r-pill); background: var(--surface2); cursor: pointer;
+  font: 600 12px 'DM Sans', sans-serif; color: var(--text); transition: border-color 0.12s ease, background 0.12s ease;
+}
+.cctm-chip:hover { border-color: var(--text-dim); background: var(--surface3); }
+.cctm-chip.assigned { border-color: var(--gold); }
+.cctm-chip-dot { width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.cctm-chip-dot svg { width: 12px; height: 12px; color: rgba(0, 0, 0, 0.7); }
+.cctm-chip-name { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cctm-chip-check { width: 14px; display: inline-flex; align-items: center; color: var(--gold); }
+.cctm-chip-check svg { width: 14px; height: 14px; }
+.cctm-chip-edit { background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 2px; border-radius: var(--r-sm); display: inline-flex; opacity: 0; transition: opacity 0.12s ease; }
+.cctm-chip:hover .cctm-chip-edit { opacity: 1; }
+.cctm-chip-edit:hover { background: var(--surface); color: var(--text); }
+.cctm-chip-edit svg { width: 13px; height: 13px; }
+.cctm-chip-pull { display: inline-flex; align-items: center; color: var(--text-dim); }
+.cctm-chip-pull svg { width: 14px; height: 14px; }
+.cctm-empty { color: var(--text-dim); font-size: 12.5px; padding: 18px 4px; line-height: 1.5; }
+
+/* inline group create */
+.cctm-groupnew { display: flex; gap: 7px; margin-bottom: 12px; align-items: center; }
+
+/* create/edit form */
+.cctm-form { border: 1px solid var(--border2); border-radius: var(--r-lg); background: var(--surface2); padding: 12px; margin-bottom: 14px; }
+.cctm-form-head { color: var(--text); font: 700 12.5px 'DM Sans', sans-serif; display: flex; align-items: center; gap: 7px; margin-bottom: 9px; }
+.cctm-form-head svg { width: 14px; height: 14px; color: var(--text-dim); }
+.cctm-field-l { color: var(--text-dim); font: 600 10.5px 'DM Sans', sans-serif; letter-spacing: 0.3px; text-transform: uppercase; margin: 10px 0 5px; }
+.cctm-input {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg);
+  color: var(--text); font: 500 13px 'DM Sans', sans-serif; outline: none; box-sizing: border-box;
+}
+.cctm-input:focus { border-color: var(--gold); }
+.cctm-select {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg);
+  color: var(--text); font: 500 13px 'DM Sans', sans-serif; outline: none; cursor: pointer;
+}
+.cctm-select:focus { border-color: var(--gold); }
+
+.cctm-sw-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.cctm-sw { width: 26px; height: 26px; border-radius: var(--r-md); border: 2px solid transparent; cursor: pointer; padding: 0; position: relative; }
+.cctm-sw:hover { transform: scale(1.1); }
+.cctm-sw.sel { border-color: var(--text); box-shadow: 0 0 0 2px var(--surface2), 0 0 0 3px var(--text); }
+.cctm-sw-custom { overflow: hidden; background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); display: inline-flex; }
+.cctm-sw-custom input { position: absolute; inset: -4px; opacity: 0; cursor: pointer; width: 200%; height: 200%; }
+
+.cctm-ico-grid { display: grid; grid-template-columns: repeat(auto-fill, 32px); gap: 5px; max-height: 124px; overflow-y: auto; scrollbar-width: thin; padding: 2px; }
+.cctm-ico {
+  width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border2); border-radius: var(--r-md); background: var(--surface); color: var(--text-dim); cursor: pointer; padding: 0;
+}
+.cctm-ico:hover { background: var(--surface3); color: var(--text); }
+.cctm-ico.sel { border-color: var(--gold); color: var(--text); background: var(--surface3); }
+.cctm-ico svg { width: 16px; height: 16px; }
+
+.cctm-form-actions { display: flex; align-items: center; gap: 7px; margin-top: 13px; flex-wrap: wrap; }
+.cctm-save { padding: 8px 16px; border: none; border-radius: var(--r-md); background: var(--gold); color: #111; cursor: pointer; font: 700 12.5px 'DM Sans', sans-serif; }
+.cctm-save:hover { filter: brightness(1.06); }
+.cctm-cancel { padding: 8px 13px; border: 1px solid var(--border2); border-radius: var(--r-md); background: transparent; color: var(--text-dim); cursor: pointer; font: 600 12.5px 'DM Sans', sans-serif; }
+.cctm-cancel:hover { background: var(--surface3); color: var(--text); }
+.cctm-lib { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; padding: 8px 11px; border: 1px solid var(--border2); border-radius: var(--r-md); background: transparent; color: var(--text-dim); cursor: pointer; font: 600 12px 'DM Sans', sans-serif; }
+.cctm-lib:hover { background: var(--surface3); color: var(--text); }
+.cctm-lib svg { width: 13px; height: 13px; }
+.cctm-del { display: inline-flex; align-items: center; gap: 5px; padding: 8px 11px; border: 1px solid transparent; border-radius: var(--r-md); background: transparent; color: #e05252; cursor: pointer; font: 600 12px 'DM Sans', sans-serif; }
+.cctm-del:hover { background: rgba(224, 82, 82, 0.12); }
+.cctm-del svg { width: 13px; height: 13px; }

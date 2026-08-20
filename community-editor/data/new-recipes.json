@@ -1,0 +1,425 @@
+[
+  {
+    "id": "r-text-balanced-heading",
+    "category": "text",
+    "tags": ["dengeli", "balanced", "orantili", "orantılı", "proportional", "baslik", "başlık", "heading", "title", "uyumlu", "düzgün", "duzgun"],
+    "title": "Balanced proportional heading text",
+    "scenario": "User wants a well-balanced heading. AI tends to make text too big, uncentered, or with weird spacing. This recipe ensures proper proportions.",
+    "recipe": "IMPORTANT: Always create headings with proper proportions relative to canvas size.\n\nFor business card (700x400):\n- Main name: fontSize 28-36, NOT 72+\n- Title/subtitle: fontSize 14-18\n- Contact info: fontSize 11-14\n\nFor social post (1080x1080):\n- Main heading: fontSize 48-72\n- Subtitle: fontSize 24-36\n- Body text: fontSize 16-24\n\nFor story (1080x1920):\n- Main heading: fontSize 56-84\n- Subtitle: fontSize 28-42\n\nALWAYS:\n1. Set textAlign: 'center' for headings\n2. Use width parameter to constrain text box (80% of canvas width)\n3. Set charSpacing: 0-50 for headings (NOT 200+)\n4. Center horizontally with alignObject after adding\n\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"HEADING\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 560, \"charSpacing\": 20}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}]\n```",
+    "tools": ["addText", "alignObject"]
+  },
+  {
+    "id": "r-text-proper-sizing",
+    "category": "text",
+    "tags": ["boyut", "size", "sizing", "küçük", "kucuk", "small", "orta", "medium", "normal", "uygun", "proper", "fit", "sığdır", "sigdir"],
+    "title": "Proper text sizing guidelines",
+    "scenario": "AI creates text that is too large, too small, or disproportionate. This ensures correct sizing.",
+    "recipe": "TEXT SIZE REFERENCE (canvas-relative):\n\nBusiness Card (700x400):\n- Name: 28-36px, bold\n- Job title: 14-18px, normal\n- Company: 16-22px, bold or normal\n- Contact (email/phone): 11-14px\n- Address: 10-12px\n- charSpacing for name: 0-50 (subtle)\n- charSpacing for contact: 0 (none)\n- lineHeight: 1.4-1.6 for multi-line\n\nLogo (500x500):\n- Brand name: 36-60px\n- Tagline: 14-20px\n\nSocial Post (1080x1080):\n- Headline: 48-72px\n- Body: 18-28px\n- CTA button text: 20-32px\n\nDO NOT:\n- Use fontSize 72+ for business cards\n- Use charSpacing > 100 unless specifically asked\n- Use lineHeight > 2.0 unless specifically asked\n- Leave text without width constraint (always set width to ~80% of canvas)\n\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"John Smith\", \"fontSize\": 32, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"left\", \"width\": 300, \"charSpacing\": 20, \"left\": 30, \"top\": 40}}\n```",
+    "tools": ["addText"]
+  },
+  {
+    "id": "r-text-multiline-block",
+    "category": "text",
+    "tags": ["cok satir", "çok satır", "multiline", "paragraf", "paragraph", "blok", "block", "uzun", "long", "aciklama", "açıklama", "description"],
+    "title": "Multi-line text block with proper formatting",
+    "scenario": "User wants to add a paragraph or multi-line text that wraps nicely.",
+    "recipe": "For multi-line text, ALWAYS set width to constrain the text box. Use \\n for explicit line breaks.\n\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"Line 1\\nLine 2\\nLine 3\", \"fontSize\": 14, \"fill\": \"#cccccc\", \"width\": 300, \"lineHeight\": 1.5, \"textAlign\": \"left\", \"left\": 30, \"top\": 200}}\n```\n\nFor contact info block:\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"email@example.com\\n+90 555 123 4567\\nwww.example.com\", \"fontSize\": 12, \"fill\": \"#aaaaaa\", \"width\": 250, \"lineHeight\": 1.8, \"textAlign\": \"left\"}}\n```",
+    "tools": ["addText"]
+  },
+  {
+    "id": "r-icon-text-combo",
+    "category": "composition",
+    "tags": ["icon text", "ikon yazi", "ikon yazı", "birlikte", "together", "combine", "kombine", "email icon", "phone icon", "telefon", "eposta", "iletisim", "iletişim", "contact row"],
+    "title": "Icon + text combination (contact rows)",
+    "scenario": "User wants icon next to text (e.g., phone icon + number, email icon + address). AI often fails to combine these.",
+    "recipe": "STEP-BY-STEP for icon + text combos:\n\n1. First add the icon, then add text positioned next to it.\n2. Icons are added at center by default — use modifySelected to reposition.\n3. Common icon names: mail, phone, globe, mapPin, linkedin, twitter, instagram, facebook, github\n\nFor a contact row (e.g., email):\n```tool\n[{\"tool\": \"addIcon\", \"params\": {\"name\": \"mail\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"info@company.com\", \"fontSize\": 12, \"fill\": \"#cccccc\", \"left\": 70, \"top\": 300}}]\n```\n\nFor phone:\n```tool\n[{\"tool\": \"addIcon\", \"params\": {\"name\": \"phone\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"+90 555 123 4567\", \"fontSize\": 12, \"fill\": \"#cccccc\", \"left\": 70, \"top\": 330}}]\n```\n\nIMPORTANT: After adding icon, it will be selected. You need to plan positions carefully. Place icons at left edge (left:30) and text at left:70 (icon width + gap).\n\nFor multiple contact rows, add all texts first, then add icons — or do max 6 tool calls per response and continue next message.",
+    "tools": ["addIcon", "addText"]
+  },
+  {
+    "id": "r-icon-position-after-add",
+    "category": "icon",
+    "tags": ["icon konum", "ikon pozisyon", "icon position", "icon move", "ikon taşı", "icon tasi", "icon yerleştir", "icon yerlestir", "icon boyut", "icon size"],
+    "title": "Position and resize icon after adding",
+    "scenario": "User added an icon but it's in the wrong position or too big/small.",
+    "recipe": "After addIcon, the icon is selected. Use modifySelected to reposition and resize:\n\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 0.5, \"scaleY\": 0.5}}\n```\n\nTo move icon to specific position, user must select it first, then:\n```tool\n{\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-v\"}}\n```\n\nIcon default size is ~24x24px. Scale guide:\n- Small icon (12px): scaleX: 0.5, scaleY: 0.5\n- Normal (24px): scaleX: 1.0, scaleY: 1.0\n- Large (48px): scaleX: 2.0, scaleY: 2.0\n- Fill color: use modifySelected with fill parameter",
+    "tools": ["modifySelected", "alignObject", "addIcon"]
+  },
+  {
+    "id": "r-bg-set-proper",
+    "category": "color",
+    "tags": ["arka plan", "arkaplan", "background", "bg", "zemin", "renk", "color", "düz renk", "solid", "tek renk"],
+    "title": "Set solid background color properly",
+    "scenario": "User wants to change background color. Must use setBackground tool with hex color.",
+    "recipe": "Use setBackground with hex color:\n```tool\n{\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}\n```\n\nCommon background colors:\n- Pure black: #000000\n- Dark blue: #1a1a2e\n- Dark green: #1a2e1a\n- Navy: #0a1628\n- White: #ffffff\n- Cream: #fdf6e3\n- Light gray: #f5f5f5\n- Warm gray: #2d2d2d\n- Deep purple: #1a0a2e\n- Dark teal: #0a2828\n\nNOTE: setBackground ONLY accepts solid hex colors. For gradient backgrounds, tell the user to use the Background panel (left sidebar → BG button) as gradients cannot be set via AI tools.",
+    "tools": ["setBackground"]
+  },
+  {
+    "id": "r-bg-gradient-info",
+    "category": "color",
+    "tags": ["gradient", "gradyan", "gecis", "geçiş", "renk geçişi", "renk gecisi", "degrade", "iki renk", "çok renk"],
+    "title": "Gradient background (manual instruction)",
+    "scenario": "User wants a gradient background. AI tools only support solid colors, so guide the user.",
+    "recipe": "AI tool setBackground only supports solid hex colors. For gradient backgrounds:\n\nTell the user: 'Gradient arka plan için sol paneldeki BG (Background) butonuna tıklayın ve Gradient sekmesini seçin. 18 hazır gradient var veya özel renkler ayarlayabilirsiniz.'\n\nWorkaround with shapes: Create a large rectangle as a visual background:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 700, \"height\": 400, \"fill\": \"#1a1a2e\", \"left\": 0, \"top\": 0}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```\n\nBut recommend using the UI gradient panel for best results.",
+    "tools": ["setBackground", "addShape"]
+  },
+  {
+    "id": "r-bg-image-info",
+    "category": "image",
+    "tags": ["resim arka plan", "image background", "foto arka plan", "fotoğraf arkaplan", "bg image", "resim bg", "arkaplan resim", "background image", "resmi arka plan yap", "arka plana koy"],
+    "title": "Use image as background (manual instruction)",
+    "scenario": "User wants to set an image as background or put image behind everything. AI cannot upload images.",
+    "recipe": "AI cannot upload or manage images directly. Guide the user:\n\n'Resmi arka plan olarak kullanmak için:\n1. Sol paneldeki Images butonuna tıklayın\n2. Resmi canvas'a sürükleyin\n3. Resmi seçin ve sağ panelden boyutunu canvas boyutuna ayarlayın (700x400)\n4. Layers panelinden (Ctrl+Shift+L) resmi en alta gönderin\n5. Veya resmi seçip ] tuşuyla arkaya gönderin'\n\nIf image is already on canvas and selected:\n```tool\n{\"tool\": \"sendBackward\", \"params\": {}}\n```\nRepeat sendBackward multiple times if needed to push behind all other objects.\n\nIMPORTANT: AI cannot access files from the user's computer, gallery, or URLs. Image upload must be done through the UI.",
+    "tools": ["sendBackward"]
+  },
+  {
+    "id": "r-image-bg-remove-info",
+    "category": "image",
+    "tags": ["bg kaldır", "bg kaldir", "arka plan kaldır", "arkaplan kaldir", "remove background", "bg remove", "bg sil", "arka plan sil", "kesilmek", "cutout", "kesme", "transparan", "transparent bg"],
+    "title": "Remove image background (manual instruction)",
+    "scenario": "User wants to remove background from an image. This is a UI-only feature.",
+    "recipe": "Arka plan kaldırma AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Resmin arka planını kaldırmak için:\n1. Canvas'taki resmi seçin (tıklayın)\n2. Üst toolbar'da \"Remove BG\" veya sağ paneldeki \"Background Removal\" butonuna tıklayın\n3. İlk kullanımda ML modeli indirilecektir (~30-50MB, bir kerelik)\n4. İşlem tamamlandığında arka plan otomatik silinir\n5. Sonuç şeffaf arka planlı PNG olur'\n\nBu özellik ISNet ONNX modeli kullanır ve tamamen tarayıcıda çalışır, sunucuya veri gönderilmez.",
+    "tools": []
+  },
+  {
+    "id": "r-image-filter-info",
+    "category": "image",
+    "tags": ["filtre", "filter", "efekt", "effect", "siyah beyaz", "grayscale", "sepia", "bulanık", "blur", "parlaklik", "parlaklık", "brightness", "kontrast", "contrast", "doygunluk", "saturation"],
+    "title": "Apply image filters (manual instruction)",
+    "scenario": "User wants to apply filters to an image (grayscale, blur, brightness, etc.).",
+    "recipe": "Resim filtreleri AI tool'larıyla uygulanamaz. Kullanıcıya yönlendirme yap:\n\n'Resme filtre uygulamak için:\n1. Canvas'taki resmi seçin\n2. Sağ panelde \"Filters\" bölümünü açın\n3. Kullanılabilir filtreler:\n   - Brightness (Parlaklık): -100 ile +100\n   - Contrast (Kontrast): -100 ile +100\n   - Saturation (Doygunluk): -100 ile +100\n   - Blur (Bulanıklık): 0-100\n4. Hazır presetler: Grayscale (siyah-beyaz), Sepia (eski fotoğraf), Invert (ters çevir)\n5. Filtreler WebGL ile uygulanır, anlık önizleme yapılır'\n\nAI sadece nesne rengi, opaklık ve açı değiştirebilir: modifySelected tool'u ile.",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-image-border-info",
+    "category": "image",
+    "tags": ["border", "kenarlık", "kenarlik", "çerçeve", "cerceve", "frame", "sınır", "sinir", "outline", "stroke"],
+    "title": "Add border/frame to image or shape",
+    "scenario": "User wants to add a border, frame, or outline to an image or shape.",
+    "recipe": "Seçili nesneye kenarlık/çerçeve eklemek için modifySelected kullan:\n\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#ffffff\", \"strokeWidth\": 3}}\n```\n\nBorder renk örnekleri:\n- Beyaz çerçeve: stroke: '#ffffff', strokeWidth: 2-5\n- Siyah çerçeve: stroke: '#000000', strokeWidth: 2-5\n- Altın çerçeve: stroke: '#ffd700', strokeWidth: 3\n- Kırmızı çerçeve: stroke: '#ff0000', strokeWidth: 2\n- İnce çerçeve: strokeWidth: 1-2\n- Kalın çerçeve: strokeWidth: 5-10\n\nResim seçili değilse: 'Lütfen önce border eklemek istediğiniz resmi/nesneyi seçin (tıklayın).'\n\nAlternatif: Şekil ile çerçeve oluştur:\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 200, \"height\": 200, \"fill\": \"transparent\", \"stroke\": \"#ffd700\", \"strokeWidth\": 4}}\n```",
+    "tools": ["modifySelected", "addShape"]
+  },
+  {
+    "id": "r-composition-card-professional",
+    "category": "card",
+    "tags": ["profesyonel", "professional", "kartvizit", "business card", "düzgün", "duzgun", "tam", "komple", "complete", "full"],
+    "title": "Professional business card — complete layout",
+    "scenario": "User wants a well-designed professional business card with all elements properly positioned.",
+    "recipe": "Professional business card layout for 700x400 canvas:\n\nStep 1 (this response): Background + Name + Title\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"JOHN SMITH\", \"fontSize\": 32, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"left\", \"left\": 30, \"top\": 50, \"width\": 350, \"charSpacing\": 30}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Creative Director\", \"fontSize\": 14, \"fill\": \"#aaaaaa\", \"textAlign\": \"left\", \"left\": 30, \"top\": 95, \"width\": 350}}]\n```\n\nStep 2 (next response): Contact info + Decorative line\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"line\", \"width\": 40, \"fill\": \"#f2ff58\", \"left\": 30, \"top\": 135}}, {\"tool\": \"addText\", \"params\": {\"text\": \"info@company.com\\n+90 555 123 4567\\nwww.company.com\", \"fontSize\": 11, \"fill\": \"#888888\", \"textAlign\": \"left\", \"left\": 30, \"top\": 165, \"width\": 300, \"lineHeight\": 1.8}}]\n```\n\nKey rules:\n- Name: 28-36px, top-left area\n- Title: 14-18px, below name\n- Contact: 11-14px, lower area\n- Decorative line: 40-60px wide, accent color\n- Leave breathing room (margins 30px+)\n- Max 6 tool calls per response",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-composition-card-with-icon",
+    "category": "card",
+    "tags": ["kartvizit ikon", "card icon", "iletişim ikonu", "iletisim ikonu", "contact icon", "mail icon", "phone icon", "kartvizit tam", "complete card"],
+    "title": "Business card with contact icons",
+    "scenario": "User wants a business card with icons next to contact info.",
+    "recipe": "Business card with icon+text contact rows. Canvas: 700x400.\n\nStep 1: Background + Name + Title (3 calls)\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a1628\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"JANE DOE\", \"fontSize\": 30, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"left\": 30, \"top\": 40, \"width\": 300, \"charSpacing\": 20}}, {\"tool\": \"addText\", \"params\": {\"text\": \"UX Designer\", \"fontSize\": 14, \"fill\": \"#8899aa\", \"left\": 30, \"top\": 80, \"width\": 300}}]\n```\n\nStep 2: Contact texts (positioned for icons, 3 calls)\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"jane@company.com\", \"fontSize\": 11, \"fill\": \"#bbbbbb\", \"left\": 55, \"top\": 280, \"width\": 250}}, {\"tool\": \"addText\", \"params\": {\"text\": \"+90 555 123 4567\", \"fontSize\": 11, \"fill\": \"#bbbbbb\", \"left\": 55, \"top\": 305, \"width\": 250}}, {\"tool\": \"addText\", \"params\": {\"text\": \"www.janedoe.com\", \"fontSize\": 11, \"fill\": \"#bbbbbb\", \"left\": 55, \"top\": 330, \"width\": 250}}]\n```\n\nStep 3 (next response): Add icons next to each contact line\n```tool\n[{\"tool\": \"addIcon\", \"params\": {\"name\": \"mail\"}}, {\"tool\": \"addIcon\", \"params\": {\"name\": \"phone\"}}, {\"tool\": \"addIcon\", \"params\": {\"name\": \"globe\"}}]\n```\nNote: Icons land at center. User needs to manually drag them to left:30, aligned with text rows. Explain this to the user.",
+    "tools": ["setBackground", "addText", "addIcon"]
+  },
+  {
+    "id": "r-composition-name-title-centered",
+    "category": "layout",
+    "tags": ["ortala", "center", "ortalama", "merkez", "ortada", "tam ortada", "centered", "isim ortala", "name center"],
+    "title": "Center text elements on canvas",
+    "scenario": "User wants text perfectly centered on the canvas.",
+    "recipe": "To perfectly center text:\n1. Add text with textAlign: 'center' and width equal to canvas width\n2. Use alignObject to center horizontally and vertically\n\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"CENTERED TEXT\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 600}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-v\"}}]\n```\n\nFor multiple centered texts (title + subtitle):\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"MAIN TITLE\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 600, \"top\": 150}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Subtitle goes here\", \"fontSize\": 18, \"fill\": \"#aaaaaa\", \"textAlign\": \"center\", \"width\": 600, \"top\": 220}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}]\n```",
+    "tools": ["addText", "alignObject"]
+  },
+  {
+    "id": "r-modify-selected-complete",
+    "category": "modification",
+    "tags": ["değiştir", "degistir", "modify", "ayarla", "düzenle", "duzenle", "edit", "seçili", "secili", "selected", "güncelle", "guncelle", "update"],
+    "title": "Modify selected object — complete reference",
+    "scenario": "User wants to change properties of an already selected object.",
+    "recipe": "modifySelected changes the currently selected object. User MUST select an object first.\n\nAvailable properties:\n- fill: change color → {\"fill\": \"#ff0000\"}\n- stroke: add/change border → {\"stroke\": \"#ffffff\", \"strokeWidth\": 2}\n- fontSize: change text size → {\"fontSize\": 24}\n- fontFamily: change font → {\"fontFamily\": \"Arial\"}\n- fontWeight: bold/normal → {\"fontWeight\": \"bold\"}\n- opacity: transparency → {\"opacity\": 0.5}\n- angle: rotation → {\"angle\": 45}\n- scaleX/scaleY: resize → {\"scaleX\": 1.5, \"scaleY\": 1.5}\n- text: change text content → {\"text\": \"new text\"}\n\nExample — make selected text red, bold, larger:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"fill\": \"#ff0000\", \"fontWeight\": \"bold\", \"fontSize\": 36}}\n```\n\nExample — add white border + make semi-transparent:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#ffffff\", \"strokeWidth\": 3, \"opacity\": 0.8}}\n```\n\nIf nothing is selected, tell user: 'Lütfen önce değiştirmek istediğiniz nesneyi seçin (canvas'ta tıklayın).'",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-composition-behind-text",
+    "category": "composition",
+    "tags": ["arkasına yaz", "arkasina yaz", "arkasında", "arkasinda", "behind", "arka plan yazı", "arkaplan yazi", "background text", "büyük arka yazı", "buyuk arka yazi", "overlay", "behind text"],
+    "title": "Large text behind other elements (background text)",
+    "scenario": "User wants large decorative text behind other elements — a big word/number as background decoration.",
+    "recipe": "For large decorative background text:\n1. Add very large, low-opacity text\n2. Send it to back layer\n\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"DESIGN\", \"fontSize\": 200, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"opacity\": 0.05, \"textAlign\": \"center\", \"width\": 700}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-v\"}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```\n\nTypical settings:\n- fontSize: 150-300 (very large)\n- opacity: 0.03-0.08 (very subtle)\n- fill: #ffffff on dark bg, #000000 on light bg\n- Send to back with sendBackward (repeat if needed)\n\nFor numbers (e.g., year):\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"2026\", \"fontSize\": 250, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"opacity\": 0.04}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```",
+    "tools": ["addText", "alignObject", "sendBackward"]
+  },
+  {
+    "id": "r-composition-multiple-objects",
+    "category": "composition",
+    "tags": ["birden fazla", "çoklu", "coklu", "multiple", "hep birlikte", "beraber", "birlikte", "kombine", "combined", "multi", "topluca"],
+    "title": "Create multi-element composition",
+    "scenario": "User wants multiple elements arranged together — shape + text + icon combined.",
+    "recipe": "For multi-element compositions, plan the layout before executing. Max 6 tool calls per response.\n\nExample: Decorative shape + centered text:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 80, \"fill\": \"#f2ff58\", \"left\": 310, \"top\": 120}}, {\"tool\": \"addText\", \"params\": {\"text\": \"HELLO\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fill\": \"#1a1a2e\", \"textAlign\": \"center\", \"width\": 200, \"left\": 250, \"top\": 170}}]\n```\n\nExample: Line + title + subtitle:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"line\", \"width\": 60, \"fill\": \"#f2ff58\", \"left\": 50, \"top\": 180}}, {\"tool\": \"addText\", \"params\": {\"text\": \"CREATIVE STUDIO\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"left\": 50, \"top\": 200, \"width\": 400, \"charSpacing\": 40}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Design • Brand • Digital\", \"fontSize\": 14, \"fill\": \"#888888\", \"left\": 50, \"top\": 250, \"width\": 400}}]\n```\n\nPRINCIPLE: Always plan positions before calling tools. Use consistent left margins. Stack elements vertically with ~30-50px gaps.",
+    "tools": ["addText", "addShape", "addIcon"]
+  },
+  {
+    "id": "r-shape-as-decoration",
+    "category": "shape",
+    "tags": ["dekoratif", "decorative", "süs", "sus", "aksesuar", "accent", "seperator", "ayırıcı", "ayirici", "çizgi", "cizgi", "divider", "bar"],
+    "title": "Decorative shapes — lines, accent bars, dividers",
+    "scenario": "User wants decorative elements: accent lines, dividers, color bars.",
+    "recipe": "Common decorative shapes:\n\nAccent line (thin colored bar):\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 50, \"height\": 3, \"fill\": \"#f2ff58\", \"left\": 30, \"top\": 130}}\n```\n\nFull-width divider:\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 640, \"height\": 1, \"fill\": \"#333333\", \"left\": 30, \"top\": 200}}\n```\n\nSide accent bar (vertical):\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 4, \"height\": 300, \"fill\": \"#f2ff58\", \"left\": 15, \"top\": 50}}\n```\n\nCorner circle decoration:\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 150, \"fill\": \"#f2ff58\", \"left\": 550, \"top\": -50}}\n```\n\nUse opacity 0.1-0.3 for subtle background shapes.",
+    "tools": ["addShape"]
+  },
+  {
+    "id": "r-cv-layout",
+    "category": "cv",
+    "tags": ["cv", "resume", "özgeçmiş", "ozgecmis", "curriculum", "vitae"],
+    "title": "CV / Resume basic layout",
+    "scenario": "User wants to create a CV or resume design.",
+    "recipe": "CV layout for 794x1123 canvas (A4 portrait):\n\nStep 1: Set canvas + background + header\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 794, \"height\": 1123}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#ffffff\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"JOHN SMITH\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#1a1a2e\", \"left\": 60, \"top\": 60, \"width\": 400, \"charSpacing\": 30}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Software Engineer\", \"fontSize\": 16, \"fill\": \"#666666\", \"left\": 60, \"top\": 110, \"width\": 400}}]\n```\n\nStep 2: Contact + Section divider\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"email@example.com | +90 555 123 4567 | Istanbul, Turkey\", \"fontSize\": 11, \"fill\": \"#999999\", \"left\": 60, \"top\": 145, \"width\": 500}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 674, \"height\": 2, \"fill\": \"#1a1a2e\", \"left\": 60, \"top\": 180}}]\n```\n\nStep 3 (next response): Sections like Experience, Education, Skills",
+    "tools": ["setCanvasSize", "setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-social-post-proper",
+    "category": "social",
+    "tags": ["instagram", "post", "gönderi", "gonderi", "sosyal medya", "social media", "kare", "square", "1080"],
+    "title": "Instagram post — properly sized & balanced",
+    "scenario": "User wants an Instagram post design that is properly proportioned.",
+    "recipe": "Instagram post: 1080x1080 canvas.\n\nStep 1: Canvas + Background + Main text\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1080}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"YOUR HEADLINE\\nGOES HERE\", \"fontSize\": 64, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 350, \"lineHeight\": 1.2}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Supporting text or call to action\", \"fontSize\": 24, \"fill\": \"#aaaaaa\", \"textAlign\": \"center\", \"width\": 800, \"left\": 140, \"top\": 520}}]\n```\n\nText sizing for 1080x1080:\n- Headline: 48-72px\n- Subtext: 20-28px\n- CTA/Handle: 18-24px\n- Leave 90px+ padding on all sides",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-story-design",
+    "category": "social",
+    "tags": ["story", "hikaye", "stories", "reels", "dikey", "vertical", "9:16", "1080x1920"],
+    "title": "Instagram Story / Reels — vertical design",
+    "scenario": "User wants a vertical Instagram Story or Reels design.",
+    "recipe": "Story/Reels: 1080x1920 canvas.\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1920}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a0a1a\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"STORY\\nTITLE\", \"fontSize\": 72, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 700, \"lineHeight\": 1.1}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Swipe up for more ↑\", \"fontSize\": 20, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 1700}}]\n```\n\nText sizing for 1080x1920:\n- Headline: 56-84px (center-ish area, top:600-800)\n- Body: 24-36px\n- CTA: 18-24px (bottom area, top:1600-1750)\n- Leave 90px+ padding",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-color-palette-proper",
+    "category": "color",
+    "tags": ["palet", "palette", "renk paleti", "renk uyumu", "renk onerisi", "renk önerisi", "color scheme", "uyumlu renkler", "matching colors", "tema", "theme"],
+    "title": "Color palette and theme recommendations",
+    "scenario": "User asks for color suggestions or wants harmonious color combinations.",
+    "recipe": "Professional color palettes:\n\n**Dark Elegant:**\n- BG: #0a1628, Text: #ffffff, Accent: #f2ff58, Muted: #7a8ba8\n\n**Minimal Light:**\n- BG: #ffffff, Text: #1a1a1a, Accent: #0066ff, Muted: #999999\n\n**Warm Gold:**\n- BG: #1a0f00, Text: #ffffff, Accent: #ffd700, Muted: #b8860b\n\n**Fresh Green:**\n- BG: #0a1a0a, Text: #ffffff, Accent: #00cc88, Muted: #448866\n\n**Bold Red:**\n- BG: #1a0a0a, Text: #ffffff, Accent: #ff3344, Muted: #883333\n\n**Ocean Blue:**\n- BG: #0a1a2e, Text: #ffffff, Accent: #00aaff, Muted: #446688\n\n**Purple Night:**\n- BG: #1a0a2e, Text: #ffffff, Accent: #aa55ff, Muted: #665588\n\n**Cream/Retro:**\n- BG: #fdf6e3, Text: #2d2d2d, Accent: #d4442a, Muted: #8a8177\n\nUsage: setBackground for BG, addText fill for Text, shapes/accents for Accent color.",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-text-font-guide",
+    "category": "text",
+    "tags": ["font", "yazı tipi", "yazi tipi", "typeface", "serif", "sans", "handwriting", "el yazisi", "el yazısı", "kaligrafik", "modern", "klasik", "classic"],
+    "title": "Font selection guide",
+    "scenario": "User asks about fonts or which font to use.",
+    "recipe": "Available fonts (50 Google Fonts pre-loaded):\n\n**Modern/Clean (sans-serif):**\nInter, Roboto, Open Sans, Montserrat, Poppins, Nunito, Raleway, Work Sans, DM Sans, Outfit\n\n**Professional/Serious:**\nPlayfair Display (serif), Merriweather (serif), Lora (serif), Source Serif 4, Crimson Text\n\n**Display/Bold:**\nBebas Neue, Anton, Oswald, Archivo Black\n\n**Handwriting/Script:**\nCaveat, Dancing Script, Great Vibes, Pacifico, Sacramento, Satisfy, Permanent Marker\n\n**Monospace:**\nJetBrains Mono, Fira Code\n\nRecommendations:\n- Business card: Inter, Montserrat, or Playfair Display\n- Logo: Bebas Neue, Anton, or Poppins (bold)\n- Modern: DM Sans, Outfit, Work Sans\n- Elegant: Playfair Display, Great Vibes\n- Fun/Creative: Caveat, Permanent Marker\n\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"Example\", \"fontSize\": 36, \"fontFamily\": \"Playfair Display\", \"fill\": \"#ffffff\"}}\n```",
+    "tools": ["addText"]
+  },
+  {
+    "id": "r-shape-background-element",
+    "category": "shape",
+    "tags": ["arka plan şekil", "arkaplan sekil", "background shape", "dekoratif arka", "daire arka plan", "circle bg", "blob", "soyut", "abstract"],
+    "title": "Decorative background shapes (circles, blobs)",
+    "scenario": "User wants decorative shapes in the background for visual interest.",
+    "recipe": "Add semi-transparent shapes behind content for depth:\n\nLarge accent circle (top-right corner):\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 200, \"fill\": \"#f2ff58\", \"left\": 500, \"top\": -100}}, {\"tool\": \"modifySelected\", \"params\": {\"opacity\": 0.15}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```\n\nSmall accent circles:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 50, \"fill\": \"#00aaff\", \"left\": 50, \"top\": 300}}, {\"tool\": \"modifySelected\", \"params\": {\"opacity\": 0.1}}]\n```\n\nAngled rectangle decoration:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 300, \"height\": 300, \"fill\": \"#f2ff58\", \"left\": 450, \"top\": 100}}, {\"tool\": \"modifySelected\", \"params\": {\"opacity\": 0.08, \"angle\": 45}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```\n\nAlways send decorative shapes to back and use low opacity (0.05-0.2).",
+    "tools": ["addShape", "modifySelected", "sendBackward"]
+  },
+  {
+    "id": "r-logo-monogram",
+    "category": "logo",
+    "tags": ["monogram", "harf logo", "initials", "baş harf", "bas harf", "letter logo", "tek harf"],
+    "title": "Monogram / Letter-based logo",
+    "scenario": "User wants a monogram or initial-based logo design.",
+    "recipe": "Monogram logo on 500x500 canvas:\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 500, \"height\": 500}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a1628\"}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 180, \"fill\": \"transparent\", \"stroke\": \"#f2ff58\", \"strokeWidth\": 3, \"left\": 70, \"top\": 70}}, {\"tool\": \"addText\", \"params\": {\"text\": \"AB\", \"fontSize\": 120, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 300, \"left\": 100, \"top\": 160, \"fontFamily\": \"Playfair Display\"}}]\n```\n\nVariations:\n- Square border: rect with fill:'transparent', stroke:'#f2ff58'\n- Filled circle bg: circle with fill:'#f2ff58' then text in dark color\n- Just letters: no shape, large bold text with accent color",
+    "tools": ["setCanvasSize", "setBackground", "addShape", "addText"]
+  },
+  {
+    "id": "r-template-list",
+    "category": "template",
+    "tags": ["şablon", "sablon", "template", "hazır", "hazir", "built-in", "öntanımlı", "ontanimli", "mevcut", "listele"],
+    "title": "List and apply templates",
+    "scenario": "User wants to know available templates or apply one.",
+    "recipe": "Available built-in templates:\n- **tplBlank**: Empty white canvas\n- **tplNoir**: Dark elegant (black bg, gold accents)\n- **tplMinimal**: Clean minimal (white bg, dark text)\n- **tplStudio**: Creative studio style\n- **tplBold**: Bold typography focused\n- **tplArchitect**: Architectural/geometric style\n- **tplLuxe**: Luxury premium feel\n- **tplTechCircuit**: Tech/digital circuit pattern\n- **tplOrganicBlob**: Organic shapes/blobs\n\nApply a template:\n```tool\n{\"tool\": \"applyTemplate\", \"params\": {\"name\": \"tplNoir\"}}\n```\n\nWARNING: Applying a template replaces ALL current canvas content. Ask user for confirmation first.\n\nAfter applying, modify elements with modifySelected or add new ones.",
+    "tools": ["applyTemplate"]
+  },
+  {
+    "id": "r-export-guide",
+    "category": "export",
+    "tags": ["export", "dışa aktar", "disa aktar", "kaydet", "save", "indir", "download", "png", "pdf", "svg", "psd", "format"],
+    "title": "Export design guide",
+    "scenario": "User asks how to export or save their design.",
+    "recipe": "Export/kaydetme AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Tasarımı dışa aktarmak için:\n1. Sağ alt köşedeki Export butonuna tıklayın (veya Ctrl+E)\n2. Sayfa seçin (tek sayfa veya tümü)\n3. Format seçin:\n   - PNG: Web/sosyal medya için (şeffaf arka plan destekli)\n   - WebP: Küçük dosya boyutu (web için)\n   - PDF: Baskı için (çok sayfalı tek dosya)\n   - PSD: Photoshop (katmanlı)\n   - SVG: Vektör (ölçeklenebilir)\n   - .dika: Proje dosyası (tekrar açmak için)\n4. Çözünürlük: 1x (web), 2x (retina), 3x (baskı, önerilen), 4x (yüksek DPI)\n5. Download butonuna tıklayın\n\nBaskı için: 3x çözünürlük (300 DPI) önerilir.\nSosyal medya için: 1x veya 2x yeterli.'",
+    "tools": []
+  },
+  {
+    "id": "r-canvas-grid-bleed",
+    "category": "canvas",
+    "tags": ["grid", "ızgara", "izgara", "ruler", "cetvel", "bleed", "taşma", "tasma", "safe", "güvenli", "guvenli", "guide", "kılavuz", "kilavuz"],
+    "title": "Canvas grid, bleed guides, and safe zone",
+    "scenario": "User asks about grid, rulers, bleed guides, or safe zones.",
+    "recipe": "Canvas yardımcıları AI tool'larıyla açılıp kapatılamaz. Kullanıcıya bilgi ver:\n\n'Kılavuz çizgileri:\n- Grid açma/kapama: Ctrl+\\' (apostrof)\n- Grid: 25px küçük, 100px büyük kareler\n\nBleed guide (kırmızı): Kenardan 21px içeride — baskıda kesilecek alan\nSafe zone (yeşil): Kenardan 35px içeride — önemli içerik bu alanın içinde olmalı\n\nSmart Guides: Otomatik aktif — nesneleri sürüklerken hizalama çizgileri görünür (5px eşik)\n\nKullanım:\n- Kartvizit tasarlarken tüm metin/öğeleri safe zone içinde tutun\n- Bleed alanına kadar uzanan arka plan rengi/resim baskıda temiz kenar sağlar'",
+    "tools": []
+  },
+  {
+    "id": "r-layer-management",
+    "category": "layer",
+    "tags": ["katman", "layer", "sıralama", "siralama", "z-index", "öne getir", "one getir", "arkaya gönder", "arkaya gonder", "üste", "uste", "alta", "en üst", "en ust", "en alt"],
+    "title": "Layer ordering — bring to front / send to back",
+    "scenario": "User wants to change the stacking order of objects.",
+    "recipe": "Katman sıralaması:\n\n**Seçili nesneyi öne getir (bir katman):**\n```tool\n{\"tool\": \"bringForward\", \"params\": {}}\n```\n\n**Seçili nesneyi arkaya gönder (bir katman):**\n```tool\n{\"tool\": \"sendBackward\", \"params\": {}}\n```\n\nEn üste göndermek için bringForward'ı birkaç kez çağır.\nEn alta göndermek için sendBackward'ı birkaç kez çağır.\n\nKlavye kısayolları:\n- ] → Öne getir\n- [ → Arkaya gönder\n- Ctrl+] → En üste\n- Ctrl+[ → En alta\n\nKatman paneli: Ctrl+Shift+L ile aç, sürükle-bırak ile yeniden sırala.\n\nÖrnek — arka plan şeklini en alta gönder:\n```tool\n[{\"tool\": \"sendBackward\", \"params\": {}}, {\"tool\": \"sendBackward\", \"params\": {}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```",
+    "tools": ["bringForward", "sendBackward"]
+  },
+  {
+    "id": "r-text-contact-preset",
+    "category": "text",
+    "tags": ["iletişim", "iletisim", "contact", "email", "telefon", "phone", "web", "website", "adres", "address", "numara"],
+    "title": "Add contact information text",
+    "scenario": "User wants to add contact details (email, phone, website, address).",
+    "recipe": "Contact info as single multi-line text block:\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"info@company.com\\n+90 555 123 4567\\nwww.company.com\\nIstanbul, Turkey\", \"fontSize\": 11, \"fill\": \"#999999\", \"width\": 280, \"lineHeight\": 1.8, \"textAlign\": \"left\", \"left\": 30, \"top\": 300}}\n```\n\nAlternative — separate lines for icon placement:\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"info@company.com\", \"fontSize\": 11, \"fill\": \"#999999\", \"left\": 55, \"top\": 280, \"width\": 250}}, {\"tool\": \"addText\", \"params\": {\"text\": \"+90 555 123 4567\", \"fontSize\": 11, \"fill\": \"#999999\", \"left\": 55, \"top\": 305, \"width\": 250}}, {\"tool\": \"addText\", \"params\": {\"text\": \"www.company.com\", \"fontSize\": 11, \"fill\": \"#999999\", \"left\": 55, \"top\": 330, \"width\": 250}}]\n```\n\nKeys: fontSize 10-13 for contact, lineHeight 1.6-2.0, muted color (#888-#aaa).",
+    "tools": ["addText"]
+  },
+  {
+    "id": "r-qr-code-info",
+    "category": "canvas",
+    "tags": ["qr", "qr code", "qr kod", "barkod", "barcode", "karekod"],
+    "title": "Add QR code (manual instruction)",
+    "scenario": "User wants to add a QR code to the design.",
+    "recipe": "QR kodu ekleme AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'QR kodu eklemek için:\n1. Sol panelde QR butonuna tıklayın\n2. URL, email, telefon veya vCard bilgisi girin\n3. QR renk özelleştirmesi yapabilirsiniz (ön plan/arka plan hex)\n4. Varsayılan boyut: 140x140px\n5. QR kodu canvas'a eklenir ve boyutu/konumu ayarlanabilir'\n\nQR kodu eklendikten sonra modifySelected ile boyut ve konum değiştirilebilir:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 0.8, \"scaleY\": 0.8}}\n```",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-chart-info",
+    "category": "canvas",
+    "tags": ["grafik", "chart", "pie", "pasta", "bar", "çubuk", "cubuk", "line", "çizgi", "cizgi", "radar", "data", "veri", "istatistik"],
+    "title": "Add chart/graph (manual instruction)",
+    "scenario": "User wants to add a chart or graph to the design.",
+    "recipe": "Grafik ekleme AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Grafik eklemek için:\n1. Sol panelde Charts butonuna tıklayın\n2. Grafik tipi seçin: Pie (pasta), Doughnut (halka), Bar (çubuk), Line (çizgi), Radar, Polar Area, Horizontal Bar\n3. Veri düzenlemesi yapın (label ve değerler)\n4. Catppuccin renk paleti varsayılan olarak uygulanır\n5. Grafik canvas'a eklenir ve boyutu ayarlanabilir'\n\nGrafik eklendikten sonra boyut değiştirme:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 1.5, \"scaleY\": 1.5}}\n```",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-3d-preview-info",
+    "category": "canvas",
+    "tags": ["3d", "3 boyut", "3 boyutlu", "three", "önizleme", "onizleme", "preview", "döndür", "dondur", "kartvizit 3d"],
+    "title": "3D preview (manual instruction)",
+    "scenario": "User wants to see their design in 3D.",
+    "recipe": "3D önizleme AI tool'larıyla başlatılamaz. Kullanıcıya yönlendirme yap:\n\n'3D önizleme için:\n1. Üst toolbar'da 3D Preview butonuna tıklayın\n2. Tasarımınız Three.js ile 3D kart olarak görüntülenir\n3. Mouse ile sürükleyerek döndürebilirsiniz\n4. Boş bırakılırsa otomatik döner\n5. 4 ışıklı sahne, gerçek zamanlı canvas texture güncellenir\n6. ESC ile kapatın'",
+    "tools": []
+  },
+  {
+    "id": "r-whiteboard-info",
+    "category": "canvas",
+    "tags": ["whiteboard", "beyaz tahta", "tahta", "board", "brainstorm", "beyin fırtınası", "sticky", "yapışkan not", "yapiskan not", "bağlantı", "baglanti", "connector", "arrow"],
+    "title": "Whiteboard mode (manual instruction)",
+    "scenario": "User asks about whiteboard or board mode.",
+    "recipe": "Whiteboard AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'Whiteboard (Beyaz Tahta) modu:\n- Alt taraftaki sayfa sekmelerinde Board sayfası oluşturun\n- 11 araç var: El (pan), Seçim, Dikdörtgen, Elips, Baklava, Ok, Çizgi, Kalem, Yazı, Yapışkan Not, Silgi\n- Yapışkan notlar: otomatik metin sarma, renk paleti, boyutlandırma\n- Oklar/çizgiler nesnelere bağlanır ve takip eder\n- Her sayfa grubunda 1 board sayfası olabilir\n- Sonsuz canvas konsepti ile brainstorm için idealdir'",
+    "tools": []
+  },
+  {
+    "id": "r-select-object-guide",
+    "category": "modification",
+    "tags": ["seç", "sec", "select", "tıkla", "tikla", "bul", "find", "nesne", "object", "seçim", "secim", "hangi", "which"],
+    "title": "How to select objects for modification",
+    "scenario": "AI tells user to select an object, or user doesn't know how to select things.",
+    "recipe": "Nesne seçme yöntemleri:\n\n1. **Tek nesne**: Canvas'ta nesneye tıklayın\n2. **Çoklu seçim**: Shift tuşuna basılı tutup nesnelere tıklayın\n3. **Tüm nesneler**: Ctrl+A veya:\n```tool\n{\"tool\": \"selectAll\", \"params\": {}}\n```\n\n4. **Katman panelinden**: Ctrl+Shift+L ile katmanları açın, istediğinize tıklayın\n\nSeçili nesneyi kontrol:\n```tool\n{\"tool\": \"getCanvasInfo\", \"params\": {}}\n```\nBu komut 'Selected:' satırında seçili nesnenin bilgisini gösterir.\n\nÖNEMLİ: modifySelected, deleteSelected, duplicateSelected, bringForward, sendBackward gibi tool'lar için önce nesne SEÇİLMİŞ olmalı.",
+    "tools": ["selectAll", "getCanvasInfo"]
+  },
+  {
+    "id": "r-undo-redo-guide",
+    "category": "modification",
+    "tags": ["geri al", "geri", "undo", "ileri al", "redo", "yanlis", "yanlış", "hata", "mistake", "önceki", "onceki", "previous"],
+    "title": "Undo/redo actions",
+    "scenario": "User wants to undo a mistake or go back to previous state.",
+    "recipe": "Geri alma:\n```tool\n{\"tool\": \"undo\", \"params\": {}}\n```\n\nİleri alma:\n```tool\n{\"tool\": \"redo\", \"params\": {}}\n```\n\nKlavye kısayolları:\n- Ctrl+Z → Geri al\n- Ctrl+Y veya Ctrl+Shift+Z → İleri al\n\nBirden fazla adım geri almak için undo'yu birden fazla çağır:\n```tool\n[{\"tool\": \"undo\", \"params\": {}}, {\"tool\": \"undo\", \"params\": {}}, {\"tool\": \"undo\", \"params\": {}}]\n```\n\nNOT: max 3 kez aynı tool çağrılabilir.",
+    "tools": ["undo", "redo"]
+  },
+  {
+    "id": "r-complex-edit-chain",
+    "category": "composition",
+    "tags": ["sıra", "sira", "chain", "zincir", "adım adım", "adim adim", "step by step", "birden fazla işlem", "complex", "karmaşık", "karmasik"],
+    "title": "Multi-step editing chain (select → modify → layer)",
+    "scenario": "User wants multiple changes: e.g., 'select the text, make it red, add border, send to back'",
+    "recipe": "Çoklu işlem zinciri için sıralı tool çağrıları:\n\nÖrnek: 'seçili nesneyi kırmızı yap, border ekle, arkaya gönder'\n```tool\n[{\"tool\": \"modifySelected\", \"params\": {\"fill\": \"#ff0000\", \"stroke\": \"#ffffff\", \"strokeWidth\": 2}}, {\"tool\": \"sendBackward\", \"params\": {}}]\n```\n\nÖrnek: 'yeni text ekle, ortala, büyüt'\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"TITLE\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 600}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-v\"}}]\n```\n\nKURALLAR:\n1. Max 6 tool call per response\n2. Aynı tool max 3 kez\n3. Daha fazla adım gerekiyorsa: 'Devam ediyorum...' de ve sonraki mesajda tamamla\n4. Her zaman plan açıkla, sonra tool çağır",
+    "tools": ["modifySelected", "sendBackward", "addText", "alignObject"]
+  },
+  {
+    "id": "r-text-effect-shadow-proper",
+    "category": "effect",
+    "tags": ["gölge", "golge", "shadow", "drop shadow", "text shadow", "yazı gölgesi", "yazi golgesi"],
+    "title": "Text shadow effect (manual instruction)",
+    "scenario": "User wants to add a shadow to text.",
+    "recipe": "Metin gölgesi AI tool'larıyla uygulanamaz (modifySelected shadow parametresi yok). Kullanıcıya yönlendirme yap:\n\n'Metin gölgesi eklemek için:\n1. Canvas'ta metni seçin\n2. Sağ panelde Text Effects bölümünü açın\n3. Drop Shadow seçeneğini açın\n4. Ayarlar:\n   - Blur: 0-20px (bulanıklık)\n   - Offset X: ±10px (yatay kaydırma)\n   - Offset Y: ±10px (dikey kaydırma)\n   - Color: gölge rengi\n5. Anlık önizleme gösterilir'\n\nWorkaround — gölge efekti simülasyonu (aynı metni altına koy):\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"SHADOW\", \"fontSize\": 48, \"fill\": \"#000000\", \"opacity\": 0.3, \"left\": 103, \"top\": 103}}, {\"tool\": \"sendBackward\", \"params\": {}}, {\"tool\": \"addText\", \"params\": {\"text\": \"SHADOW\", \"fontSize\": 48, \"fill\": \"#ffffff\", \"left\": 100, \"top\": 100}}]\n```",
+    "tools": ["addText", "sendBackward"]
+  },
+  {
+    "id": "r-text-outline-proper",
+    "category": "effect",
+    "tags": ["outline", "anahat", "dış çizgi", "dis cizgi", "kontur", "contour", "stroke text", "yazı çizgi", "yazi cizgi"],
+    "title": "Text outline/stroke effect",
+    "scenario": "User wants outlined/stroked text.",
+    "recipe": "Metin outline/stroke efekti:\n\nSeçili metne stroke ekle:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#ffffff\", \"strokeWidth\": 2}}\n```\n\nYeni outline text ekle — only stroke, no fill (hollow text):\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"OUTLINE\", \"fontSize\": 72, \"fontWeight\": \"bold\", \"fill\": \"transparent\", \"textAlign\": \"center\", \"width\": 500}}\n```\nSonra stroke ekle:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#f2ff58\", \"strokeWidth\": 2}}\n```\n\nSağ paneldeki Text Effects → Outline/Stroke sekmesi daha gelişmiş kontrol sağlar (0-5px).\n\nOutline renk örnekleri:\n- Beyaz outline: stroke '#ffffff', strokeWidth 1-2\n- Altın outline: stroke '#ffd700', strokeWidth 2\n- Neon: stroke '#00ff00', strokeWidth 1, fill '#000000'",
+    "tools": ["addText", "modifySelected"]
+  },
+  {
+    "id": "r-icon-list-common",
+    "category": "icon",
+    "tags": ["ikon listesi", "icon list", "hangi ikonlar", "ikon isimleri", "icon names", "mevcut ikonlar", "available icons"],
+    "title": "Common icon names reference",
+    "scenario": "User or AI needs to know available icon names.",
+    "recipe": "Sık kullanılan ikon isimleri (addIcon 'name' parametresi):\n\n**İletişim:** mail, phone, mapPin, globe, link\n**Sosyal Medya:** linkedin, twitter, instagram, facebook, github, youtube, dribbble\n**İş:** briefcase, building, award, target, users, user\n**Yaratıcı:** camera, film, music, palette, pen, pencil, brush\n**Sembol:** heart, star, sun, moon, cloud, zap, shield, flag\n**Ok/UI:** arrowRight, arrowLeft, arrowUp, arrowDown, chevronRight, chevronLeft, check, x, plus, minus, search, menu\n**Doğa:** leaf, tree, flower, mountain, wave\n\nİkon arama:\n```tool\n{\"tool\": \"listIcons\", \"params\": {\"query\": \"arrow\"}}\n```\n\nİkon ekleme:\n```tool\n{\"tool\": \"addIcon\", \"params\": {\"name\": \"mail\"}}\n```",
+    "tools": ["addIcon", "listIcons"]
+  },
+  {
+    "id": "r-smart-positioning",
+    "category": "layout",
+    "tags": ["margin", "kenar boşluğu", "kenar boslugu", "padding", "boşluk", "bosluk", "yerleşim", "yerlesim", "spacing", "ara", "mesafe", "gap"],
+    "title": "Smart positioning with margins and spacing",
+    "scenario": "User wants properly spaced elements with consistent margins.",
+    "recipe": "Tutarlı kenar boşlukları ve aralık kuralları:\n\n**Business Card (700x400):**\n- Kenar margin: 30px (minimum)\n- Elemanlar arası dikey boşluk: 15-25px\n- Bölüm arası boşluk: 40-60px\n\n**Sosyal Medya (1080x1080):**\n- Kenar margin: 80-100px\n- Elemanlar arası: 20-40px\n\n**Pozisyon Referansı (700x400 canvas):**\n- Sol üst: left:30, top:30\n- Sağ üst: left:400, top:30\n- Orta: left:350, top:200 + alignObject\n- Sol alt: left:30, top:350\n- Sağ alt: left:400, top:350\n\nKartvizit yerleşim şablonu:\n```\ntop:40  → İsim (32px)\ntop:80  → Ünvan (14px)\ntop:120 → Dekoratif çizgi\ntop:150 → Şirket (16px)\ntop:280 → Email (11px)\ntop:305 → Telefon (11px)\ntop:330 → Website (11px)\ntop:355 → Adres (10px)\n```",
+    "tools": ["addText", "addShape", "alignObject"]
+  },
+  {
+    "id": "r-banner-linkedin",
+    "category": "banner",
+    "tags": ["linkedin", "linkedin banner", "linkedin kapak", "linkedin cover", "linkedin arka plan", "1584x396"],
+    "title": "LinkedIn banner design",
+    "scenario": "User wants a LinkedIn cover/banner image.",
+    "recipe": "LinkedIn banner: 1584x396 canvas.\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1584, \"height\": 396}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a1628\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"YOUR NAME | PROFESSIONAL TITLE\", \"fontSize\": 42, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"left\", \"width\": 900, \"left\": 80, \"top\": 140, \"charSpacing\": 20}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Brief tagline or expertise summary\", \"fontSize\": 20, \"fill\": \"#8899aa\", \"left\": 80, \"top\": 210, \"width\": 800}}]\n```\n\nÖNEMLİ: LinkedIn profil fotoğrafı sol alt köşeyi kaplar. Kritik metnleri sola yakın yerleştirmeyin (left:300+ güvenli).",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-color-common-turkish",
+    "category": "color",
+    "tags": ["renk", "color", "kırmızı", "kirmizi", "mavi", "beyaz", "siyah", "yeşil", "yesil", "pembe", "sarı", "sari", "turuncu", "mor", "gri", "lacivert", "bordo", "turkuaz"],
+    "title": "Turkish color name to hex mapping",
+    "scenario": "User says a color name in Turkish and AI needs the hex code.",
+    "recipe": "Türkçe renk → hex karşılığı:\n\n**Temel renkler:**\n- kırmızı/kirmizi = #ff0000\n- mavi = #0066ff\n- beyaz = #ffffff\n- siyah = #000000\n- yeşil/yesil = #00cc44\n- sarı/sari = #ffd700\n- turuncu = #ff8c00\n- mor = #9b59b6\n- pembe = #ff69b4\n- gri = #888888\n\n**Özel renkler:**\n- lacivert = #000080\n- bordo = #800020\n- turkuaz = #00ced1\n- leylak = #c8a2c8\n- mercan = #ff6f61\n- şeftali/seftali = #ffcba4\n- altın/altin = #ffd700\n- gümüş/gumus = #c0c0c0\n- bakır/bakir = #b87333\n- koyu mavi = #001a4d\n- açık mavi/acik mavi = #87ceeb\n- koyu yeşil = #006600\n- açık yeşil = #90ee90\n- koyu gri = #444444\n- açık gri = #cccccc\n\nKullanım:\n```tool\n{\"tool\": \"setBackground\", \"params\": {\"color\": \"#000080\"}}\n```",
+    "tools": ["setBackground", "addText", "addShape", "modifySelected"]
+  },
+  {
+    "id": "r-Turkish-common-requests",
+    "category": "text",
+    "tags": ["türkçe", "turkce", "istek", "sık", "sik", "yaygın", "yaygin", "common", "frequent"],
+    "title": "Common Turkish design requests translation",
+    "scenario": "AI needs to understand common Turkish design phrases.",
+    "recipe": "Sık Türkçe istekler ve karşılıkları:\n\n**'Bir şeyler yaz/ekle'** → addText\n**'Arkaplan değiştir/rengini değiştir'** → setBackground\n**'Büyüt/küçült'** → modifySelected with scaleX/scaleY or fontSize\n**'Sil/kaldır'** → deleteSelected\n**'Ortala'** → alignObject center-h + center-v\n**'Kopyala'** → duplicateSelected\n**'Öne getir/arkaya gönder'** → bringForward / sendBackward\n**'Şekil ekle'** → addShape\n**'İkon ekle'** → addIcon\n**'Rengi değiştir/X rengi yap'** → modifySelected fill\n**'Border/çerçeve ekle'** → modifySelected stroke + strokeWidth\n**'Transparanlaştır/saydam yap'** → modifySelected opacity\n**'Döndür/eğ'** → modifySelected angle\n**'Yazı tipini değiştir'** → modifySelected fontFamily\n**'Kalınlaştır/bold yap'** → modifySelected fontWeight:'bold'\n**'Geri al'** → undo\n**'Canvas boyutunu değiştir'** → setCanvasSize\n**'Şablonu uygula'** → applyTemplate",
+    "tools": ["addText", "setBackground", "modifySelected", "deleteSelected", "alignObject", "addShape", "addIcon"]
+  },
+  {
+    "id": "r-limitations-awareness",
+    "category": "canvas",
+    "tags": ["yapamam", "yapılamaz", "yapilamaz", "limit", "kısıtlama", "kisitlama", "sınır", "sinir", "manuel", "manual", "el ile"],
+    "title": "AI limitations — what tools CANNOT do",
+    "scenario": "User asks AI to do something that requires manual UI interaction.",
+    "recipe": "AI Tool'larıyla YAPILAMAYAN işlemler (kullanıcıya yönlendirme yap):\n\n**❌ Resim yükleme/ekleme** — Kullanıcı Images panelinden yapmalı\n**❌ Resmi arka plan yapma** — Kullanıcı resmi ekleyip Layers'dan alta göndermeli\n**❌ Arka plan kaldırma (BG Remove)** — Toolbar'daki Remove BG butonu\n**❌ Gradient arka plan** — BG paneli → Gradient sekmesi\n**❌ Resim filtreleri** — Sağ panel → Filters\n**❌ Text effects (shadow/glow)** — Sağ panel → Text Effects\n**❌ QR kod ekleme** — Sol panel → QR butonu\n**❌ Grafik (chart) ekleme** — Sol panel → Charts\n**❌ Pattern arka plan** — BG paneli → Pattern sekmesi\n**❌ 3D önizleme** — Toolbar → 3D Preview\n**❌ Export/indirme** — Export butonu (Ctrl+E)\n**❌ Yazı tipi yükleme** — Settings → Google Fonts\n**❌ Whiteboard araçları** — Board sayfası\n\n**✅ AI'ın yapabilecekleri:**\nText ekle/düzenle, shape ekle, ikon ekle, renk değiştir, boyut değiştir, border ekle, opacity ayarla, döndür, katman sırala, grid oluştur, pattern text, watermark, template uygula, canvas boyutu, bilgi al.",
+    "tools": []
+  },
+  {
+    "id": "r-composition-social-quote",
+    "category": "social",
+    "tags": ["quote", "alıntı", "alinti", "söz", "soz", "motivasyon", "motivation", "ilham", "inspiration", "quote post"],
+    "title": "Social media quote post design",
+    "scenario": "User wants to create a quote/motivational post for social media.",
+    "recipe": "Alıntı/motivasyon postu (1080x1080):\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1080}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"\\\"Design is not just what it\\nlooks like and feels like.\\nDesign is how it works.\\\"\", \"fontSize\": 42, \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 800, \"left\": 140, \"top\": 350, \"lineHeight\": 1.5, \"fontFamily\": \"Playfair Display\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"— Steve Jobs\", \"fontSize\": 20, \"fill\": \"#f2ff58\", \"textAlign\": \"center\", \"width\": 800, \"left\": 140, \"top\": 600}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 60, \"height\": 4, \"fill\": \"#f2ff58\", \"left\": 510, \"top\": 300}}]\n```\n\nTips:\n- Quote font: serif (Playfair Display, Merriweather) veya italic\n- Attribution: küçük, accent renk\n- Dekoratif çizgi veya tırnak işareti ekle\n- Kenarlarda minimum 100px margin",
+    "tools": ["setCanvasSize", "setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-font-pairing",
+    "category": "text",
+    "tags": ["font eşleme", "font esleme", "font pairing", "yazı tipi kombinasyonu", "yazi tipi kombinasyonu", "heading body", "baslık gövde", "baslik govde"],
+    "title": "Font pairing recommendations",
+    "scenario": "User wants font combination suggestions for heading + body text.",
+    "recipe": "Önerilen font eşleşmeleri:\n\n**Modern & Clean:**\n- Heading: Montserrat Bold → Body: Open Sans\n- Heading: Poppins Bold → Body: Inter\n- Heading: DM Sans Bold → Body: Work Sans\n\n**Elegant:**\n- Heading: Playfair Display → Body: Lora\n- Heading: Crimson Text Bold → Body: Source Serif 4\n\n**Bold & Creative:**\n- Heading: Bebas Neue → Body: Roboto\n- Heading: Anton → Body: Nunito\n- Heading: Oswald Bold → Body: Raleway\n\n**Handwriting + Clean:**\n- Heading: Great Vibes → Body: Montserrat\n- Heading: Caveat → Body: Inter\n\n**Tech/Modern:**\n- Heading: Outfit Bold → Body: JetBrains Mono\n- Heading: Archivo Black → Body: DM Sans\n\nKullanım örneği:\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"HEADING\", \"fontSize\": 48, \"fontFamily\": \"Playfair Display\", \"fontWeight\": \"bold\", \"fill\": \"#ffffff\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Body text goes here with a different font.\", \"fontSize\": 16, \"fontFamily\": \"Lora\", \"fill\": \"#cccccc\", \"width\": 400}}]\n```",
+    "tools": ["addText"]
+  }
+]

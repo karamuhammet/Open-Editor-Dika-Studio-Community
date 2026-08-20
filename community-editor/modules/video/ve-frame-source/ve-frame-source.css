@@ -1,0 +1,2 @@
+/* video/ve-frame-source — no UI. The loader always injects <dir>/<base>.css, so this file exists
+   to keep that contract honest instead of shipping a 404 on every editor boot. */

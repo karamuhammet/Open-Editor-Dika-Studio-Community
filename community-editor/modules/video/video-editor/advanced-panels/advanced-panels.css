@@ -1,0 +1,182 @@
+/* LUT Browser, rebuilt 2026-07-17. The old panel carried its entire appearance in inline
+   style="..." strings, which is why nothing about it could be restyled without editing JS. */
+.ve-lb {
+  position: fixed;
+  z-index: 10005;
+  width: 630px;
+  max-width: calc(100vw - 24px);
+  display: flex;
+  flex-direction: column;
+  max-height: min(76vh, 720px);
+  background: var(--surface, #131316);
+  border: 1px solid var(--border, #27272d);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .6);
+  color: var(--text, #ededf0);
+  font-size: 12px;
+  overflow: hidden;
+  resize: both;
+}
+
+.ve-lb-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  flex: 0 0 auto;
+}
+.ve-lb-title { display: flex; align-items: center; gap: 7px; font-weight: 600; font-size: 13px; }
+.ve-lb-x {
+  background: none; border: none; color: var(--text-dim, #8a8a94);
+  cursor: pointer; padding: 3px; display: flex; border-radius: 5px;
+}
+.ve-lb-x:hover { color: var(--text, #ededf0); background: var(--surface3, #202027); }
+
+/* The target strip. A LUT that silently lands somewhere other than where you are looking is the
+   single worst thing this panel could do, so where it will land is stated permanently. */
+.ve-lb-target {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border, #27272d);
+  flex: 0 0 auto;
+}
+.ve-lb-tl { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-dim, #8a8a94); }
+/* Chips are BUTTONS, not labels: with a window selected there was previously no way to grade the
+   whole clip, so every LUT silently went to the window and the video never changed. */
+.ve-lb-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 11px;
+  border: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  color: var(--text-dim, #8a8a94);
+  font-size: 11px;
+  cursor: pointer;
+}
+.ve-lb-chip:hover { color: var(--text, #ededf0); border-color: var(--text-dim, #8a8a94); }
+.ve-lb-chip.on { border-color: var(--gold, #f2ff58); color: var(--gold, #f2ff58); background: rgba(242,255,88,.08); }
+.ve-lb-chip:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+.ve-lb-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+.ve-lb-search {
+  display: flex; align-items: center; gap: 7px;
+  margin: 9px 12px 0;
+  padding: 0 9px;
+  height: 30px;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 7px;
+  background: var(--surface2, #17171b);
+  color: var(--text-dim, #8a8a94);
+  flex: 0 0 auto;
+}
+.ve-lb-search input {
+  flex: 1 1 auto; min-width: 0;
+  background: none; border: none; outline: none;
+  color: var(--text, #ededf0); font-size: 12px;
+}
+.ve-lb-search:focus-within { border-color: var(--gold, #f2ff58); }
+
+.ve-lb-cats { display: flex; gap: 5px; flex-wrap: wrap; padding: 9px 12px 4px; flex: 0 0 auto; }
+.ve-lb-cat {
+  padding: 3px 11px; font-size: 11px; border-radius: 12px;
+  border: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  color: var(--text-dim, #8a8a94);
+  cursor: pointer;
+}
+.ve-lb-cat:hover { color: var(--text, #ededf0); }
+.ve-lb-cat.on { background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58); color: #000; font-weight: 600; }
+.ve-lb-cat:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+/* The grid is the only part that scrolls: header, target, search and footer stay put, so the
+   intensity slider never scrolls away from the card you just clicked. */
+.ve-lb-grid {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: grid;
+  /* FIXED-width columns + an explicit preview height below. Every prior attempt (1fr, then
+     minmax+aspect-ratio, then a padding-bottom wrapper) collapsed: an aspect-sized child does not
+     drive a grid row's height, so the card clipped an 83px preview to 24px = the owner's sliver
+     bars. Fixed geometry has no such circular dependency, so it cannot collapse. */
+  grid-template-columns: repeat(auto-fill, 132px);
+  grid-auto-rows: min-content;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px 12px;
+  align-content: start;
+}
+.ve-lb-empty { grid-column: 1 / -1; padding: 28px 8px; text-align: center; color: var(--text-dim, #8a8a94); }
+
+/* Thin, hover-revealed, volt scrollbar (owner: "scrolu hoverlı yap primary renk ince çubuk"). */
+.ve-lb-grid { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+.ve-lb-grid:hover { scrollbar-color: var(--gold, #f2ff58) transparent; }
+.ve-lb-grid::-webkit-scrollbar { width: 6px; }
+.ve-lb-grid::-webkit-scrollbar-track { background: transparent; }
+.ve-lb-grid::-webkit-scrollbar-thumb { background: transparent; border-radius: 3px; }
+.ve-lb-grid:hover::-webkit-scrollbar-thumb { background: var(--gold, #f2ff58); }
+.ve-lb-grid::-webkit-scrollbar-thumb:hover { background: var(--gold, #f2ff58); }
+
+.ve-lb-card {
+  display: flex; flex-direction: column; gap: 0;
+  padding: 0; overflow: hidden;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 8px;
+  background: var(--surface2, #17171b);
+  cursor: pointer;
+  transition: border-color .12s, transform .12s;
+}
+.ve-lb-card:hover { border-color: var(--text-dim, #8a8a94); transform: translateY(-1px); }
+.ve-lb-card.on { border-color: var(--gold, #f2ff58); box-shadow: 0 0 0 1px var(--gold, #f2ff58); }
+.ve-lb-card:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+/* padding-bottom reserves a 16:9 box in EVERY layout mode; the canvas fills it absolutely. Using
+   aspect-ratio on the canvas alone collapsed inside the grid item (a 24px card clipping an 83px
+   preview = the owner's sliver bars). The bitmap is cover-cropped in JS, so it fills without
+   distortion at any card width. */
+/* Explicit height (132px column * 9/16 ~= 74px): deterministic, so the card row never collapses.
+   The bitmap is cover-cropped in JS, so it fills this box without distortion. */
+.ve-lb-pvwrap { width: 100%; height: 74px; background: var(--surface3, #202027); }
+.ve-lb-pv { width: 100%; height: 100%; display: block; }
+.ve-lb-nm {
+  padding: 4px 6px; font-size: 10px; text-align: center; color: var(--text, #ededf0);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.ve-lb-foot {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px;
+  border-top: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  flex: 0 0 auto;
+}
+.ve-lb-int { display: flex; align-items: center; gap: 8px; flex: 1 1 auto; font-size: 11px; color: var(--text-dim, #8a8a94); }
+.ve-lb-int input[type="range"] { flex: 1 1 auto; accent-color: var(--gold, #f2ff58); min-width: 0; }
+.ve-lb-int b { min-width: 34px; text-align: right; color: var(--text, #ededf0); font-weight: 500; }
+.ve-lb-imp {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px; font-size: 11px;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 6px;
+  background: var(--surface, #131316);
+  color: var(--text, #ededf0);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.ve-lb-imp:hover { border-color: var(--text-dim, #8a8a94); }
+.ve-lb-imp:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+@media (max-width: 700px) {
+  .ve-lb { width: calc(100vw - 24px); }
+  .ve-lb-foot { flex-wrap: wrap; }
+}
+
+/* Popped into a real second window (owner: "pencere açma butonu ver, smartcam modalındaki gibi").
+   Fill the popup: static flow, full size, no floating chrome. */
+.ve-lb.is-popped {
+  position: static;
+  left: auto; top: auto; right: auto; bottom: auto;
+  width: 100%; max-width: none;
+  height: 100vh; max-height: none;
+  border: none; border-radius: 0;
+  box-shadow: none;
+  resize: none;
+}
+.ve-lb.is-popped .ve-lb-head { cursor: default; }

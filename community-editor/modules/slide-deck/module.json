@@ -1,0 +1,10 @@
+{
+  "id": "slide-deck",
+  "title": "Slide deck",
+  "icon": "presentation",
+  "note": "Slide-deck / presentation subsystem. slide-deck.js is the group entry (model + template panel). deck-ui is the clean from-scratch UI (owner-ordered rebuild 2026-07-12) replacing the deleted slide-deck-runtime + slide-deck-final + slide-suite. timer-music-widget is the Pomodoro. children[] auto-maintained by tools/build-manifest.mjs.",
+  "children": [
+    "deck-ui",
+    "timer-music-widget"
+  ]
+}

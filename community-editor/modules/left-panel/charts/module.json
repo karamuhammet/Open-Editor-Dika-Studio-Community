@@ -1,0 +1,8 @@
+{
+  "id": "left-panel.charts",
+  "title": "Charts",
+  "icon": "bar-chart-3",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "Pilot module (Faz 1). Migrated from js/charts.js. Owns its flyout HTML (injected), CSS, and logic. Right-panel chart property inputs stay in index.html until the right-panel modularization phase."
+}

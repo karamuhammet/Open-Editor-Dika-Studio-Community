@@ -1,0 +1,13 @@
+{
+  "id": "left-panel.tools",
+  "title": "Tools",
+  "icon": "wrench",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "Tools panel hub (Faz 2). The Tools rail tab is a HUB over already-separate, self-isolating tool files loaded as <script> in index.html (selection-tools.js, brush-tool.js, brush-eraser.js, pen-tools.js, fill-bucket.js, crop-tool.js, barcode-tools.js, perspective-mockup.js) plus the gallery module's generator opener (openToolGenerator). It is NOT a single app.js blob. The one genuinely app.js-embedded tools feature — the QR Studio wizard — is extracted into the qr/ sub-module. The other tool files stay as index.html scripts by design (already isolated + tangled with gallery/my-shapes); folding them into tools/<sub>/ sub-modules is a future owner-present refactor.",
+  "children": [
+    "barcode-tools",
+    "mockups",
+    "qr"
+  ]
+}

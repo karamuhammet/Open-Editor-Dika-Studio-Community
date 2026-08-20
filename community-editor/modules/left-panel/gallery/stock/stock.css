@@ -1,0 +1,765 @@
+/* stock — no styles yet. */
+
+/* ===== co-located from css/styles.css (gallery stock) ===== */
+/* Stock search bar */
+.stock-search-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stock-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.15s;
+}
+
+.stock-search-input:focus {
+  border-color: var(--gold);
+}
+
+.stock-search-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  flex: 0 0 auto;
+  background: var(--gold);
+  color: #0b0b0d;
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(242, 255, 88, 0.2);
+  transition: transform 0.12s ease, opacity 0.15s;
+}
+
+.stock-search-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.stock-orient-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.stock-orient-btn {
+  height: 34px;
+  width: 34px;
+  padding: 0;
+  background: linear-gradient(180deg, var(--surface2) 0%, var(--surface) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  min-width: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock-orient-btn:hover {
+  border-color: var(--border2);
+}
+
+.stock-orient-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 186px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  padding: 7px;
+  z-index: 40;
+}
+
+.stock-orient-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 12px;
+  padding: 8px 10px 8px 26px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  position: relative;
+}
+
+.stock-orient-item:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.stock-orient-item.active {
+  color: var(--text);
+}
+
+.stock-orient-item.active::before {
+  content: '✓';
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* Stock empty state */
+.stock-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 10px 20px;
+  text-align: center;
+}
+
+.stock-empty-icon {
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.stock-empty-text {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+}
+
+.stock-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.stock-chip {
+  padding: 7px 14px;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.stock-chip:hover {
+  background: var(--surface2);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Stock results grid */
+/* masonry (owner: "stok ara masonry olsun") — CSS columns so each result keeps its own aspect */
+.stock-results {
+  columns: 2;
+  column-gap: 6px;
+}
+
+.stock-results:empty { display: none; }
+
+.stock-result-cell {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--surface2);
+  display: block;
+  width: 100%;
+  margin: 0 0 6px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  transition: transform 0.15s;
+}
+.stock-result-cell > img,
+.stock-result-cell > video { width: 100%; height: auto; display: block; }
+
+.stock-result-cell:hover {
+  transform: scale(1.02);
+}
+
+.stock-result-credit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3px 6px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  font-size: 9px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.stock-result-cell:hover .stock-result-credit { opacity: 1; }
+
+/* ── Video result badge ── */
+.stock-video-cell { position: relative; }
+
+.stock-video-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--r-xs);
+  pointer-events: none;
+}
+
+/* ── Audio result cell ── */
+.stock-audio-cell {
+  aspect-ratio: unset !important;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.stock-audio-cell:hover { background: var(--surface3); transform: none; }
+
+.stock-audio-icon { flex-shrink: 0; }
+
+.stock-audio-info { flex: 1; min-width: 0; }
+
+.stock-audio-title {
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stock-audio-cell .stock-result-credit {
+  position: static;
+  background: none;
+  opacity: 1;
+  padding: 0;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.stock-audio-play {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.stock-audio-play:hover { background: var(--gold); }
+
+/* .stock-results is a MULTICOL masonry (columns: 2), not a grid, so the `grid-column: 1 / -1`
+   these two carried was inert: the status line flowed as normal column text and split across
+   both columns ("Generating sound" / "effect…"). column-span is the multicol equivalent. */
+.stock-loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-dim);
+  font-size: 12px;
+  column-span: all;
+  break-inside: avoid;
+}
+
+.stock-load-more {
+  column-span: all;
+  break-inside: avoid;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  font-size: 11px;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.stock-load-more:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.stock-no-key {
+  text-align: center;
+  padding: 20px 10px;
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MEDIA REWORK - portal /media (.cc-*) parity, re-skinned to editor tokens.
+   The editor does NOT load packages/ui/app-panel.css (different token names),
+   so these .cc-* classes are defined here against --gold / --surface* / --r-*.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Type facet (Image / Video / Audio) - segmented control (matches the editor's
+   Post/Slide/Video style + the Kutuphanem/Stok switcher); no wrap, count badge inside. */
+.cc-typestrip {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  margin-bottom: 12px;
+  background: var(--bg, #141418);          /* match Templates' segmented header (darker well) */
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 3px;
+}
+.cc-typetab {
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 6px;
+  background: transparent;
+  border: none;
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  font: 600 12px/1 var(--font-ui);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.cc-typetab svg { width: 15px; height: 15px; opacity: .8; flex: 0 0 auto; }
+.cc-typetab > span:first-of-type { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cc-typetab .cc-cnt {
+  flex: 0 0 auto;
+  font: 600 10px/1 var(--font-ui);
+  color: var(--text-dim);                  /* was --text-faint: too grey to read (owner) */
+  background: var(--surface3);
+  border-radius: 999px;
+  padding: 2px 6px;
+}
+.cc-typetab:hover { color: var(--text); }
+.cc-typetab.active { background: var(--surface2); color: var(--text); }
+.cc-typetab.active svg { opacity: 1; color: var(--gold); }
+.cc-typetab.active .cc-cnt { color: var(--gold); background: var(--gold-dim); }
+.cc-typetab:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* Library vs Stock segmented switcher (.cc-viewseg) - lives in the flyout header */
+.cc-viewseg {
+  display: flex;
+  background: var(--bg, #141418);          /* match Templates' segmented header */
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 3px;
+}
+.cc-viewseg button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  font: 500 12px/1 var(--font-ui);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.cc-viewseg button svg { width: 14px; height: 14px; }
+.cc-viewseg button:hover { color: var(--text); }
+.cc-viewseg button.active { background: var(--surface2); color: var(--text); }
+.cc-viewseg button.active svg { color: var(--gold); }
+.cc-viewseg button:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* full-width segmented bar sitting directly above the Image/Video/Audio strip (owner: moved out
+   of the flyout header). Two buttons split the width evenly, like the Templates Single/Infinite pill. */
+.media-mode-seg { margin: 0 0 10px; }
+.media-mode-seg button { flex: 1; justify-content: center; }
+
+/* ── Library toolbar (.cc-mediabar): small search + upload icon + filter icon ── */
+.cc-mediabar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.cc-search {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  font-family: var(--font-ui);
+  transition: border-color .15s;
+}
+.cc-search:focus { border-color: var(--gold); }
+.cc-mbtn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  cursor: pointer;
+  position: relative;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.cc-mbtn:hover { background: var(--surface3); border-color: var(--border2); color: var(--text); }
+.cc-mbtn.is-active { color: var(--gold); border-color: var(--gold); }
+.cc-mbtn:focus-visible { outline: none; box-shadow: var(--ring); }
+.cc-filter-wrap { position: relative; flex: 0 0 auto; }
+.cc-filter-badge {
+  position: absolute;
+  top: -5px; right: -5px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gold);
+  color: #0b0b0d;
+  font: 700 10px/1 var(--font-ui);
+  border-radius: 999px;
+}
+
+/* Filter mega-dropdown */
+.cc-filter-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 250px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5);
+  padding: 12px;
+  z-index: 60;
+}
+.cc-filter-sec { margin-bottom: 14px; }
+.cc-filter-sec:last-of-type { margin-bottom: 10px; }
+.cc-filter-label {
+  font: 600 11px/1 var(--font-ui);
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.cc-seg { display: flex; gap: 4px; }
+.cc-seg button {
+  flex: 1;
+  padding: 7px 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  font: 500 11px/1 var(--font-ui);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.cc-seg button:hover { color: var(--text); border-color: var(--border2); }
+.cc-seg button.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+.cc-fcheck { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; color: var(--text); }
+.cc-fcheck input { accent-color: var(--gold); width: 15px; height: 15px; }
+.cc-filter-clear {
+  width: 100%;
+  padding: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  font: 500 12px/1 var(--font-ui);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.cc-filter-clear:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Density (Kucuk resim) — applied on the images section, affects every flat grid.
+   size filter uses a dedicated class so it AND-composes with the search's inline display. */
+.flyout-section[data-section="images"].dens-sm .gal-image-grid { grid-template-columns: repeat(3, 1fr); }
+.flyout-section[data-section="images"].dens-md .gal-image-grid { grid-template-columns: repeat(2, 1fr); }
+.flyout-section[data-section="images"].dens-lg .gal-image-grid { grid-template-columns: 1fr; }
+.flyout-section[data-section="images"].dens-sm .gallery-cell img { height: 54px !important; }
+.flyout-section[data-section="images"].dens-lg .gallery-cell img { height: 150px !important; }
+.gal-filter-hidden { display: none !important; }
+
+/* Collapsed searchable dropdown (Marka / Etiketler): trigger button + floating panel */
+.gal-ss, .gal-dd { display: block; position: relative; }
+.gal-dd-trigger {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; padding: 8px 10px;
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md);
+  color: var(--text-dim); font: 500 12px/1 var(--font-ui); cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.gal-dd-trigger:hover { color: var(--text); border-color: var(--border2); }
+.gal-dd-trigger.has-sel { color: var(--gold); border-color: var(--gold); }
+.gal-dd-trigger.open { border-color: var(--gold); }
+.gal-dd-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gal-dd-arrow { flex: 0 0 auto; transition: transform .15s; }
+.gal-dd-trigger.open .gal-dd-arrow { transform: rotate(180deg); }
+.gal-dd-trigger:focus-visible { outline: none; box-shadow: var(--ring); }
+.gal-dd-panel {
+  position: fixed;
+  z-index: 10001;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-md);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5);
+  padding: 8px;
+  min-width: 180px;
+}
+.gal-ss-search {
+  width: 100%;
+  padding: 6px 9px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  font-family: var(--font-ui);
+  margin-bottom: 6px;
+}
+.gal-ss-search:focus { border-color: var(--gold); }
+.gal-ss-list { display: flex; flex-direction: column; gap: 2px; max-height: 168px; overflow-y: auto; padding-right: 2px; }
+.gal-ss-row { display: flex; align-items: center; gap: 8px; padding: 5px 6px; font-size: 12px; color: var(--text); cursor: pointer; border-radius: var(--r-sm); }
+.gal-ss-row:hover { background: var(--surface3); }
+.gal-ss-row input { accent-color: var(--gold); flex: 0 0 auto; }
+.gal-ss-empty, .gal-ss-more { font-size: 11px; color: var(--text-dim); padding: 7px 6px; text-align: center; }
+.gal-ss-search:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* Context-menu action pickers (Etiketle / Klasore tasi / Markaya ekle) */
+.gal-picker-pop {
+  position: fixed;
+  z-index: 10000;
+  min-width: 200px;
+  max-width: 260px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-md);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5);
+  padding: 8px;
+}
+.gal-picker-title { font: 600 12px/1 var(--font-ui); color: var(--text-dim); padding: 4px 6px 8px; }
+.gal-picker-list { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow-y: auto; }
+.gal-picker-row { display: flex; align-items: center; gap: 8px; padding: 6px; font-size: 12px; color: var(--text); cursor: pointer; border-radius: var(--r-sm); }
+.gal-picker-row:hover { background: var(--surface3); }
+.gal-picker-row input { accent-color: var(--gold); }
+.gal-picker-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 8px; background: none; border: none; color: var(--text); font-size: 12px; cursor: pointer; border-radius: var(--r-sm); font-family: var(--font-ui); }
+.gal-picker-item:hover { background: var(--surface3); }
+.gal-picker-item svg { color: var(--text-dim); flex: 0 0 auto; }
+.gal-picker-actions { display: flex; gap: 6px; margin-top: 8px; }
+.gal-picker-actions button { flex: 1; padding: 7px; border-radius: var(--r-sm); font: 500 12px/1 var(--font-ui); cursor: pointer; border: 1px solid var(--border); }
+.gal-picker-cancel { background: var(--surface); color: var(--text-dim); }
+.gal-picker-cancel:hover { color: var(--text); }
+.gal-picker-ok { background: var(--gold); color: #0b0b0d; border-color: var(--gold); font-weight: 600; }
+.gal-picker-ok:hover { filter: brightness(1.05); }
+
+/* ── AI (ElevenLabs) tabs: "this generates, it does not search" ────────────────────────────
+   The banner is permanent, not a dismissible toast: the mistake it prevents (clicking these like
+   the catalogue tabs beside them) repeats on every visit, and each mistaken click costs money. */
+.stock-ai-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  font: 400 10.5px/1.45 var(--font-ui);
+}
+.stock-ai-note b { color: var(--text); font-weight: 600; }
+.stock-ai-note-ic { flex-shrink: 0; color: var(--gold); line-height: 0; margin-top: 1px; }
+.stock-ai-note-ic svg { display: block; }
+
+/* Generation setup modal */
+.stock-ai-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(9, 9, 11, .62);
+  backdrop-filter: blur(4px);
+}
+.stock-ai-box {
+  width: min(94vw, 380px);
+  background: var(--surface2);
+  border: 1px solid var(--border2, var(--border));
+  border-radius: var(--r-lg, 14px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .55);
+  overflow: hidden;
+}
+.stock-ai-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.stock-ai-head-ic { color: var(--gold); line-height: 0; }
+.stock-ai-head-ic svg { display: block; }
+.stock-ai-head-t { flex: 1; color: var(--text); font: 600 12.5px/1 var(--font-ui); }
+.stock-ai-x {
+  display: flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; padding: 0;
+  background: none; border: none; border-radius: var(--r-sm);
+  color: var(--text-dim); cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.stock-ai-x:hover { background: var(--surface3); color: var(--text); }
+.stock-ai-body { padding: 12px; }
+.stock-ai-lbl {
+  display: block;
+  margin: 0 0 5px;
+  color: var(--text-dim);
+  font: 600 9.5px/1 var(--font-ui);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.stock-ai-ta {
+  width: 100%;
+  padding: 8px 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font: 400 12px/1.5 var(--font-ui);
+  resize: vertical;
+  outline: none;
+  transition: border-color .15s;
+}
+.stock-ai-ta:focus { border-color: var(--gold); }
+.stock-ai-ta::placeholder { color: var(--text-dim); opacity: .65; }
+.stock-ai-row { display: flex; gap: 8px; margin-top: 10px; }
+.stock-ai-row .stock-ai-field { flex: 1; min-width: 0; }
+.stock-ai-field + .stock-ai-field, .stock-ai-body > .stock-ai-field { margin-top: 10px; }
+.stock-ai-row .stock-ai-field + .stock-ai-field { margin-top: 0; }
+.stock-ai-sel {
+  width: 100%;
+  padding: 7px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font: 500 12px/1 var(--font-ui);
+  cursor: pointer;
+  outline: none;
+  transition: border-color .15s;
+}
+.stock-ai-sel:focus, .stock-ai-sel:hover { border-color: var(--gold); }
+.stock-ai-cost {
+  margin-top: 10px;
+  color: var(--text-dim);
+  font: 400 10.5px/1.4 var(--font-ui);
+}
+.stock-ai-foot {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.stock-ai-btn {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  font: 500 12px/1 var(--font-ui);
+  cursor: pointer;
+  transition: color .15s, border-color .15s, filter .15s;
+}
+.stock-ai-btn:hover { color: var(--text); border-color: var(--border2, var(--border)); }
+.stock-ai-btn svg { display: block; }
+.stock-ai-go { background: var(--gold); border-color: var(--gold); color: #0b0b0d; font-weight: 600; }
+.stock-ai-go:hover { color: #0b0b0d; filter: brightness(1.05); }
+
+/* Stock provider strip (.cc-genrebar) — portal scrollable pill row, editor tokens.
+   Scrollbar: hairline + transparent, and only inked on hover/scroll. The Chrome default
+   bar was a solid 6px block under the chips; overlay-style keeps the row's height stable
+   (the track stays reserved, only the thumb's colour changes) so nothing jumps on hover. */
+.cc-genrebar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 10px; scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color .18s; }
+.cc-genrebar:hover, .cc-genrebar:focus-within { scrollbar-color: rgba(255, 255, 255, .16) transparent; }
+.cc-genrebar::-webkit-scrollbar { height: 3px; }
+.cc-genrebar::-webkit-scrollbar-track { background: transparent; }
+.cc-genrebar::-webkit-scrollbar-thumb { background: transparent; border-radius: 999px; transition: background .18s; }
+.cc-genrebar:hover::-webkit-scrollbar-thumb, .cc-genrebar:focus-within::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .16); }
+.cc-genrebar:hover::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, .28); }
+.cc-chip {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font: 500 12px/1 var(--font-ui);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.cc-chip:hover { color: var(--text); border-color: var(--border2); }
+.cc-chip.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+/* Stock loading skeleton (portal MediaSkeleton parity) */
+.stock-skel-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; grid-column: 1 / -1; }
+.stock-skel {
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: stock-skel-shimmer 1.2s ease-in-out infinite;
+}
+@keyframes stock-skel-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* a11y: focus-visible volt ring on every rework control */
+.cc-chip:focus-visible,
+.cc-seg button:focus-visible,
+.cc-filter-clear:focus-visible,
+.gal-picker-item:focus-visible,
+.gal-picker-actions button:focus-visible,
+.cc-checklist input:focus-visible,
+.cc-fcheck input:focus-visible { outline: none; box-shadow: var(--ring); }

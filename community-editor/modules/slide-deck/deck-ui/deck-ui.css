@@ -1,0 +1,175 @@
+/* slide-suite.css — transition modal + present/presenter overlay (owner rebuild 2026-07-12).
+   Token-based (theme.css short names). No em-dash. */
+
+/* ── Transition modal ── */
+.cc-tx-modal { position: fixed; inset: 0; z-index: 100000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); }
+.cc-tx-modal.is-open { display: flex; }
+.cc-tx-panel { width: 388px; max-width: 92vw; max-height: 86vh; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,0.55); overflow: hidden; }
+.cc-tx-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.cc-tx-title { font: 600 14px/1 var(--font-ui, 'DM Sans'); color: var(--text); }
+.cc-tx-x { background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; border-radius: 8px; display: inline-flex; }
+.cc-tx-x:hover { color: var(--gold); }
+.cc-tx-body { padding: 14px 16px; overflow-y: auto; overflow-x: hidden; flex: 1 1 auto; min-height: 0; }
+.cc-tx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cc-tx-choice { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px 9px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; color: var(--text-dim); cursor: pointer; font: 500 11px var(--font-ui, 'DM Sans'); transition: background .14s, border-color .14s, color .14s; }
+.cc-tx-choice:hover { color: var(--text); border-color: var(--gold); }
+.cc-tx-choice.is-active { color: var(--gold); border-color: var(--gold); background: rgba(242,255,88,0.08); }
+.cc-tx-ico { color: inherit; display: inline-flex; line-height: 0; }
+.cc-tx-lbl { line-height: 1.1; text-align: center; }
+.cc-tx-controls { margin-top: 16px; display: flex; flex-direction: column; gap: 14px; }
+.cc-tx-row { display: flex; flex-direction: column; gap: 7px; }
+.cc-tx-row label { font: 600 11px var(--font-ui, 'DM Sans'); color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; }
+.cc-tx-dur { color: var(--gold); }
+.cc-tx-seg { display: flex; gap: 4px; }
+.cc-tx-segbtn { flex: 1; padding: 7px 4px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text-dim); cursor: pointer; font: 500 11px var(--font-ui, 'DM Sans'); transition: color .14s, border-color .14s; }
+.cc-tx-segbtn:hover { color: var(--text); }
+.cc-tx-segbtn.is-active { color: var(--gold); border-color: var(--gold); background: rgba(242,255,88,0.08); }
+.cc-tx-range { width: 100%; accent-color: var(--gold); }
+.cc-tx-ease { width: 100%; padding: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font: 500 12px var(--font-ui, 'DM Sans'); }
+.cc-tx-foot { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); flex: 0 0 auto; }
+.cc-tx-btn { flex: 1; padding: 9px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); cursor: pointer; font: 600 12px var(--font-ui, 'DM Sans'); transition: border-color .14s, color .14s; }
+.cc-tx-btn:hover { border-color: var(--gold); color: var(--gold); }
+.cc-tx-primary { background: var(--gold); color: var(--text-on-gold, #141414); border-color: var(--gold); }
+.cc-tx-primary:hover { color: var(--text-on-gold, #141414); filter: brightness(1.06); }
+
+/* ── Present / presenter overlay ── */
+.cc-present { position: fixed; inset: 0; z-index: 100001; display: none; background: #000; }
+.cc-present.is-open { display: block; }
+.cc-present.is-white { background: #fff; }
+.cc-present.is-black .cc-pr-viewport, .cc-present.is-white .cc-pr-viewport { opacity: 0; }
+.cc-pr-viewport { position: absolute; inset: 0; overflow: hidden; }
+.cc-pr-track { position: absolute; inset: 0; }
+.cc-pr-stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); transform-origin: 50% 50%; will-change: transform, opacity, clip-path; backface-visibility: hidden; }
+.cc-pr-stage canvas { display: block; }
+.cc-pr-notes { position: absolute; left: 0; right: 0; bottom: 58px; max-height: 26vh; overflow-y: auto; padding: 14px 24px; background: rgba(10,10,12,0.86); color: #e8e8ee; font: 400 15px/1.55 var(--font-ui, 'DM Sans'); display: none; }
+.cc-present.show-notes .cc-pr-notes { display: block; }
+.cc-pr-notes.is-empty::after { content: 'No notes for this slide.'; color: #7a7a88; }
+.cc-pr-bar { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(20,20,24,0.82); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; opacity: 0; transition: opacity .2s; z-index: 5; }
+.cc-present:hover .cc-pr-bar, .cc-pr-bar:hover { opacity: 1; }
+.cc-pr-b { background: none; border: none; color: #c9c9d4; cursor: pointer; padding: 6px; border-radius: 8px; display: inline-flex; }
+.cc-pr-b:hover { color: var(--gold); background: rgba(255,255,255,0.06); }
+.cc-pr-count { color: #c9c9d4; font: 600 12px var(--font-ui, 'DM Sans'); min-width: 54px; text-align: center; }
+.cc-present.is-autoplay .cc-pr-b[data-a="autoplay"] { color: var(--gold); }
+
+/* ── Per-slide layers panel (B8) ── */
+.cc-layers-panel { position: fixed; left: 16px; bottom: 74px; width: 262px; max-height: 62vh; display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 99999; overflow: hidden; }
+.cc-layers-panel.is-open { display: flex; }
+.cc-lp-head { display: flex; justify-content: space-between; align-items: center; padding: 11px 13px; border-bottom: 1px solid var(--border); font: 600 13px var(--font-ui, 'DM Sans'); color: var(--text); }
+.cc-lp-x { background: none; border: none; color: var(--text-dim); cursor: pointer; display: inline-flex; padding: 3px; border-radius: 6px; }
+.cc-lp-x:hover { color: var(--gold); }
+.cc-lp-body { padding: 6px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; min-height: 0; }
+.cc-lp-empty, .cc-lp-emptyrow { color: var(--text-dim); font: 500 11px var(--font-ui, 'DM Sans'); padding: 10px 8px; text-align: center; }
+.cc-lp-group { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface2); flex: 0 0 auto; }
+.cc-lp-group.is-active { border-color: var(--border2); background: var(--surface3); }
+.cc-lp-ghead { display: flex; align-items: center; gap: 6px; padding: 8px 9px; cursor: pointer; font: 600 12px var(--font-ui, 'DM Sans'); color: var(--text); }
+.cc-lp-ghead:hover { background: var(--surface3); }
+.cc-lp-chev { display: inline-flex; color: var(--text-dim); transition: transform .14s; }
+.cc-lp-group.is-collapsed .cc-lp-chev { transform: rotate(0deg); }
+.cc-lp-group:not(.is-collapsed) .cc-lp-chev { transform: rotate(90deg); }
+.cc-lp-gname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cc-lp-group.is-active .cc-lp-gname { color: var(--text); }
+.cc-lp-gcount { color: var(--text-dim); font-size: 10px; background: var(--bg); padding: 1px 6px; border-radius: 8px; }
+.cc-lp-list { padding: 2px 6px 6px; display: flex; flex-direction: column; gap: 2px; }
+.cc-lp-row { display: flex; align-items: center; gap: 7px; padding: 5px 7px; border-radius: 6px; cursor: pointer; color: var(--text-dim); font: 500 11px var(--font-ui, 'DM Sans'); }
+.cc-lp-row:hover { background: var(--surface3); color: var(--text); }
+.cc-lp-ic { display: inline-flex; color: inherit; }
+.cc-lp-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Speaker notes panel (B9) ── */
+.cc-notes-panel { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); width: 420px; max-width: 92vw; display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 99999; overflow: hidden; }
+.cc-notes-panel.is-open { display: flex; }
+.cc-notes-head { display: flex; justify-content: space-between; align-items: center; padding: 11px 13px; border-bottom: 1px solid var(--border); font: 600 13px var(--font-ui, 'DM Sans'); color: var(--text); }
+.cc-notes-x { background: none; border: none; color: var(--text-dim); cursor: pointer; display: inline-flex; padding: 3px; border-radius: 6px; }
+.cc-notes-x:hover { color: var(--gold); }
+.cc-notes-area { border: none; outline: none; resize: vertical; min-height: 96px; padding: 12px 14px; background: transparent; color: var(--text); font: 400 13px/1.5 var(--font-ui, 'DM Sans'); }
+
+
+/* ── Lane "..." more menu (R2) ── */
+.cc-more-menu { position: fixed; display: none; flex-direction: column; min-width: 208px; max-height: 70vh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 11px; box-shadow: 0 20px 55px rgba(0,0,0,0.55); z-index: 100002; padding: 6px; }
+.cc-more-menu.is-open { display: flex; }
+.cc-more-head { font: 700 10px var(--font-ui, 'DM Sans'); letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); padding: 8px 9px 4px; }
+.cc-more-item { text-align: left; padding: 8px 10px; background: none; border: none; border-radius: 7px; color: var(--text); cursor: pointer; font: 500 12px var(--font-ui, 'DM Sans'); }
+.cc-more-item:hover { background: var(--surface2); color: var(--gold); }
+
+/* ── Transition modal tabs + animate section (R3) ── */
+.cc-tx-tabs { display: flex; gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.cc-tx-tab { background: none; border: none; border-bottom: 2px solid transparent; padding: 10px 6px; margin-bottom: -1px; color: var(--text-dim); cursor: pointer; font: 600 12px var(--font-ui, 'DM Sans'); }
+.cc-tx-tab:hover { color: var(--text); }
+.cc-tx-tab.is-active { color: var(--gold); border-bottom-color: var(--gold); }
+.cc-tx-agrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cc-tx-objsel { width: 100%; padding: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font: 500 12px var(--font-ui, 'DM Sans'); }
+.cc-tx-playanim { width: 100%; margin-top: 12px; background: var(--gold) !important; color: var(--text-on-gold, #141414) !important; border-color: var(--gold) !important; }
+.cc-tx-sec-animate.is-empty .cc-tx-agrid, .cc-tx-sec-animate.is-empty .cc-tx-trigrow, .cc-tx-sec-animate.is-empty .cc-tx-playanim { opacity: 0.4; pointer-events: none; }
+
+/* ============================================================
+   Slide strip (clean from-scratch rebuild 2026-07-12) — new .sd-* classes only,
+   zero legacy CSS. Background matches the page-tabs bar (--surface). Sharp corners.
+   Hidden scrollbar (wheel/drag scroll). Anchored above the page tabs by JS.
+   ============================================================ */
+#slide-strip-host { box-sizing: border-box; }
+.sd-strip { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 10px; background: var(--surface); border-top: 1px solid var(--border); box-sizing: border-box; }
+.sd-cards { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 10px; overflow-x: auto; overflow-y: hidden; height: 100%; padding: 6px 0; scrollbar-width: none; -ms-overflow-style: none; }
+.sd-cards::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.sd-card { position: relative; flex: 0 0 auto; width: 92px; height: 52px; cursor: pointer; }
+.sd-thumb-wrap { width: 100%; height: 100%; overflow: hidden; box-shadow: inset 0 0 0 1px var(--border); background: var(--bg); }
+.sd-card.is-active .sd-thumb-wrap { box-shadow: inset 0 0 0 2px var(--gold); }
+.sd-card.is-drop .sd-thumb-wrap { box-shadow: inset 0 0 0 2px var(--gold); }
+.sd-thumb { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sd-num { position: absolute; bottom: 3px; right: 4px; font: 600 10px var(--font-ui, 'DM Sans'); color: #fff; background: rgba(0,0,0,0.55); padding: 0 5px; border-radius: 4px; opacity: 0; transition: opacity .12s; pointer-events: none; }
+.sd-card:hover .sd-num { opacity: 1; }
+.sd-badge { position: absolute; top: 3px; left: 3px; font: 600 9px var(--font-ui, 'DM Sans'); color: #fff; background: rgba(0,0,0,0.6); padding: 0 5px; border-radius: 4px; max-width: 84px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+.sd-hover { position: absolute; top: 3px; right: 3px; display: flex; gap: 3px; opacity: 0; transition: opacity .12s; }
+.sd-card:hover .sd-hover { opacity: 1; }
+.sd-h { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; padding: 0; border: none; border-radius: 5px; background: rgba(0,0,0,0.62); color: #e8e8ee; cursor: pointer; }
+.sd-h:hover { background: var(--gold); color: var(--text-on-gold, #141414); }
+.sd-h-del:hover { background: var(--red, #ef4444); color: #fff; }
+.sd-actions { position: absolute; right: 8px; bottom: 74px; z-index: 6; display: flex; align-items: center; gap: 2px; padding: 4px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+.sd-act { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--surface2); color: var(--text-dim); cursor: pointer; transition: color .14s, border-color .14s; }
+.sd-act:hover { color: var(--gold); border-color: var(--gold); }
+.sd-act:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--gold-ring); }
+
+/* Float the strip actions + zoom pill ABOVE the deck (owner: externalize these 2 groups) */
+#slide-strip-host { overflow: visible; }
+.canvas-area.slide-lane-active .zoom-pill { bottom: 112px !important; }
+
+/* ── Strip nav (first/prev at start, next/last at end) ── */
+.sd-nav { flex: 0 0 auto; display: flex; align-items: center; gap: 2px; }
+.sd-nav-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: none; border-radius: 6px; background: var(--surface2); color: var(--text-dim); cursor: pointer; transition: color .12s, background .12s; }
+.sd-nav-btn:hover:not(:disabled) { color: var(--gold); background: var(--surface3); }
+.sd-nav-btn:disabled { opacity: 0.32; cursor: default; }
+
+.sd-card.is-dragging { opacity: 0.5; }
+
+/* Slide-layers: grip, rename, drop target, hover-volt scrollbar (owner requests) */
+.cc-lp-grip { display: inline-flex; align-items: center; color: var(--text-faint); cursor: grab; flex: 0 0 auto; }
+.cc-lp-grip:hover { color: var(--text-dim); }
+.cc-lp-grip:active { cursor: grabbing; }
+.cc-lp-group.is-dragging { opacity: 0.5; }
+.cc-lp-group.is-lp-drop { box-shadow: inset 0 2px 0 var(--gold); }
+.cc-lp-rename { flex: 1; min-width: 0; padding: 2px 6px; background: var(--bg); border: 1px solid var(--gold); border-radius: 5px; color: var(--text); font: 600 12px var(--font-ui, 'DM Sans'); outline: none; }
+.cc-lp-body { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+.cc-lp-body:hover { scrollbar-color: var(--gold) transparent; }
+.cc-lp-body::-webkit-scrollbar { width: 9px; }
+.cc-lp-body::-webkit-scrollbar-track { background: transparent; }
+.cc-lp-body::-webkit-scrollbar-thumb { background: transparent; border-radius: 5px; border: 2px solid transparent; background-clip: padding-box; }
+.cc-lp-body:hover::-webkit-scrollbar-thumb { background: var(--gold); background-clip: padding-box; }
+
+/* ── Present top progress bar (thin, volt) ── */
+.cc-pr-progress { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); z-index: 6; }
+.cc-pr-progress-fill { height: 100%; width: 0; background: var(--gold); }
+
+/* ── Right-click slide settings menu (strip cards + layers rows) ── */
+.cc-sctx { position: fixed; z-index: 100003; min-width: 194px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 18px 50px rgba(0,0,0,0.55); padding: 5px; display: flex; flex-direction: column; }
+.cc-sctx-item { text-align: left; padding: 8px 10px; background: none; border: none; border-radius: 7px; color: var(--text); cursor: pointer; font: 500 12px var(--font-ui, 'DM Sans'); white-space: nowrap; }
+.cc-sctx-item:hover { background: var(--surface2); color: var(--gold); }
+.cc-sctx-item.is-danger:hover { background: var(--red, #ef4444); color: #fff; }
+.cc-sctx-sep { height: 1px; margin: 4px 6px; background: var(--border); }
+
+/* ── PPTX export progress modal ── */
+.cc-pptx-modal { position: fixed; inset: 0; z-index: 100005; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.55); }
+.cc-pptx-box { width: 340px; max-width: 90vw; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,0.55); padding: 22px 22px 20px; }
+.cc-pptx-title { font: 700 15px var(--font-ui, 'DM Sans'); color: var(--text); }
+.cc-pptx-sub { margin-top: 5px; font: 500 12px var(--font-ui, 'DM Sans'); color: var(--text-dim); }
+.cc-pptx-bar { margin-top: 14px; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.cc-pptx-fill { height: 100%; width: 0; background: var(--gold); transition: width .2s ease; }
+.cc-pptx-count { margin-top: 8px; text-align: right; font: 600 12px var(--font-ui, 'DM Sans'); color: var(--gold); }

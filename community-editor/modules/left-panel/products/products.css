@@ -1,0 +1,161 @@
+/* left-panel/products - "Ürünler" paneli stilleri.
+   Liste kartlari (2'li grid, arka plan gorselli), kategori bolumleri,
+   profil drill-in (3'lu grid deger kartlari), durum ekranlari.
+   Filtre popup'i gallery'nin .cc-filter-pop / .gal-ss stillerini paylasir. */
+
+#prod-list { padding: 4px 2px 16px; }
+
+/* ---- kategori bolumleri (templates paneli deseni) ---- */
+.pp-sec { margin-bottom: 14px; }
+.pp-sec-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 2px 2px 8px;
+}
+.pp-sec-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.pp-see-all {
+  background: none; border: none; cursor: pointer; padding: 2px 4px;
+  font-size: 11px; color: var(--text-dim); border-radius: var(--r-sm);
+}
+.pp-see-all:hover { color: var(--text); background: var(--surface2); }
+.pp-sec-hint { font-size: 11px; color: var(--text-faint); padding: 2px 2px 6px; }
+
+/* ---- kart gridi (liste: 2 sutun, her kart AYNI olcude) ----
+   Sutunlar `1fr` idi ve `.pp-card` bir grid ogesi olarak `min-width:auto` tasiyordu: uzun bir urun
+   adi (tek satir, nowrap) kartin min-content genisligini buyutup KENDI sutununu genisletiyordu, o
+   yuzden "Star Wars: The Mandalorian..." karti digerlerinden buyuk goruluyordu (owner 2026-07-24).
+   Cozum: `minmax(0, --pp-card-w)` ile sutun tavani + karta `min-width:0`. Thumb 4/3 oldugu icin
+   yukseklik de otomatik esitlenir. Tavan asilmadiginda kart tam --pp-card-w (varsayilan 150px). */
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, var(--pp-card-w, 150px)));
+  gap: 12px 8px;
+  justify-content: start;
+}
+.pp-card {
+  display: flex; flex-direction: column; gap: 6px;
+  min-width: 0; overflow: hidden;
+  background: none; border: none; padding: 0; cursor: pointer; text-align: left;
+  border-radius: var(--r-md);
+}
+.pp-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.pp-thumb {
+  width: 100%; aspect-ratio: 4 / 3; border-radius: var(--r-md);
+  background-color: var(--surface2); background-size: cover; background-position: center;
+  border: 1px solid var(--border); transition: border-color .15s, transform .15s;
+}
+.pp-card:hover .pp-thumb { border-color: var(--border2); transform: translateY(-1px); }
+.pp-thumb-empty {
+  display: flex; align-items: center; justify-content: center; color: var(--text-faint);
+}
+.pp-meta { display: flex; flex-direction: column; gap: 1px; padding: 0 2px; min-width: 0; }
+.pp-name {
+  font-size: 11.5px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pp-cat {
+  font-size: 10px; color: var(--text-faint);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ---- drill geri basligi + daha fazla ---- */
+.pp-drill-back {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  background: none; border: none; cursor: pointer; padding: 6px 2px 10px;
+  font-size: 13px; font-weight: 600; color: var(--text); text-align: left;
+}
+.pp-drill-back:hover .pp-drill-arrow { color: var(--text); }
+.pp-drill-arrow { font-size: 15px; color: var(--text-dim); }
+.pp-drill-count {
+  margin-left: auto; font-size: 10.5px; font-weight: 500; color: var(--text-dim);
+  background: var(--surface2); border-radius: 999px; padding: 2px 8px;
+}
+.pp-load-more {
+  display: block; width: 100%; margin-top: 10px; padding: 8px;
+  background: var(--surface2); color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  font-size: 11.5px; cursor: pointer;
+}
+.pp-load-more:hover { color: var(--text); border-color: var(--border2); }
+
+/* ---- durum ekranlari ---- */
+.pp-state {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-align: center; padding: 36px 16px;
+}
+.pp-state-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.pp-state-sub { font-size: 11.5px; line-height: 1.5; color: var(--text-dim); max-width: 240px; }
+.pp-state-btn {
+  margin-top: 8px; padding: 6px 14px; font-size: 11.5px; font-weight: 600;
+  color: #111; background: var(--gold); border: none; border-radius: var(--r-sm);
+  cursor: pointer; text-decoration: none;
+}
+.pp-state-btn:hover { filter: brightness(1.05); }
+
+/* ---- iskelet ---- */
+.pp-skel { pointer-events: none; }
+.pp-skel .pp-thumb, .pp-skel .pp-vthumb, .pp-skel-line {
+  animation: pp-shimmer 1.2s ease-in-out infinite;
+}
+.pp-skel-line {
+  display: block; height: 9px; border-radius: 4px; background: var(--surface2); width: 80%;
+}
+.pp-skel-line.pp-skel-short { width: 50%; }
+@keyframes pp-shimmer { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* ---- profil ---- */
+#prod-profile-content { padding: 4px 2px 16px; }
+.pp-psec-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-dim); margin: 10px 2px 8px;
+}
+.pp-divider { height: 1px; background: var(--border); margin: 14px 0 4px; }
+.pp-pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pp-vcard {
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 8px; cursor: pointer; text-align: left;
+  transition: border-color .15s, background .15s;
+}
+.pp-vcard:hover { border-color: var(--border2); background: var(--surface3); }
+.pp-vcard:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.pp-imgcard { padding: 0; overflow: hidden; background: var(--surface2); }
+.pp-vthumb {
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 0;
+  background-color: var(--surface3); background-size: cover; background-position: center;
+}
+.pp-vlabel {
+  font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--gold);
+}
+.pp-vvalue {
+  font-size: 11.5px; line-height: 1.45; color: var(--text);
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  word-break: break-word;
+}
+.pp-pnone { font-size: 11.5px; color: var(--text-faint); padding: 2px 2px 8px; }
+
+/* ---- kucuk ekran uyarlamasi (13" ve alti) ----
+   Flyout genisligi sabit 336px oldugu icin sorun YATAY degil DIKEY: 1440x900 / 1280x800 bir
+   dizustunde panel yuksekligi ~700px'e duser ve 150px'lik kartlarla ekranda ancak iki kategori
+   kalir. Kart tavanini kucultup bolum bosluklarini sikilastiriyoruz; 4/3 orani her zaman korunur. */
+@media (max-height: 900px), (max-width: 1440px) {
+  #prod-list, #prod-profile-content { --pp-card-w: 132px; }
+  .pp-sec { margin-bottom: 12px; }
+  .pp-grid { gap: 10px 8px; }
+}
+@media (max-height: 780px), (max-width: 1280px) {
+  #prod-list, #prod-profile-content { --pp-card-w: 120px; }
+  .pp-sec { margin-bottom: 10px; }
+  .pp-sec-head { margin-bottom: 6px; }
+  .pp-sec-title { font-size: 12.5px; }
+  .pp-name { font-size: 11px; }
+}
+
+/* ---- filtre popup ek alanlari ---- */
+.pp-attrval-host { margin-top: 6px; }
+.pp-attrval-input {
+  width: 100%; padding: 6px 8px; font-size: 11.5px;
+  background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+}
+.pp-attrval-input:focus { outline: none; border-color: var(--gold); }

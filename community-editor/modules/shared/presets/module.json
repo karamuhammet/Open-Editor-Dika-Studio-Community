@@ -1,0 +1,8 @@
+{
+  "id": "shared.presets",
+  "title": "Preset library",
+  "note": "ONE preset store for images and video clips. Presets are PARTIAL by design: a preset may carry only Filters, only a LUT, only Curves, or the whole look. Capture and apply live here so the two panels cannot drift; the panels only host the save + library buttons.",
+  "children": [
+    "ui"
+  ]
+}

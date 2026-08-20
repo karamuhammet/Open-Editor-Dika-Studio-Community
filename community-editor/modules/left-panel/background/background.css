@@ -1,0 +1,198 @@
+/* background — no styles yet. */
+
+/* ===== co-located from css/styles.css (background patterns) ===== */
+/* ─── PATTERNS GRID ──────────────────────────────────────────── */
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ── Icon Pattern ── */
+.ip-mode-tabs {
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 3px;
+}
+
+.ip-mode-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ip-mode-btn:hover {
+  color: var(--text);
+  background: var(--surface2);
+  border-color: var(--border);
+}
+
+.ip-mode-btn.active {
+  background: linear-gradient(135deg, var(--gold), #cfe51d);
+  color: #0a0a0c;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(242, 255, 88, 0.25);
+}
+
+.ip-icon-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ip-slot {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-lg);
+  border: 1.5px dashed var(--border2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.ip-slot:hover { border-color: var(--gold); background: var(--surface2); }
+
+.ip-slot-filled {
+  border-style: solid;
+  border-color: var(--border2);
+  background: var(--surface);
+  gap: 2px;
+}
+
+.ip-slot-filled:hover { border-color: var(--gold); }
+
+.ip-slot-active {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 2px rgba(242, 255, 88, 0.2);
+}
+
+.ip-slot-name {
+  font-size: 8px;
+  color: var(--text-dim);
+  max-width: 46px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.ip-slot-remove {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.ip-slot-filled:hover .ip-slot-remove { display: block; }
+
+.ip-slot-remove:hover { background: #e74c3c; color: #fff; border-color: #e74c3c; }
+
+.ip-picker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 8px;
+  max-height: 220px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ip-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 4px;
+  overflow-y: auto;
+  max-height: 170px;
+  padding-right: 4px;
+}
+
+.ip-grid-cell {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ip-grid-cell:hover {
+  border-color: var(--gold);
+  background: var(--surface2);
+}
+
+.pattern-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pattern-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 12px rgba(242, 255, 88, 0.18);
+  transform: translateY(-1px);
+}
+
+.pattern-thumb {
+  width: 100%;
+  height: 72px;
+  display: block;
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  pointer-events: none;
+}
+
+.pattern-label {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 5px 4px 6px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#pattern-opacity {
+  width: 100%;
+  accent-color: var(--gold);
+}

@@ -1,0 +1,222 @@
+/* settings — no styles yet. */
+
+/* ===== co-located from css/styles.css (settings) ===== */
+/* ─── SETTINGS SCREEN ────────────────────────────────────────── */
+
+.settings-screen {
+  position: fixed; inset: 0; z-index: 8000;
+  background: var(--bg); display: flex;
+}
+
+.settings-sidebar {
+  width: 220px; background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0; display: flex; flex-direction: column;
+  flex-shrink: 0;
+}
+
+.settings-sidebar-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px 20px; font-size: 15px; font-weight: 700; color: var(--text);
+}
+
+.settings-logo { color: var(--gold); line-height: 1; display: flex; }
+
+.settings-nav {
+  display: block; width: 100%; text-align: left;
+  padding: 10px 20px; background: none; border: none;
+  color: var(--text-dim); font-size: 13px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.settings-nav:hover { background: var(--surface2); color: var(--text); }
+
+.settings-nav.active { background: var(--gold-dim); color: var(--gold); font-weight: 600; }
+
+.settings-nav-sep { height: 1px; background: var(--border); margin: 6px 16px; }
+
+.settings-content {
+  flex: 1; padding: 32px 40px; overflow-y: auto;
+}
+
+.settings-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 24px; cursor: pointer; padding: 4px 8px;
+  line-height: 1;
+  /* The settings screen is `inset: 0`, so in the desktop build this button sat exactly under the
+     OS-drawn minimise / maximise / close buttons and could not be seen or pressed: reported as
+     "the X disappeared when I open settings". `env(titlebar-area-width)` is the same measurement
+     the top bar uses, so both reserve the identical strip and neither can guess it wrong. Outside
+     the desktop shell the env vars are unset and the fallback keeps the original 20px. */
+  right: calc(20px + 100vw - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100vw));
+}
+
+.settings-close:hover { color: var(--text); }
+
+.settings-section-title {
+  font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px;
+}
+
+.settings-form { display: flex; flex-direction: column; gap: 14px; }
+
+.settings-field { display: flex; flex-direction: column; gap: 4px; }
+
+.settings-label {
+  font-size: 11px; font-weight: 600; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.settings-input {
+  padding: 10px 12px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); color: var(--text); font-size: 13px; outline: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.settings-input:focus { border-color: var(--gold); }
+
+.settings-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.sp-acc-body .settings-field { margin-bottom: 10px; }
+
+.sp-acc-body .settings-field:last-child { margin-bottom: 0; }
+
+.settings-field.has-icon { flex-direction: row; align-items: center; gap: 10px; }
+
+/* Save button feedback */
+#settings-save-profile { transition: all 0.25s ease; }
+
+#settings-save-profile:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+#settings-save-profile:active { transform: scale(0.97); }
+
+#settings-save-profile.save-success { background: #22c55e !important; color: #fff !important; transform: scale(1.02); }
+
+#settings-save-profile { max-width: 520px; }
+
+/* ─── BRAND SET STYLES ──────────────────────────────────────── */
+.bs-list { display: flex; flex-direction: column; gap: 8px; }
+
+.bs-card {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 12px 14px; background: var(--surface);
+  transition: border-color 0.15s;
+}
+
+.bs-card:hover { border-color: var(--text-dim); }
+
+.bs-card-active { border-color: var(--gold); background: var(--gold-dim); }
+
+.bs-card-head { display: flex; align-items: center; gap: 12px; }
+
+.bs-card-colors { display: flex; gap: 4px; flex-shrink: 0; }
+
+.bs-swatch {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: inline-block;
+}
+
+.bs-card-info { flex: 1; min-width: 0; }
+
+.bs-card-name {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.bs-card-font {
+  display: block; font-size: 11px; color: var(--text-dim); margin-top: 2px;
+}
+
+.bs-card-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+
+.bs-badge-active {
+  font-size: 10px; font-weight: 700; color: var(--gold);
+  border: 1px solid var(--gold); border-radius: var(--r-xs);
+  padding: 2px 8px; text-transform: uppercase; letter-spacing: .5px;
+}
+
+.bs-btn-activate {
+  font-size: 11px; padding: 3px 10px; border-radius: var(--r-xs);
+  border: 1px solid var(--border); background: var(--surface2);
+  color: var(--text-dim); cursor: pointer; transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.bs-btn-activate:hover { border-color: var(--gold); color: var(--gold); }
+
+.bs-btn-edit, .bs-btn-del {
+  background: none; border: none; font-size: 16px;
+  color: var(--text-faint); cursor: pointer; padding: 2px 4px;
+  line-height: 1; transition: color 0.15s;
+}
+
+.bs-btn-edit:hover { color: var(--gold); }
+
+.bs-btn-del:hover { color: #ef4444; }
+
+/* ── Brand Set Editor (Modal Overlay) ── */
+.bs-editor-overlay {
+  position: fixed; inset: 0; z-index: 8500;
+  background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.bs-editor-box {
+  background: var(--bg); border-radius: var(--r-lg);
+  width: 440px; max-height: 80vh; display: flex; flex-direction: column;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  border: 1px solid var(--border);
+}
+
+.bs-editor-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  font-size: 15px; font-weight: 700; color: var(--text);
+}
+
+.bs-editor-close {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 22px; cursor: pointer; padding: 0 4px; line-height: 1;
+}
+
+.bs-editor-close:hover { color: var(--text); }
+
+.bs-editor-body {
+  padding: 16px 20px; overflow-y: auto; flex: 1;
+}
+
+.bs-editor-footer {
+  padding: 12px 20px; border-top: 1px solid var(--border);
+  display: flex; gap: 10px; justify-content: flex-end;
+}
+
+/* ── Accordion ── */
+.bs-acc { border: 1px solid var(--border); border-radius: var(--r-md); margin-bottom: 10px; overflow: hidden; }
+
+.bs-acc-toggle {
+  display: flex; align-items: center; gap: 6px; width: 100%;
+  background: var(--surface); border: none; padding: 10px 14px;
+  font-size: 13px; font-weight: 600; color: var(--text);
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.bs-acc-toggle:hover { background: var(--surface2); }
+
+.bs-acc-toggle.active { background: var(--surface2); }
+
+.bs-acc-panel { padding: 12px 14px; }
+
+/* ── Color row ── */
+.bs-color-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0;
+}
+
+.bs-color-picker {
+  width: 32px; height: 32px; border: none; border-radius: var(--r-sm);
+  cursor: pointer; padding: 0; background: none;
+}
+
+.ai-skey-wrap .settings-input { flex: 1; }

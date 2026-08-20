@@ -1,0 +1,185 @@
+/* The floating colour toolbar. Chrome matches the multicam monitor (the owner's reference for what a
+   floating panel should look like here): dark surface, thin border, drag handle at the top. */
+.ve-ct {
+  position: fixed;
+  z-index: 10006;
+  width: 226px;
+  background: var(--surface, #131316);
+  border: 1px solid var(--border, #27272d);
+  border-radius: 10px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, .55);
+  font-size: 12px;
+  color: var(--text, #ededf0);
+  user-select: none;
+  overflow: hidden;
+}
+
+.ve-ct-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+}
+.ve-ct-title { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 12px; }
+.ve-ct-x {
+  background: none; border: none; color: var(--text-dim, #8a8a94);
+  cursor: pointer; padding: 2px; display: flex; border-radius: 4px;
+}
+.ve-ct-x:hover { color: var(--text, #ededf0); background: var(--surface3, #202027); }
+
+.ve-ct-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px; }
+.ve-ct-t {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 7px 2px;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 7px;
+  background: var(--surface2, #17171b);
+  color: var(--text-dim, #8a8a94);
+  cursor: pointer;
+}
+.ve-ct-t span { font-size: 9px; letter-spacing: .01em; }
+.ve-ct-t:hover { color: var(--text, #ededf0); border-color: var(--text-dim, #8a8a94); }
+.ve-ct-t.on {
+  color: #000; background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58); font-weight: 600;
+}
+.ve-ct-t:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+.ve-ct-sec { padding: 0 8px 8px; }
+.ve-ct-sec-h {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-dim, #8a8a94);
+  padding: 6px 2px;
+}
+.ve-ct-n {
+  background: var(--surface3, #202027); border-radius: 8px;
+  padding: 0 5px; font-size: 9px; color: var(--text, #ededf0);
+}
+
+/* The list is the one thing here that grows without bound, so it scrolls instead of pushing the
+   footer off the panel. */
+.ve-ct-list { display: flex; flex-direction: column; gap: 3px; max-height: 190px; overflow-y: auto; }
+.ve-ct-empty { padding: 12px 6px; text-align: center; color: var(--text-dim, #8a8a94); font-size: 10px; line-height: 1.5; }
+
+.ve-ct-row {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 5px;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 6px;
+  background: var(--surface2, #17171b);
+  cursor: pointer;
+}
+.ve-ct-row:hover { background: var(--surface3, #202027); }
+.ve-ct-row.on { border-color: var(--gold, #f2ff58); }
+.ve-ct-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; box-shadow: 0 0 0 1px rgba(0,0,0,.6); }
+.ve-ct-nm { flex: 1 1 auto; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ve-ct-nmtext { font-weight: 500; cursor: text; }
+.ve-ct-nmtext:hover { text-decoration: underline dotted rgba(255,255,255,.35); }
+.ve-ct-nm-edit {
+  flex: 1 1 auto; width: 100%; box-sizing: border-box; font-size: 11px; font-weight: 500;
+  background: var(--bg-0, #0b0b0d); color: var(--text, #f4f4f6);
+  border: 1px solid var(--gold, #f2ff58); border-radius: 4px; padding: 2px 5px; outline: none;
+}
+
+.ve-ct-b {
+  flex: 0 0 auto; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; border-radius: 4px;
+  background: none; color: var(--text-dim, #8a8a94); cursor: pointer; padding: 0;
+}
+.ve-ct-b:hover { color: var(--text, #ededf0); border-color: var(--border, #27272d); }
+.ve-ct-b.on { color: var(--gold, #f2ff58); }
+.ve-ct-del:hover { color: #ff6b6b; border-color: #ff6b6b; }
+.ve-ct-b:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+.ve-ct-f { display: flex; align-items: center; gap: 8px; padding: 4px 2px; font-size: 10px; color: var(--text-dim, #8a8a94); }
+.ve-ct-f span { flex: 0 0 62px; }
+.ve-ct-f input[type="range"] { flex: 1 1 auto; accent-color: var(--gold, #f2ff58); min-width: 0; }
+
+.ve-ct-wide {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  height: 26px; margin-top: 5px;
+  border: 1px solid var(--border, #27272d);
+  border-radius: 6px;
+  background: var(--surface2, #17171b);
+  color: var(--text, #ededf0);
+  font-size: 11px; cursor: pointer;
+}
+.ve-ct-wide:hover { border-color: var(--text-dim, #8a8a94); }
+.ve-ct-wide.on { color: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58); }
+.ve-ct-wide:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+.ve-ct-foot { padding: 0 8px 8px; border-top: 1px solid var(--border, #27272d); padding-top: 8px; }
+
+/* Docked (owner 2026-07-17: Resolve's Window palette is a fixed part of the Color page, not a
+   floating box). Anchored to the right edge, full height under the toolbar: while you work down a
+   node list you want it to stay put, and while you draw on the picture you want it out of the way.
+   Hence a toggle, not a decision made for the user. */
+.ve-ct.is-docked {
+  left: auto !important;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+  width: 244px;
+  border-radius: 0;
+  border-right: none;
+  border-top: 1px solid var(--border, #27272d);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, .35);
+  display: flex;
+  flex-direction: column;
+}
+/* Docked, the list is the part that gets the leftover height: undocked it is capped so the panel
+   stays a small floating box. */
+.ve-ct.is-docked .ve-ct-list { max-height: none; flex: 1 1 auto; }
+.ve-ct.is-docked .ve-ct-sec:first-of-type { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+.ve-ct.is-docked .ve-ct-head { cursor: default; }
+
+/* Node chain rows. The number is the APPLY ORDER, not decoration: the chain is serial, so a
+   desaturate before a LUT and the same desaturate after it are different pictures. */
+.ve-ct-num {
+  flex: 0 0 auto; width: 14px; height: 14px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px;
+  background: var(--surface3, #202027);
+  color: var(--text-dim, #8a8a94);
+  font-size: 8px; font-weight: 700;
+}
+.ve-ct-row.on .ve-ct-num { background: var(--gold, #f2ff58); color: #0b0b0d; }
+.ve-ct-sub { display: block; font-size: 8px; font-style: normal; color: var(--text-dim, #8a8a94); line-height: 1.2; }
+.ve-ct-b[disabled] { opacity: .28; cursor: default; pointer-events: none; }
+.ve-ct-sec-h .ve-ct-b { margin-left: auto; }
+
+/* Popped into a real second window (owner: "pencere açma butonu ver, smartcam modalındaki gibi"). */
+.ve-ct.is-popped {
+  position: static;
+  left: auto !important; top: auto; right: auto; bottom: auto;
+  width: 100%; height: 100vh;
+  border: none; border-radius: 0; box-shadow: none;
+}
+.ve-ct.is-popped .ve-ct-list { max-height: none; }
+.ve-ct.is-popped .ve-ct-head { cursor: default; }
+
+/* Selected-window: name + timing (owner: "isimlendirme ... 5 saniye 10 saniye tutarım"). */
+.ve-ct-name-in {
+  width: 100%; box-sizing: border-box;
+  margin-bottom: 6px; padding: 4px 7px;
+  border: 1px solid var(--border, #27272d); border-radius: 5px;
+  background: var(--surface2, #17171b); color: var(--text, #ededf0);
+  font-size: 11px; outline: none;
+}
+.ve-ct-name-in:focus { border-color: var(--gold, #f2ff58); }
+.ve-ct-timed { justify-content: space-between; }
+.ve-ct-timed input[type="checkbox"] { accent-color: var(--gold, #f2ff58); flex: 0 0 auto; }
+.ve-ct-time { display: flex; gap: 6px; padding: 2px 0 4px; }
+.ve-ct-time label {
+  flex: 1 1 0; display: flex; align-items: center; gap: 4px;
+  font-size: 10px; color: var(--text-dim, #8a8a94);
+}
+.ve-ct-time input[type="number"] {
+  flex: 1 1 auto; min-width: 0; width: 100%;
+  padding: 3px 5px; border: 1px solid var(--border, #27272d); border-radius: 4px;
+  background: var(--surface2, #17171b); color: var(--text, #ededf0); font-size: 11px; outline: none;
+}
+.ve-ct-time input[type="number"]:focus { border-color: var(--gold, #f2ff58); }
+.ve-ct-time i { font-style: normal; color: var(--text-dim, #8a8a94); }

@@ -1,0 +1,37 @@
+/* ═══════════════════════════════════════════════════════════════════
+   VE-ITEM-PROPS - the docked item panel BORROWS the real panel blocks, so it
+   owns almost no styling: the shell is .ve-insp-* (video-editor.css) and each
+   adopted block keeps its own look. The only job here is to make the slot the
+   blocks land in disappear - a borrowed #rp-text must not gain an accordion
+   border or a second layer of padding just because it moved.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.ve-insp-dock .vip-adopt {
+  border-bottom: none;
+  padding: 0;
+}
+
+.ve-insp-dock .vip-adopt-host {
+  display: block;
+}
+
+/* The blocks were sized for the panel body's own gutter; inside the dock they
+   sit directly on the wrap, so restore the horizontal breathing room only. */
+.ve-insp-dock .vip-adopt-host > [id^="rp-"] {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* A borrowed block that carries its own separator would double up with the
+   section above it. */
+.ve-insp-dock .vip-adopt + .ve-insp-section {
+  border-top: 1px solid var(--border);
+}
+
+/* The subtitle Style / Animation catalogues render into a section body; they
+   bring their own grid, so the body must not add a second scroll context. */
+.ve-insp-dock #vip-sub-style,
+.ve-insp-dock #vip-sub-anim {
+  display: block;
+  min-height: 20px;
+}

@@ -1,0 +1,16 @@
+<!-- The app icon: the dika mark ONLY, taken from apps/community-editor/dika-logo.svg.
+     The two volt paths there are the mark; the four #fcfcfc glyph groups beside them are the
+     "dika" wordmark and are deliberately not here, because a wordmark is unreadable at 16px in a
+     taskbar and the owner asked for the icon alone.
+
+     The mark's own bounding box in that file is x 0.13..160.55, y 37.39..129.98. The transform
+     below moves it to the origin, scales it to 320px wide and centres it in a 512 square. Nothing
+     is redrawn: the two path data strings are copied verbatim, so this cannot drift into an
+     approximation of the brand. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="114" ry="114" fill="#16161b"/>
+  <g transform="translate(96 163.7) scale(1.995) translate(-0.132812 -37.394531)">
+    <path fill="#f2ff58" fill-rule="evenodd" d="M 0.132812 81.796875 L 160.550781 37.394531 L 110.550781 129.976562 L 64.457031 99.117188 L 160.316406 37.550781 L 59.117188 98.074219 L 52.867188 129.195312 L 40.628906 94.816406 L 160.300781 37.542969 L 38.414062 92.476562 Z M 0.132812 81.796875 "/>
+    <path fill="#f2ff58" fill-rule="evenodd" d="M 55.980469 129.890625 L 76.605469 111.109375 L 63.347656 101.351562 Z M 55.980469 129.890625 "/>
+  </g>
+</svg>

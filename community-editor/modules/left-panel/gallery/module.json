@@ -1,0 +1,10 @@
+{
+  "id": "left-panel.gallery",
+  "children": [
+    "browser",
+    "canvas",
+    "stock",
+    "storage",
+    "upload"
+  ]
+}

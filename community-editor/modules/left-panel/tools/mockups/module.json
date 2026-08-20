@@ -1,0 +1,8 @@
+{
+  "id": "left-panel.tools.mockups",
+  "title": "Device Mockups",
+  "icon": "smartphone",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "Device Mockups generator — builds iPhone/MacBook/Browser/iPad/Android frame groups on the canvas. Extracted VERBATIM from app.js section 21b (initMockups). Lazy-only: the gallery module's openToolGenerator('mockups') creates a fresh #mockup-grid then calls window.initMockups to populate it. The old app.js init-time initMockups() call was dead code (#mockup-grid never exists at load) and was removed."
+}

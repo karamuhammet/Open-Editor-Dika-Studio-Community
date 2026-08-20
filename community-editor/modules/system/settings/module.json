@@ -1,0 +1,17 @@
+{
+  "id": "system.settings",
+  "children": [
+    "about",
+    "account",
+    "api-keys",
+    "brand",
+    "keyboard",
+    "preferences",
+    "profiles",
+    "rail",
+    "screen",
+    "sleep",
+    "version-history",
+    "work"
+  ]
+}

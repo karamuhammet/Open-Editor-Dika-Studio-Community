@@ -1,0 +1,13 @@
+{
+  "id": "left-panel.whiteboard",
+  "children": [
+    "bar",
+    "brush",
+    "interaction",
+    "lines",
+    "mode",
+    "sticky",
+    "tools",
+    "util"
+  ]
+}

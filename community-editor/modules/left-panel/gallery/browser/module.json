@@ -1,0 +1,9 @@
+{
+  "id": "left-panel.gallery.browser",
+  "children": [
+    "folders",
+    "grid",
+    "panel",
+    "selection"
+  ]
+}

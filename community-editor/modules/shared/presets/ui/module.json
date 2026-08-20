@@ -1,0 +1,5 @@
+{
+  "id": "shared.presets.ui",
+  "title": "Preset library UI",
+  "note": "The save dialog + library modal, built on the video inspector modal shell (.ve-cgm). Injects the save / library buttons into any section header that declares data-preset-part."
+}

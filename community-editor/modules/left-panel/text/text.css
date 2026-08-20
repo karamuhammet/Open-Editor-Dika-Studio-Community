@@ -1,0 +1,37 @@
+/* ============================================================
+   Module: left-panel/text — panel shell styles (.txp-*).
+   Extracted from styles.css (Faz 2). Sub-module galleries that use
+   distinct prefixes ship their own CSS (pairings .fp-, effects .fx-,
+   dynamic .dyn-). Theme tokens (var(--…)) are the only shared surface.
+   ============================================================ */
+.txp-search-wrap { display: flex; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid var(--border2); border-radius: var(--r-lg); background: var(--surface2); margin-bottom: 12px; }
+.txp-search-ico { color: var(--text-dim); opacity: .6; flex-shrink: 0; }
+.txp-search { flex: 1; border: 0; background: none; color: var(--text); font-size: 12.5px; padding: 10px 0; outline: none; font-family: inherit; }
+.txp-add-text { width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 12px; border: 0; border-radius: var(--r-lg); background: var(--gold); color: #1b1320; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-bottom: 10px; transition: filter .15s; }
+.txp-add-text:hover { filter: brightness(1.08); }
+.txp-quick { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.txp-quick-card { width: 100%; text-align: left; padding: 13px 14px; border: 1px solid var(--border2); border-radius: var(--r-lg); background: var(--surface2); cursor: pointer; transition: border-color .15s, background .15s; }
+.txp-quick-card:hover { border-color: var(--gold); background: rgba(255,255,255,.03); }
+.txp-q-head { font-size: 23px; font-weight: 700; color: var(--text); line-height: 1.1; }
+.txp-q-sub { font-size: 16px; font-weight: 600; color: #ededf2; }
+.txp-q-body { font-size: 12.5px; font-weight: 400; color: var(--text-dim); }
+.txp-sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+.txp-sec-title { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--text-dim); }
+.txp-chips { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
+.txp-chips::-webkit-scrollbar { display: none; }
+.txp-chip { font-size: 11.5px; font-weight: 600; padding: 6px 12px; border-radius: var(--r-pill); border: 1px solid var(--border2); background: transparent; color: var(--text-dim); cursor: pointer; white-space: nowrap; transition: all .15s; font-family: inherit; }
+.txp-chip:hover { color: var(--text); }
+.txp-chip.active { border-color: var(--gold); background: var(--gold-dim); color: var(--gold); }
+.txp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+.txp-card { aspect-ratio: 1.15; border: 1px solid #2c2c32; border-radius: var(--r-lg); background: #17171b; display: flex; align-items: center; justify-content: center; text-align: center; padding: 9px; cursor: pointer; overflow: hidden; transition: border-color .15s, transform .15s; }
+.txp-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.txp-card-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; transform-origin: center; max-width: 100%; }
+.txp-empty { grid-column: 1 / -1; text-align: center; font-size: 12px; color: var(--text-dim); padding: 20px 0; }
+.txp-more { grid-column: 1 / -1; font-size: 12px; font-weight: 600; font-family: inherit; padding: 11px; border-radius: var(--r-lg); border: 1px solid var(--border2); background: transparent; color: var(--text-dim); cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.txp-more:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.txp-more span { opacity: .55; font-weight: 500; margin-left: 2px; }
+.txp-row { width: 100%; display: flex; align-items: center; gap: 9px; padding: 13px 12px; border: 1px solid var(--border2); border-radius: var(--r-lg); background: rgba(255,255,255,.012); margin-bottom: 8px; color: var(--text); cursor: pointer; transition: border-color .15s, background .15s; font-family: inherit; }
+.txp-row:hover { border-color: var(--gold); background: rgba(255,255,255,.03); }
+.txp-row > svg:first-child { opacity: .8; flex-shrink: 0; }
+.txp-row-t { font-size: 13px; font-weight: 500; }
+.txp-row-arr { margin-left: auto; opacity: .5; }

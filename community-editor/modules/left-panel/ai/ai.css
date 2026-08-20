@@ -1,0 +1,5 @@
+/* left-panel/ai - no styles of its own in the Community Edition.
+   The panel is a single card painted by CCEdition.lockSurface, which injects its own CSS once
+   (core/edition.js). The ~1500 lines of chat/composer/gallery styling upstream carries went with the
+   twelve child modules. Kept as an empty file because core/loader.js requests <name>.css for every
+   module, and a 404 per boot is noise that hides a real one. */

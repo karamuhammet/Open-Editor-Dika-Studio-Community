@@ -1,0 +1,427 @@
+/* export — no styles yet. */
+
+/* ===== co-located from css/styles.css (export dialog) ===== */
+.export-btn {
+  background: var(--gold);
+  color: #0b0b0d;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.export-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(242, 255, 88, 0.35);
+}
+
+/* ─── 12. EXPORT OPTIONS DIALOG ───────────────────────────────── */
+
+.export-options {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.export-opt-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.export-opt-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.export-format-row {
+  display: flex;
+  gap: 6px;
+}
+
+.export-format-btn {
+  flex: 1;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  color: var(--text-dim);
+  padding: 10px 8px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.export-format-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.export-format-btn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* Transparent background toggle */
+.export-transparent-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.export-transparent-toggle:hover {
+  border-color: var(--gold);
+}
+
+.export-transparent-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.export-transparent-hint {
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-left: auto;
+}
+
+.export-size-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.export-size-input {
+  width: 80px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  text-align: center;
+}
+
+.export-size-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.export-size-x {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+/* ── Download progress popup ───────────────────────────────── */
+.dl-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  z-index: 9999;
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.dl-popup.collapsed .dl-popup-body { display: none; }
+
+.dl-popup-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: var(--surface3);
+  cursor: move;
+  user-select: none;
+}
+
+.dl-popup-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.dl-popup-collapse {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.dl-popup-collapse:hover { color: var(--text); }
+
+.dl-popup-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; }
+
+.dl-popup-item { display: flex; flex-direction: column; gap: 4px; }
+
+.dl-popup-name {
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dl-popup-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dl-popup-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.dl-popup-pct {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.dl-popup-item.dl-done .dl-popup-pct { color: #6fcf97; }
+
+.dl-popup-item.dl-error .dl-popup-pct { color: #eb5757; }
+
+/* ===== co-located from css/styles.css (promo popup) ===== */
+/* ─── 19. PROMO / COUPON POPUP ────────────────────────────────── */
+
+.promo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.promo-overlay.show {
+  display: flex;
+}
+
+.promo-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.promo-card {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-xl);
+  width: 480px;
+  max-width: 92vw;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+}
+
+.promo-top {
+  background: linear-gradient(135deg, var(--gold), #d4a843);
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.promo-badge {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: var(--r-2xl);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.promo-discount {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #0b0b0d;
+  line-height: 1;
+}
+
+.promo-discount-sub {
+  font-size: 14px;
+  color: rgba(11, 11, 13, 0.7);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.promo-body {
+  padding: 24px;
+  text-align: center;
+}
+
+.promo-timer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.promo-timer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promo-timer-num {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-family: 'Space Mono', monospace;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: var(--r-md);
+  min-width: 52px;
+}
+
+.promo-timer-label {
+  font-size: 9px;
+  color: var(--text-faint);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.promo-coupon {
+  background: var(--surface2);
+  border: 2px dashed var(--gold);
+  border-radius: var(--r-lg);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.promo-code {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.promo-copy-btn {
+  background: var(--gold);
+  color: #0b0b0d;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.promo-copy-btn:hover {
+  background: var(--gold-light);
+}
+
+.promo-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.promo-main-btn {
+  background: var(--gold);
+  color: #0b0b0d;
+  border: none;
+  padding: 12px 28px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.promo-main-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(242, 255, 88, 0.35);
+}
+
+.promo-dismiss {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 12px 24px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.promo-dismiss:hover {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+.promo-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.promo-close:hover {
+  background: rgba(0, 0, 0, 0.4);
+}

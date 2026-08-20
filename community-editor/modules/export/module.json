@@ -1,0 +1,15 @@
+{
+  "id": "export",
+  "title": "Export / IO",
+  "icon": "download",
+  "note": "Export & import subsystem (Faz 8): the main export dialog (export.js, which is the group entry) + export-manager, bulk-export, group-export-excel, import-export, recorder as children. Top-level group; children[] auto-maintained by tools/build-manifest.mjs.",
+  "children": [
+    "bulk-export",
+    "export-manager",
+    "group-export-excel",
+    "import-export",
+    "project-package",
+    "recorder",
+    "share-menu"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "video.video-editor",
+  "children": [
+    "advanced-panels",
+    "clip-edit",
+    "clips",
+    "events",
+    "export",
+    "import",
+    "multicam",
+    "playback",
+    "preview",
+    "preview-render",
+    "project",
+    "render",
+    "timing",
+    "undo-markers"
+  ]
+}

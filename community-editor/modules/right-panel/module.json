@@ -1,0 +1,18 @@
+{
+  "id": "right-panel",
+  "title": "Properties",
+  "icon": "sliders",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "Right-side PROPERTY EDITOR module group (Faz 6b). Parent owns the engine: syncRightPanel (active object → ~78 #p-* inputs, on selection), initPropertyBindings (inputs → object), panel toggle, board variants, setAlign. Self-inits on the sticky 'cc:canvas-ready' lifecycle event (not via app.js calls). The #p-* HTML stays in index.html. Step 1 = one file relocated from core/; Faz 6b-2 splits it into typography/appearance/effects/layout/layers sub-modules (each its own folder, fault-isolated via cc.safe), with appearance reusing modules/shared/color-picker.",
+  "children": [
+    "appearance",
+    "board",
+    "design-fields",
+    "image",
+    "image-inspector",
+    "qr",
+    "shape",
+    "typography"
+  ]
+}

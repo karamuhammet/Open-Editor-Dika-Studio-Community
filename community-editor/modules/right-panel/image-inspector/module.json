@@ -1,0 +1,5 @@
+{
+  "id": "right-panel.image-inspector",
+  "title": "Image inspector",
+  "note": "The tabbed image panel (Temel / Renk / Efekt / AI) inside #rp-image. Owns the tab switch, the Source chips and the Renk tab's preset cards + adjustment chain. Separate from right-panel/image, which keeps the Border / Clip / action bindings it already had."
+}

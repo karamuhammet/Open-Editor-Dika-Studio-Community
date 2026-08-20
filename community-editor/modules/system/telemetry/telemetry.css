@@ -1,0 +1,3 @@
+/* system/telemetry - no UI of its own. The switch lives in the setup wizard and in Settings.
+   Kept as a file because core/loader.js requests <name>.css for every module and a 404 per boot
+   hides a real one. */

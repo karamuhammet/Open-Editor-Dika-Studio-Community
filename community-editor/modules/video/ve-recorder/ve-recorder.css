@@ -1,0 +1,270 @@
+/* VE Camera Recorder (R0). Editor-legacy CSS; colours + idioms from the editor's own vars,
+   same shape as the multicam panels so the two read as one family. */
+
+.ve-rec {
+  position: fixed; left: 0; top: 0;
+  width: 520px; height: 460px;
+  min-width: 380px; min-height: 300px;
+  max-width: calc(100vw - 16px); max-height: calc(100vh - 16px);
+  resize: both;
+  background: var(--surface2, #1b1b1f);
+  border: 1px solid var(--border, #27272d);
+  border-radius: 10px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .7);
+  z-index: 10050;
+  display: none; flex-direction: column; overflow: hidden;
+  font-size: 12px; color: var(--text, #ededf0);
+}
+
+.ve-rec-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; border-bottom: 1px solid var(--border, #27272d);
+}
+.ve-rec-title { display: flex; align-items: center; gap: 7px; font-size: 13px; }
+.ve-rec-x {
+  background: none; border: none; color: var(--text-dim, #888);
+  cursor: pointer; padding: 2px; border-radius: 4px; display: flex;
+}
+.ve-rec-x:hover { color: var(--text, #ededf0); background: var(--surface3, #232328); }
+
+.ve-rec-body { flex: 1; overflow-y: auto; padding: 12px 14px; }
+
+/* Same volt scrollbar as the timeline (.ve-scroll-wrap) and the multicam panels */
+.ve-rec-body::-webkit-scrollbar { width: 6px; }
+.ve-rec-body::-webkit-scrollbar-track { background: transparent; }
+.ve-rec-body::-webkit-scrollbar-thumb {
+  background: rgba(242, 255, 88, .16); border-radius: 3px; transition: background .15s;
+}
+.ve-rec-body:hover::-webkit-scrollbar-thumb { background: rgba(242, 255, 88, .3); }
+.ve-rec-body::-webkit-scrollbar-thumb:hover { background: rgba(242, 255, 88, .55); }
+.ve-rec-body { scrollbar-width: thin; scrollbar-color: rgba(242, 255, 88, .28) transparent; }
+
+/* Every surface gets a real state, including "nothing here yet" */
+.ve-rec-state {
+  height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 7px; text-align: center; padding: 24px 16px;
+  color: var(--text-dim, #888);
+}
+.ve-rec-state b { color: var(--text, #ededf0); font-size: 13px; }
+.ve-rec-state span { font-size: 11px; line-height: 1.55; max-width: 300px; }
+.ve-rec-soon {
+  margin-top: 4px; padding: 3px 8px; border-radius: 4px; font-size: 10px;
+  background: var(--surface3, #232328); color: var(--text-dim, #888);
+}
+
+/* ── studio: preview + pickers ── */
+.ve-rec-prev {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0b0b0d;
+  border: 1px solid var(--border2, #35353c);
+}
+.ve-rec-prev video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ve-rec-mode {
+  position: absolute; right: 6px; bottom: 6px;
+  padding: 2px 7px; border-radius: 4px;
+  font-size: 9px; font-variant-numeric: tabular-nums;
+  background: rgba(0, 0, 0, .72); color: var(--text, #ededf0);
+}
+
+.ve-rec-row {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px;
+}
+.ve-rec-row label {
+  flex: 0 0 82px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 10px; color: var(--text-dim, #888);
+}
+/* The little round (i) next to "Kamera" — the whole "how do I connect my phone" story hangs
+   off it, because a device list alone teaches nobody. */
+.ve-rec-i {
+  flex: none;
+  width: 13px; height: 13px; margin-left: 3px; padding: 0;
+  border-radius: 50%; cursor: pointer;
+  font-size: 9px; font-weight: 700; font-style: italic; line-height: 1;
+  font-family: Georgia, 'Times New Roman', serif;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border2, #35353c);
+  background: transparent; color: var(--text-dim, #888);
+  transition: color .12s, border-color .12s, background .12s;
+}
+.ve-rec-i:hover {
+  color: #0b0b0d; background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58);
+}
+.ve-rec-i:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+
+.ve-rec-sel {
+  flex: 1; min-width: 0;
+  padding: 5px 7px; font-size: 11px; border-radius: 5px;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface, #131316); color: var(--text, #ededf0);
+  cursor: pointer;
+}
+.ve-rec-sel:focus { outline: none; border-color: var(--gold, #f2ff58); }
+
+.ve-rec-note {
+  margin: 9px 0 0; font-size: 10px; line-height: 1.5; color: var(--text-dim, #888);
+}
+.ve-rec-note.is-warn {
+  padding: 6px 8px; border-radius: 5px;
+  background: rgba(245, 158, 11, .1);
+  border: 1px solid rgba(245, 158, 11, .3);
+  color: #fbbf24;
+}
+
+.ve-rec-foot { display: flex; gap: 6px; margin-top: 12px; }
+.ve-rec-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 11px;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface3, #232328); color: var(--text, #ededf0);
+}
+.ve-rec-btn:hover:not(:disabled) { border-color: var(--gold, #f2ff58); }
+.ve-rec-btn:disabled { opacity: .5; cursor: default; }
+.ve-rec-btn.is-go {
+  margin-top: 4px;
+  background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58);
+  color: #0b0b0d; font-weight: 600;
+}
+.ve-rec-btn.is-rec {
+  flex: 1;
+  background: #ef4444; border-color: #ef4444; color: #fff; font-weight: 600;
+}
+.ve-rec-btn.is-rec:hover:not(:disabled) { background: #dc2626; border-color: #dc2626; }
+.ve-rec-btn.is-stop {
+  flex: 1;
+  background: var(--surface3, #232328); border-color: #ef4444; color: #f87171; font-weight: 600;
+}
+.ve-rec-btn.is-stop:hover { background: rgba(239, 68, 68, .14); }
+
+/* ── Help modal: tabbed, teaching, sourced ── */
+.ve-rec-help {
+  display: none;
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, .66);
+  align-items: center; justify-content: center;
+  z-index: 8; padding: 14px;
+}
+.ve-rec-help-box {
+  width: 100%; max-width: 460px; max-height: 100%;
+  display: flex; flex-direction: column; overflow: hidden;
+  border-radius: 10px;
+  background: var(--surface2, #1b1b1f);
+  border: 1px solid var(--border2, #35353c);
+  box-shadow: 0 12px 44px rgba(0, 0, 0, .6);
+}
+.ve-rec-help-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; border-bottom: 1px solid var(--border, #27272d);
+  font-size: 12px;
+}
+.ve-rec-help-head span { display: flex; align-items: center; gap: 6px; }
+
+.ve-rec-h-tabs {
+  display: flex; gap: 2px; padding: 6px; flex: none;
+  border-bottom: 1px solid var(--border, #27272d);
+}
+.ve-rec-h-tab {
+  flex: 1; padding: 5px 4px; border: none; border-radius: 5px; cursor: pointer;
+  font-size: 10px; font-weight: 600;
+  background: transparent; color: var(--text-dim, #888);
+  transition: background .12s, color .12s;
+}
+.ve-rec-h-tab:hover { color: var(--text, #ededf0); background: var(--surface3, #232328); }
+.ve-rec-h-tab.is-on { background: var(--gold, #f2ff58); color: #0b0b0d; }
+
+.ve-rec-help-body {
+  padding: 12px; overflow-y: auto; font-size: 11px; line-height: 1.6;
+  color: var(--text-dim, #888);
+}
+.ve-rec-help-body::-webkit-scrollbar { width: 6px; }
+.ve-rec-help-body::-webkit-scrollbar-track { background: transparent; }
+.ve-rec-help-body::-webkit-scrollbar-thumb { background: rgba(242,255,88,.16); border-radius: 3px; }
+.ve-rec-help-body:hover::-webkit-scrollbar-thumb { background: rgba(242,255,88,.3); }
+.ve-rec-help-body b { color: var(--text, #ededf0); }
+
+/* the "just works" / "does not work" verdict block at the top of a tab */
+.ve-rec-h-best, .ve-rec-h-bad {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 9px 10px; border-radius: 7px; margin-bottom: 10px;
+}
+.ve-rec-h-best { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.28); color: #4ade80; }
+.ve-rec-h-bad { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.28); color: #f87171; }
+.ve-rec-h-best b, .ve-rec-h-bad b { display: block; margin-bottom: 2px; }
+.ve-rec-h-best span, .ve-rec-h-bad span { color: var(--text-dim, #888); }
+
+.ve-rec-h-lead { margin: 0 0 8px; }
+.ve-rec-h-steps { margin: 0; padding-left: 18px; }
+.ve-rec-h-steps li { margin-bottom: 7px; }
+.ve-rec-h-steps li::marker { color: var(--gold, #f2ff58); font-weight: 700; }
+
+.ve-rec-h-apps { margin: 0 0 10px; padding: 0; list-style: none; }
+.ve-rec-h-apps li {
+  padding: 7px 9px; margin-bottom: 5px; border-radius: 6px;
+  background: var(--surface3, #232328);
+}
+.ve-rec-h-apps b { color: var(--text, #ededf0); }
+.ve-rec-h-apps em { color: var(--gold, #f2ff58); font-style: normal; font-size: 9px; margin-left: 4px; }
+.ve-rec-h-apps span { display: block; margin-top: 2px; font-size: 10px; }
+.ve-rec-h-tr li { background: transparent; border: 1px solid var(--border, #27272d); }
+
+.ve-rec-h-warn {
+  display: flex; gap: 6px; align-items: flex-start;
+  margin: 10px 0 0; padding: 8px 9px; border-radius: 6px; font-size: 10px;
+  background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.28); color: #fbbf24;
+}
+.ve-rec-h-warn b { color: #fde68a; }
+
+.ve-rec-h-alt {
+  margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--border, #27272d);
+}
+.ve-rec-h-alt b { color: var(--text, #ededf0); font-size: 10px; }
+.ve-rec-h-alt p { margin: 3px 0 0; font-size: 10px; }
+
+/* Level meter: proof the mic is alive before you walk away from the tripod */
+.ve-rec-lvl { margin-top: 8px; }
+.ve-rec-lvl-track {
+  display: block; height: 4px; border-radius: 3px; overflow: hidden;
+  background: var(--surface3, #232328);
+}
+.ve-rec-lvl-fill {
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, #22c55e, var(--gold, #f2ff58) 70%, #ef4444);
+  transition: width .08s linear;
+}
+
+/* Countdown: a tripod user has to walk back to their chair */
+.ve-rec-count {
+  height: 100%; min-height: 220px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ve-rec-count span {
+  font-size: 76px; font-weight: 700; line-height: 1;
+  color: var(--gold, #f2ff58);
+  animation: ve-rec-pop .7s ease-out;
+}
+@keyframes ve-rec-pop {
+  0% { transform: scale(1.5); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(.9); opacity: .75; }
+}
+
+.ve-rec-size {
+  position: absolute; left: 6px; bottom: 6px;
+  padding: 2px 7px; border-radius: 4px;
+  font-size: 9px; font-variant-numeric: tabular-nums;
+  background: rgba(0, 0, 0, .72); color: var(--text-dim, #888);
+}
+
+.ve-rec-live {
+  position: absolute; left: 6px; top: 6px;
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 7px; border-radius: 4px;
+  font-size: 9px; font-weight: 700; letter-spacing: .04em;
+  background: rgba(239, 68, 68, .92); color: #fff;
+  animation: ve-rec-pulse 1.4s ease-in-out infinite;
+}
+@keyframes ve-rec-pulse { 50% { opacity: .55; } }

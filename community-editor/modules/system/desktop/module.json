@@ -1,0 +1,4 @@
+{
+  "id": "system.desktop",
+  "note": "Returns immediately when window.CCDesktop is absent, so the browser build is byte-identical in behaviour. Wiring only: Open and Save go through the existing .ccproj reader and writer."
+}

@@ -1,0 +1,121 @@
+{
+  "hash": "7b509f69839f2719",
+  "modules": [
+    "canvas",
+    "export",
+    "left-panel",
+    "right-panel",
+    "scene",
+    "shared",
+    "slide-deck",
+    "system",
+    "video"
+  ],
+  "jsCount": 306,
+  "cssCount": 306,
+  "jsBytes": 3540540,
+  "cssBytes": 449070,
+  "largestModules": [
+    {
+      "path": "/shared/bulk-builder/bulk-builder.js",
+      "rawBytes": 129269
+    },
+    {
+      "path": "/video/video-editor/export/export.js",
+      "rawBytes": 113834
+    },
+    {
+      "path": "/video/ve-inspector/ve-inspector.js",
+      "rawBytes": 111472
+    },
+    {
+      "path": "/right-panel/right-panel.js",
+      "rawBytes": 99783
+    },
+    {
+      "path": "/video/video-editor/render/render.js",
+      "rawBytes": 84797
+    },
+    {
+      "path": "/export/export-manager/service/service.js",
+      "rawBytes": 83404
+    },
+    {
+      "path": "/slide-deck/deck-ui/deck-ui.js",
+      "rawBytes": 81222
+    },
+    {
+      "path": "/video/video-editor/preview-render/preview-render.js",
+      "rawBytes": 80700
+    },
+    {
+      "path": "/video/ve-webcodecs-export/ve-webcodecs-export.js",
+      "rawBytes": 75459
+    },
+    {
+      "path": "/export/export-manager/export-manager.js",
+      "rawBytes": 68109
+    },
+    {
+      "path": "/video/ve-advanced-features/power-windows/power-windows.js",
+      "rawBytes": 64446
+    },
+    {
+      "path": "/right-panel/image-inspector/image-inspector.js",
+      "rawBytes": 63159
+    },
+    {
+      "path": "/video/ve-subtitle-element/ve-subtitle-element.js",
+      "rawBytes": 60699
+    },
+    {
+      "path": "/video/ve-auto-subtitle/ve-auto-subtitle.js",
+      "rawBytes": 59059
+    },
+    {
+      "path": "/left-panel/gallery/browser/grid/grid.js",
+      "rawBytes": 56434
+    },
+    {
+      "path": "/left-panel/gallery/stock/stock.js",
+      "rawBytes": 53846
+    },
+    {
+      "path": "/video/video-editor/events/binding/binding.js",
+      "rawBytes": 52852
+    },
+    {
+      "path": "/shared/fonts/google-fonts/google-fonts.js",
+      "rawBytes": 52719
+    },
+    {
+      "path": "/left-panel/templates/designs/card-builders/card-builders.js",
+      "rawBytes": 52213
+    },
+    {
+      "path": "/left-panel/templates/designs/marketing/marketing.js",
+      "rawBytes": 50902
+    },
+    {
+      "path": "/shared/works-browser/works-browser.js",
+      "rawBytes": 50216
+    },
+    {
+      "path": "/video/video-editor/clips/clips.js",
+      "rawBytes": 48580
+    },
+    {
+      "path": "/system/keyboard-manager/keyboard-manager.js",
+      "rawBytes": 48276
+    },
+    {
+      "path": "/shared/social-icons/social-icons.js",
+      "rawBytes": 47201
+    },
+    {
+      "path": "/canvas/tools/vendor-dragselect/vendor-dragselect.js",
+      "rawBytes": 47150
+    }
+  ],
+  "builtAt": "2026-08-21T03:20:57.191Z"
+}

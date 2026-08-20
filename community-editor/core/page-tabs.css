@@ -1,0 +1,597 @@
+
+
+/* ===== co-located from css/styles.css (core: page-tabs) ===== */
+/* ─── 8. FACE TABS ────────────────────────────────────────────── */
+
+.face-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+}
+
+.face-tab {
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.face-tab:hover {
+  color: var(--text-dim);
+}
+
+.face-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ─── PAGE TABS BAR ──────────────────────────────────────────── */
+
+.page-tabs-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  z-index: 130;            /* above the video-editor timeline (z 110) so the Add-page menu pops over it */
+  padding: 0 8px;
+  gap: 4px;
+}
+
+.page-tab {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 92px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.page-tab:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.page-tab:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.page-tab.active {
+  background: var(--surface2);
+  color: var(--gold);
+  border-color: var(--border);
+  font-weight: 600;
+}
+
+.page-tab-add {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.page-tab-add:hover {
+  background: var(--surface2);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Add-page hover menu — one-click create Single / Infinite / Slide / Video (opens upward, animated) */
+.page-add-wrap { position: relative; display: inline-flex; flex-shrink: 0; }
+.page-add-menu {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  right: -3px;            /* anchored to the button's right edge → never slides off-screen */
+  left: auto;
+  transform: translateY(5px);
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  padding: 3px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  z-index: 999;
+}
+.page-add-wrap.open .page-add-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.page-add-menu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 12px;            /* pointer sits over the + button */
+  border: 5px solid transparent;
+  border-top-color: var(--surface2);
+}
+.page-add-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 46px;
+  padding: 6px 2px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  font-size: 9.5px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.page-add-item:hover { background: var(--surface3); color: var(--text); border-color: var(--border2); }
+.page-add-item svg { width: 15px; height: 15px; flex: none; }
+
+.page-tab-preview {
+  margin-left: auto;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.page-tab-preview:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+/* ── Page Group System ───────────────────────────────────────── */
+.pg-tab-preview-popover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 174px;
+  padding: 7px;
+  border-radius: var(--r-lg);
+  background: rgba(19, 19, 22, 0.96);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  z-index: 9500;
+}
+
+.pg-tab-preview-popover.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.pg-tab-preview-stage {
+  position: relative;
+  width: 151px;
+  height: 92px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid var(--border);
+}
+
+.pg-tab-preview-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(transparent, rgba(0, 0, 0, 0.03)),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 58%);
+  pointer-events: none;
+}
+
+.pg-tab-preview-popover.is-loading .pg-tab-preview-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.12) 50%, transparent 80%);
+  animation: pgTabPreviewSweep 1.05s linear infinite;
+}
+
+.pg-tab-preview-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.pg-tab-preview-caption {
+  padding: 6px 1px 1px;
+}
+
+.pg-tab-preview-label {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pg-tab-preview-meta {
+  margin-top: 3px;
+  color: var(--text-dim);
+  font-size: 9px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-tab.pg-selected {
+  background: rgba(255, 255, 255, 0.12);   /* neutral lifted chip — modern, reads "picked" without the murky volt-over-dark green tint */
+  color: var(--gold);                      /* volt used only as saturated TEXT (clean yellow, never a pale green fill) */
+  font-weight: 600;
+}
+
+/* Quick-switch flash animation */
+.page-tab.pg-flash {
+  animation: pgFlash 0.4s ease-out;
+}
+
+/* Quick-nav button */
+.pg-quicknav-btn {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  margin-right: 2px;
+}
+
+.pg-quicknav-btn:hover {
+  background: var(--surface2);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Quick-nav dropdown */
+.pg-quicknav-dropdown {
+  position: fixed;
+  z-index: 9200;
+  width: 240px;
+  max-height: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  visibility: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.pg-qnav-search-wrap {
+  padding: 8px 10px 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pg-qnav-search {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 12px;
+  padding: 7px 10px;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.15s;
+}
+
+.pg-qnav-search:focus {
+  border-color: var(--gold);
+}
+
+.pg-qnav-content {
+  overflow-y: auto;
+  padding: 6px 0;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.pg-qnav-content:hover {
+  scrollbar-color: var(--gold) transparent;
+}
+
+.pg-qnav-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pg-qnav-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pg-qnav-content::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--r-xs);
+}
+
+.pg-qnav-content:hover::-webkit-scrollbar-thumb {
+  background: var(--gold);
+}
+
+.pg-qnav-group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  transition: background 0.12s;
+}
+
+.pg-qnav-group-header:hover {
+  background: var(--surface2);
+}
+
+.pg-qnav-chevron {
+  font-size: 9px;
+  color: var(--text-dim);
+  width: 10px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.pg-qnav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pg-qnav-group-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-qnav-group-count {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.pg-qnav-section-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  padding: 10px 12px 4px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.pg-qnav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 34px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-dim);
+  transition: background 0.12s;
+}
+
+.pg-qnav-item:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.pg-qnav-item.active {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.pg-qnav-item-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.pg-qnav-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+  padding: 20px 12px;
+}
+
+.page-tab.pg-grouped {
+  border-bottom: 2px solid var(--pg-color, var(--border));
+  padding-bottom: 0;
+}
+
+/* G2: page tag colour dots (shared/tags) */
+.pg-tagdots { display: inline-flex; align-items: center; gap: 2px; margin-left: 5px; vertical-align: middle; }
+.pg-tagdot { width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3); }
+/* N3: heat-map — tint a tagged tab by its first tag's colour (left accent + faint wash) */
+.page-tab.pg-tagtint { background-color: color-mix(in srgb, var(--pg-tagcolor, transparent) 9%, transparent); box-shadow: inset 2px 0 0 var(--pg-tagcolor, transparent); }
+/* N5: page-strip tag filter — non-matching tabs hidden */
+.page-tab.pg-filtered-out { display: none; }
+
+.pg-group-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: color-mix(in srgb, var(--pg-color, #888) 12%, var(--surface2));
+  border: 1px solid color-mix(in srgb, var(--pg-color, #888) 25%, var(--border));
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  user-select: none;
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.pg-group-chip:hover {
+  background: color-mix(in srgb, var(--pg-color, #888) 20%, var(--surface2));
+  color: var(--text);
+}
+
+.pg-group-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pg-group-name {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pg-group-count {
+  font-size: 10px;
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+.pg-group-chevron {
+  font-size: 9px;
+  opacity: 0.5;
+  transition: transform 0.15s ease;
+}
+
+.pg-group-chip.collapsed .pg-group-chevron {
+  transform: rotate(0deg);
+}
+
+/* Color picker */
+.pg-color-picker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 140px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.pg-color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.12s ease;
+}
+
+.pg-color-swatch:hover {
+  transform: scale(1.15);
+  border-color: var(--text-dim);
+}
+
+.pg-color-swatch.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.3);
+}
+
+/* ── Page Tab Scrollbar (subtle, neutral, hover-reveal — never a bright volt bar) ── */
+#page-tabs-inner { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+
+#page-tabs-inner:hover { scrollbar-color: color-mix(in srgb, var(--text-dim) 42%, transparent) transparent; }
+
+#page-tabs-inner::-webkit-scrollbar { height: 6px; }
+
+#page-tabs-inner::-webkit-scrollbar-track { background: transparent; }
+
+#page-tabs-inner::-webkit-scrollbar-thumb { background: transparent; border-radius: 999px; }
+
+#page-tabs-inner:hover::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--text-dim) 38%, transparent); }
+
+#page-tabs-inner::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--text-dim) 58%, transparent); }
+
+/* ── Page Tab Mode Icon (Page / Infinite / Slide / Video / Board) — neutral, never volt ── */
+.pg-tab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  color: var(--text-dim);
+  opacity: 0.9;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.pg-tab-icon svg { width: 12px; height: 12px; }

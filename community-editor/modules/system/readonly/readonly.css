@@ -1,0 +1,100 @@
+/* system/readonly — the visible half of read-only mode.
+
+   A write surface is HIDDEN, never greyed out. A disabled-but-visible panel is the same lie as an
+   enabled one: it tells the viewer the feature is theirs and merely broken. What stays on screen is
+   what a viewer can actually use: the canvas, zoom, page/slide navigation, video playback, and the
+   presence chip. Everything here is scoped to `body.cc-readonly`, so a normal editor boot is byte
+   for byte unaffected. */
+
+/* ── the write chrome ─────────────────────────────────────── */
+body.cc-readonly #editor-left-shell,
+body.cc-readonly #lp-toggle-btn,
+body.cc-readonly #rpanel,
+body.cc-readonly #mbar,
+body.cc-readonly #gear-btn,
+body.cc-readonly #gear-dropdown,
+body.cc-readonly #btn-export,
+body.cc-readonly #btn-undo,
+body.cc-readonly #btn-redo,
+body.cc-readonly #btn-save,
+body.cc-readonly #btn-reset-canvas,
+body.cc-readonly #float-tb,
+body.cc-readonly #radial-menu,
+body.cc-readonly #ctx-menu,
+body.cc-readonly .page-add-wrap {
+  display: none !important;
+}
+
+/* ── slide deck: navigate and present, never author ───────── */
+body.cc-readonly .sd-act-add,
+body.cc-readonly .sd-act-layers,
+body.cc-readonly .sd-act-notes,
+body.cc-readonly .sd-act-more {
+  display: none !important;
+}
+
+/* ── video: playback stays, editing goes ──────────────────── */
+body.cc-readonly .ve-tb-left,
+body.cc-readonly .ve-tb-right,
+body.cc-readonly #ve-tools-menu,
+body.cc-readonly .ve-track-headers button {
+  display: none !important;
+}
+
+/* The toolbar is `space-between` with three groups; removing two of them leaves the transport stranded
+   against the left edge. With only the transport left, centre it. */
+body.cc-readonly .ve-toolbar {
+  justify-content: center;
+}
+
+/* Clips still render (they ARE the content) but nothing about them invites a drag. */
+body.cc-readonly .ve-clip,
+body.cc-readonly .ve-cue-seg {
+  cursor: default !important;
+}
+
+/* ── the canvas reads as a document, not a workspace ──────── */
+body.cc-readonly .canvas-area,
+body.cc-readonly #card-stage-container {
+  cursor: default;
+}
+
+/* ── the one thing read-only ADDS ─────────────────────────── */
+.cc-ro-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 84px;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 100001;
+  max-width: calc(100vw - 32px);
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: #1d1d23;
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .5);
+  font: 600 12.5px/1.35 system-ui, -apple-system, sans-serif;
+  color: #ededf0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+.cc-ro-toast::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--cc-brand, #f2ff58);
+  vertical-align: middle;
+}
+
+.cc-ro-toast.is-on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-ro-toast { transition: none; }
+}

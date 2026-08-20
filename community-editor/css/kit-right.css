@@ -1,0 +1,43 @@
+/* ============================================================
+   dika studio editor — KIT RIGHT PANEL (E2).
+   The Figma-style property panel (rpf-*) + layers/structure → kit:
+   radius (md 8 / lg 12), hardcoded orange → Volt, fonts → Geist,
+   volt focus rings.
+
+   NOTE: right-panel CSS is a LOADER module (loaded at runtime, after
+   <head>), so these overrides use !important to win over it without
+   depending on load order. Colors already flow via --gold (live var).
+   ============================================================ */
+
+/* ---- radii → kit md (controls) ---- */
+.rpf-seg, .rpf-field, .rpf-grad-bar, .rpf-bg-drop, .rpf-bg-choose, .rpf-bg-remove,
+.rpf-bg-makeimg, .rpf-grad-add, .rpf-grad-stoppos, .rpf-grad-stopdel, .rpf-pal-hex,
+.rpf-pop textarea, .rp-mf-search-input, .rp-layers-gear, .rpf-del, .layer-group-block {
+  border-radius: var(--r-md) !important;
+}
+/* ---- radii → kit lg (popovers/panels) ---- */
+.rpf-pop, .rpf-pal, .rpf-pop2, .rpf-menu, .rp-layer-ctx, .rp-move-folder-popup,
+.structure-panel {
+  border-radius: var(--r-lg) !important;
+}
+
+/* ---- hardcoded orange (Figma) → Volt ---- */
+.rpf-bg-choose { background: var(--gold) !important; color: #0b0b0d !important; }
+.rpf-bg-choose:hover { background: var(--gold-light) !important; }
+.rpf-menu.rpf-menu-fill button.sel { background: var(--gold-dim) !important; color: var(--gold) !important; }
+
+/* ---- fonts → Geist (rpf-* hardcode DM Sans / Space Mono) ---- */
+.rpf-field input, .rpf-field select, .rpf-field .rpf-val, .rpf-field .rpf-pct,
+.rpf-numin, .rpf-size-field input, .rpf-menu button, .rpf-pop textarea,
+.rpf-grad-stoppos, .rp-tab, .rp-mf-search-input {
+  font-family: var(--font-ui) !important;
+}
+/* numeric/hex → Geist Mono */
+.rpf-pal-hex input, .rpf-menu-dim, .rpf-grad-pct {
+  font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace !important;
+}
+
+/* ---- focus = volt ring (kit) ---- */
+.rpf-field:focus-within, .rpf-pal-hex:focus-within { border-color: var(--gold) !important; box-shadow: var(--ring-dim) !important; }
+.rp-mf-search-input:focus, .rpf-pop textarea:focus { box-shadow: var(--ring-dim) !important; }
+.rp-tab:focus-visible, .rp-layers-gear:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }

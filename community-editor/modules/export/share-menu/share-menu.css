@@ -1,0 +1,110 @@
+/* export/share-menu — the "Paylas" mega-dropdown (export-import-manager-plan Phase 2).
+   Editor tokens only (theme.css). Reuses the .wf-cat-card visual language: soft-dark surfaces,
+   volt (--gold) accent + gold-dim hover, big rounded radii, translate-on-hover. */
+
+.sharepop {
+  position: fixed;
+  z-index: 10000;
+  width: 360px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.55);
+  padding: 12px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.985);
+  transform-origin: top right;
+  /* opacity + visibility switch INSTANTLY (no compositor-driven transition), so the popover is reliably
+     visible even when the tab is backgrounded/throttled or the main thread is busy. Only the transform is
+     animated (purely decorative; a dropped animation just skips the slide, never hides the menu). */
+  transition: transform 0.14s ease, visibility 0s linear 0.14s;
+}
+.sharepop.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition: transform 0.14s ease, visibility 0s;
+}
+
+.sharepop-arrow {
+  position: absolute;
+  top: -6px;
+  width: 12px; height: 12px;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  transform: rotate(45deg);
+  border-radius: 3px 0 0 0;
+}
+
+.sharepop-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--text);
+  padding: 2px 2px 12px;
+}
+.sharepop-head .sharepop-ic { width: 17px; height: 17px; color: var(--gold); }
+
+.sharepop-sec { margin-bottom: 12px; }
+.sharepop-sec:last-child { margin-bottom: 2px; }
+.sharepop-sec-t {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-dim); margin: 0 2px 8px;
+}
+
+/* Quick-action cards (Indir / Yazdir / Proje / Baglanti) */
+.sharepop-grid { display: grid; gap: 8px; }
+.sharepop-grid-4 { grid-template-columns: 1fr 1fr; }
+
+.sharepop-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  padding: 12px; text-align: left;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  font: inherit;
+}
+.sharepop-card:hover { border-color: var(--gold); background: var(--gold-dim); transform: translateY(-1px); }
+.sharepop-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.sharepop-card .sharepop-ic { width: 20px; height: 20px; color: var(--gold); margin-bottom: 3px; }
+.sharepop-card-t { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.sharepop-card-d { font-size: 9.5px; color: var(--text-dim); line-height: 1.25; }
+
+/* Social / messaging tiles */
+.sharepop-grid-social { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.sharepop-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  padding: 10px 4px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s, color 0.15s;
+  color: var(--text);
+  font: inherit;
+}
+.sharepop-tile:hover { border-color: var(--gold); background: var(--gold-dim); transform: translateY(-1px); }
+.sharepop-tile:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.sharepop-tile .sharepop-ic { width: 20px; height: 20px; color: var(--text); }
+.sharepop-tile:hover .sharepop-ic { color: var(--gold); }
+.sharepop-tile span { font-size: 9px; font-weight: 600; color: var(--text-dim); line-height: 1; white-space: nowrap; }
+.sharepop-tile-more .sharepop-ic { color: var(--text-dim); }
+
+/* Back row (sub-screen) */
+.sharepop-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--text-dim);
+  cursor: pointer; padding: 4px 6px 12px; user-select: none;
+}
+.sharepop-back:hover { color: var(--gold); }
+.sharepop-back .sharepop-ic { width: 15px; height: 15px; }
+
+.sharepop-ic { display: inline-flex; align-items: center; justify-content: center; }
+.sharepop-ic svg { width: 100%; height: 100%; display: block; }

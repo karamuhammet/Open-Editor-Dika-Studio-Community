@@ -1,0 +1,202 @@
+/* scene/frame-bars — the single-frame context bar (T6). Floats above the selected frame, dark tokens,
+   matches the toolbar's visual weight. Popovers (background palette, size dropdown) drop below it. */
+
+.scfb {
+  position: absolute;
+  z-index: 119;                /* just under the main toolbar (120), above frames */
+  transform: translate(-50%, -100%);
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+  user-select: none;
+}
+.scfb.show { display: inline-flex; }
+
+.scfb-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 9px;
+  border: none;
+  border-radius: var(--r-md);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+.scfb-label:hover { background: var(--surface2); }
+.scfb-name { color: var(--text); font-size: 12px; font-weight: 600; max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+.scfb-size { color: var(--text-dim); font: 500 10px/1 'Space Mono', monospace; }
+
+/* inline rename input (replaces the name in place — no browser prompt) */
+.scfb-name-input {
+  width: 130px;
+  padding: 1px 5px;
+  border: 1px solid var(--gold);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: 600 12px 'DM Sans', sans-serif;
+  outline: none;
+}
+
+/* on-canvas frame NAME labels (Figma-style, above each frame) */
+.scfb-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 60;            /* above the canvas, below the toolbar (120) + context bar (119) */
+  pointer-events: none;
+  overflow: hidden;
+}
+.scfb-flabel {
+  position: absolute;
+  transform: translateZ(0);
+  max-width: 220px;
+  padding: 0 2px;
+  color: var(--text-dim);
+  font: 600 11px/1.4 'DM Sans', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: color 0.12s ease;
+}
+.scfb-flabel:hover { color: var(--text); }
+.scfb-flabel.on { color: var(--gold); }
+.scfb-flabel { display: flex; align-items: center; gap: 6px; }
+.scfb-flabel-nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 0 1 auto; }
+/* G2: per-frame tag colour dots beside the name */
+.scfb-flabel-tags { display: inline-flex; align-items: center; gap: 3px; flex: none; }
+.scfb-ftag { width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
+.scfb-ftag-more { font: 700 9px 'Space Mono', monospace; color: var(--text-dim); margin-left: 1px; }
+
+/* multi-select count label */
+.scfb-count { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; color: var(--text-dim); font-size: 12px; font-weight: 500; }
+.scfb-count b { color: var(--text); font-weight: 700; }
+.scfb-count svg { color: var(--text-dim); }
+
+.scfb-sep { width: 1px; height: 20px; margin: 0 2px; background: var(--border2); }
+
+.scfb-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: none;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  font: 500 12px 'DM Sans', sans-serif;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.scfb-btn:hover { background: var(--surface2); color: var(--text); }
+.scfb-btn svg { width: 15px; height: 15px; flex: none; }
+.scfb-cv {            /* down chevron */
+  width: 0; height: 0;
+  margin-left: 1px;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  opacity: 0.6;
+}
+
+/* popover (bg palette / size dropdown) — drops below the bar */
+.scfb-pop {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  max-width: 280px;
+  max-height: 320px;
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+  gap: 7px;
+  padding: 9px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  scrollbar-width: thin;
+}
+.scfb-pop.show { display: flex; }
+.scfb-pop-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+/* background swatches */
+.scfb-sw-row { gap: 7px; }
+.scfb-sw {
+  width: 24px; height: 24px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+.scfb-sw:hover { transform: scale(1.12); border-color: var(--text); }
+.scfb-sw-custom { position: relative; overflow: hidden; background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); }
+.scfb-sw-custom input { position: absolute; inset: -4px; opacity: 0; cursor: pointer; }
+.scfb-pop-act {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 9px; border: 1px solid var(--border2); border-radius: var(--r-md);
+  background: var(--surface); color: var(--text-dim); cursor: pointer;
+  font: 500 12px 'DM Sans', sans-serif;
+}
+.scfb-pop-act:hover { background: var(--surface3); color: var(--text); }
+.scfb-pop-act svg { width: 14px; height: 14px; }
+
+/* size dropdown */
+.scfb-wh { gap: 5px; flex-wrap: nowrap; }
+.scfb-in {
+  width: 64px; padding: 6px 8px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm);
+  color: var(--text); font: 500 12px 'DM Sans', sans-serif; outline: none;
+}
+.scfb-in:focus { border-color: var(--gold); }
+.scfb-x { color: var(--text-dim); font-size: 12px; }
+.scfb-apply {
+  margin-left: auto; padding: 6px 11px;
+  border: none; border-radius: var(--r-sm); background: var(--surface3); color: var(--text);
+  cursor: pointer; font: 600 12px 'DM Sans', sans-serif;
+}
+.scfb-apply:hover { background: var(--border2); }
+.scfb-ratios { gap: 5px; }
+.scfb-chip {
+  padding: 5px 9px; border: 1px solid var(--border2); border-radius: var(--r-sm);
+  background: transparent; color: var(--text-dim); cursor: pointer;
+  font: 600 11px 'Space Mono', monospace;
+}
+.scfb-chip:hover { background: var(--surface3); color: var(--text); }
+.scfb-presets { display: flex; flex-direction: column; gap: 2px; }
+.scfb-pg-h { color: var(--text-dim); font-size: 10px; font-weight: 600; padding: 6px 2px 2px; letter-spacing: 0.3px; }
+.scfb-preset {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 6px 8px; border: none; border-radius: var(--r-sm); background: transparent;
+  color: var(--text); cursor: pointer; font: 500 12px 'DM Sans', sans-serif; width: 100%;
+}
+.scfb-preset:hover { background: var(--surface3); }
+.scfb-preset b { color: var(--text-dim); font: 500 10px 'Space Mono', monospace; }
+
+/* align / distribute sub-bar (horizontal icon row) */
+.scfb-pop.scfb-pop-align { min-width: 0; width: auto; }
+.scfb-align-row { display: flex; align-items: center; gap: 2px; flex-wrap: nowrap; }
+.scfb-align-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: var(--r-md); background: transparent;
+  color: var(--text-dim); cursor: pointer; padding: 0;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.scfb-align-btn:hover { background: var(--surface3); color: var(--text); }
+.scfb-align-btn svg { width: 16px; height: 16px; }
+.scfb-align-btn b { font: 700 12px 'DM Sans', sans-serif; }
+.scfb-align-sep { width: 1px; height: 20px; margin: 0 3px; background: var(--border2); flex: none; }

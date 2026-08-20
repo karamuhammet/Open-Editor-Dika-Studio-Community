@@ -1,0 +1,4 @@
+{
+  "id": "video.ve-size-probe",
+  "note": "Worker-only export size measurement (video-export-pipeline-plan Part 8). Decodes, draws and encodes a sample of the SOURCE clip entirely off the main thread. Hard rule: it must never touch the editor's canvas, video pool, playhead or export state - the previous probe did, and it stuttered the canvas (Part 7)."
+}

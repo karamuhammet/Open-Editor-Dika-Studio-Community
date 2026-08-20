@@ -1,0 +1,12 @@
+{
+  "id": "video.ve-media-gallery",
+  "children": [
+    "core",
+    "folders",
+    "import",
+    "menus",
+    "panel",
+    "render",
+    "stock"
+  ]
+}

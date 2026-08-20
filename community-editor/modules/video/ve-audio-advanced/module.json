@@ -1,0 +1,10 @@
+{
+  "id": "video.ve-audio-advanced",
+  "children": [
+    "chains",
+    "context",
+    "metering",
+    "offline",
+    "processors"
+  ]
+}

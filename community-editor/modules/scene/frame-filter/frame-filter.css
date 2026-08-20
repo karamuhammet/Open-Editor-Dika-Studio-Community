@@ -1,0 +1,39 @@
+/* scene/frame-filter — top-center tag filter bar + dim-mask layer for the infinite canvas. */
+
+.scff {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  z-index: 118;                /* under toolbar(120)/context-bar(119), above frames + masks */
+  display: none; align-items: center; gap: 7px; flex-wrap: wrap; max-width: min(80vw, 900px);
+  padding: 6px 8px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45); font-family: 'DM Sans', sans-serif; user-select: none;
+}
+.scff.show { display: inline-flex; }
+.scff-lbl { display: inline-flex; align-items: center; gap: 5px; color: var(--text-dim); font: 600 11px 'DM Sans', sans-serif; padding: 0 3px; }
+.scff-lbl svg { width: 13px; height: 13px; }
+
+.scff-chips { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.scff-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px 4px 5px;
+  border: 1px solid var(--border2); border-radius: var(--r-pill); background: var(--surface2); color: var(--text-dim);
+  cursor: pointer; font: 600 11.5px 'DM Sans', sans-serif; transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+.scff-chip:hover { color: var(--text); }
+.scff-chip.on { color: var(--text); border-color: var(--c); background: color-mix(in srgb, var(--c) 16%, var(--surface2)); }
+.scff-dot { width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.scff-dot svg { width: 11px; height: 11px; color: rgba(0, 0, 0, 0.7); }
+
+.scff-mode, .scff-not, .scff-clear, .scff-save, .scff-view, .scff-cluster {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  border: 1px solid var(--border2); border-radius: var(--r-md); background: var(--surface2); color: var(--text-dim);
+  cursor: pointer; font: 700 10.5px 'DM Sans', sans-serif; padding: 5px 8px;
+}
+.scff-mode:hover, .scff-not:hover, .scff-clear:hover, .scff-save:hover, .scff-view:hover, .scff-cluster:hover { background: var(--surface3); color: var(--text); }
+.scff-cluster svg { width: 13px; height: 13px; }
+.scff-not.on { color: #111; background: var(--gold); border-color: var(--gold); }
+.scff-clear svg, .scff-save svg { width: 13px; height: 13px; }
+.scff-views { display: inline-flex; align-items: center; gap: 4px; border-left: 1px solid var(--border); padding-left: 6px; }
+.scff-view { font-weight: 600; }
+
+/* dim mask over non-matching frames (screen-space overlay; never touches frame opacity) */
+.scff-masks { position: absolute; inset: 0; z-index: 58; pointer-events: none; overflow: hidden; }
+.scff-mask { position: absolute; background: var(--bg, #0d0d0d); opacity: 0.62; border-radius: 2px; transition: opacity 0.12s ease; }

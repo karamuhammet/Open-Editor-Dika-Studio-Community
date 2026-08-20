@@ -1,0 +1,11 @@
+{
+  "id": "video.ve-performance",
+  "children": [
+    "advanced",
+    "algorithmic",
+    "core",
+    "webgl",
+    "webgpu",
+    "workers"
+  ]
+}

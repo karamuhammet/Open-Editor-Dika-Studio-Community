@@ -1,0 +1,4 @@
+{
+  "id": "system.telemetry",
+  "note": "Inert unless the user opted in AND an endpoint is configured. The payload is a six-field contract; adding a field means asking for consent again."
+}

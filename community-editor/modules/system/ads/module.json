@@ -1,0 +1,5 @@
+{
+  "id": "system.ads",
+  "title": "Ads",
+  "note": "Upgrades an already-painted lockSurface card to a served creative. Static card is the floor, never replaced by a request that fails. Overlay formats are refused outright, not handled."
+}

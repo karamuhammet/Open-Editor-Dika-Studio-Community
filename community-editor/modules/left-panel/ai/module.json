@@ -1,0 +1,4 @@
+{
+  "id": "left-panel.ai",
+  "note": "Community Edition: the AI panel is an ad surface. Its twelve children (chat, conversations, imagegen, images, panel, postkit, postref, prompt, shell, slash, storage, tools) are DELETED, not disabled. children[] is intentionally empty and must stay empty; re-adding one brings back a vendor call path."
+}

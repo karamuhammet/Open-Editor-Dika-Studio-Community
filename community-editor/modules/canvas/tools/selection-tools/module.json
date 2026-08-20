@@ -1,0 +1,11 @@
+{
+  "id": "canvas.tools.selection-tools",
+  "children": [
+    "contour",
+    "core",
+    "frame",
+    "preview",
+    "quickselect",
+    "refine"
+  ]
+}

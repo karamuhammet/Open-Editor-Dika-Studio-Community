@@ -1,0 +1,37 @@
+/* ============================================================
+   dika studio editor — KIT LEFT PANELS A (E3): Text · Background · Templates.
+   Module CSS (loaded at runtime) → !important to win over it.
+   radius → kit (md 8 controls / lg 12 cards+popovers), kill pink
+   remnants → Volt, hardcoded card colors → tokens, fonts → Geist.
+   ============================================================ */
+
+/* ---- TEXT (.txp-*) ---- */
+.txp-search-wrap, .txp-add-text, .txp-row, .txp-more { border-radius: var(--r-md) !important; }
+.txp-quick-card, .txp-card { border-radius: var(--r-lg) !important; }
+.txp-card { border-color: var(--border) !important; background: var(--surface) !important; }
+.txp-add-text { color: #0b0b0d !important; }
+.txp-add-text:focus-visible, .txp-row:focus-visible, .txp-more:focus-visible,
+.txp-chip:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }
+
+/* ---- BACKGROUND (.ip-*, .pattern-*) — kill pink remnants → Volt ---- */
+.ip-mode-btn.active {
+  background: var(--gold) !important; color: #0b0b0d !important;
+  box-shadow: 0 2px 8px var(--gold-dim) !important;
+}
+.ip-slot-active { box-shadow: 0 0 0 2px var(--gold-dim) !important; }
+.pattern-card { background: var(--surface) !important; }
+.pattern-card:hover { box-shadow: 0 2px 12px var(--gold-dim) !important; }
+.ip-mode-tabs, .ip-slot, .ip-picker, .ip-mode-btn { border-radius: var(--r-md) !important; }
+.pattern-card { border-radius: var(--r-lg) !important; }
+
+/* ---- TEMPLATES (.tpl-*, .cr-*) ---- */
+/* controls → md */
+.tpl-search, .cr-seeall, .cr-fb-trigger, .tpl-board-banner, .tpl-mode-switch,
+.cr-pill, .cr-add, .cr-del, .tpl-mode-tab, .cr-mode, .cr-dd-item { border-radius: var(--r-md) !important; }
+/* cards + popovers → lg */
+.tpl-cat-card, .tpl-card, .cr-dropdown, .tpl-video-card { border-radius: var(--r-lg) !important; }   /* .cr-card + .cr-new own their radius in templates.css (Canva-style redesign) */
+/* fonts → Geist */
+.tpl-search, .tpl-name { font-family: var(--font-ui) !important; }
+/* focus → volt ring */
+.tpl-card:focus-visible, .tpl-cat-card:focus-visible, .cr-card:focus-visible,
+.cr-seeall:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }

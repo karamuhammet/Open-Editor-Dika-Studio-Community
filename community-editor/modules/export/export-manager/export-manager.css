@@ -1,0 +1,578 @@
+/* ── Platform preset advice ──────────────────────────────────────────────────────────────────────
+   The platform picker is a plain `.em-select` (it was a card grid, which had no way to UNDO a
+   choice; a select gets "None" for free). Only the advice box below it needs styling: it reports
+   what the preset could NOT set, because the export frame follows the CANVAS aspect and no export
+   control can override that. */
+.em-plat-warn,
+.em-plat-ok {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--r-md, 8px);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.em-plat-warn {
+  background: rgba(245, 158, 11, .12);
+  border: 1px solid rgba(245, 158, 11, .35);
+  color: #f5b23b;
+}
+
+.em-plat-ok {
+  background: rgba(34, 197, 94, .10);
+  border: 1px solid rgba(34, 197, 94, .30);
+  color: #4ade80;
+}
+
+/* The estimate line's explanation: why a quality target moved, or that a tier is an upscale.
+   Sits under the size range in the settings footer, so it has to wrap rather than widen. */
+.em-vest-note {
+  margin-top: 6px;
+  padding: 7px 9px;
+  border-radius: var(--r-md, 8px);
+  background: rgba(245, 158, 11, .10);
+  border: 1px solid rgba(245, 158, 11, .28);
+  color: #f5b23b;
+  font-size: 10.5px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   Export / Import Manager  —  CapCut / Figma-grade modal
+   Full rewrite (owner feedback 2026-07-10): large two-pane shell,
+   left vertical nav rail, big live preview, right settings column.
+   Loads AFTER css/styles.css, so these win the cascade. Editor tokens only.
+   ============================================================ */
+
+/* ── Overlay ─────────────────────────────────────────── */
+.em-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(6, 6, 9, 0.62);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  animation: emOverlayIn 0.16s ease;
+}
+@keyframes emOverlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Modal shell ─────────────────────────────────────── */
+.em-overlay .em-modal {
+  width: 1080px;
+  max-width: 95vw;
+  height: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface, #16161b);
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.66), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  animation: emModalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes emModalIn { from { opacity: 0; transform: translateY(14px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+/* ── Header ──────────────────────────────────────────── */
+.em-overlay .em-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border, #2a2a31);
+  flex: 0 0 auto;
+}
+.em-overlay .em-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text, #f4f4f6);
+}
+.em-overlay .em-title svg { color: var(--gold, #f2ff58); }
+.em-overlay .em-close {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-dim, #9a9aa4);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.em-overlay .em-close:hover { background: var(--surface2, #1f1f26); color: var(--text, #fff); }
+
+/* ── Body: rail + stage ──────────────────────────────── */
+.em-overlay .em-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Left vertical nav rail */
+.em-overlay .em-rail {
+  flex: 0 0 216px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 12px;
+  border-right: 1px solid var(--border, #2a2a31);
+  background: color-mix(in srgb, var(--surface, #16161b) 88%, #000 12%);
+  overflow-y: auto;
+}
+.em-rail-tab {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--text-dim, #9a9aa4);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+.em-rail-tab svg { flex: 0 0 auto; opacity: 0.85; }
+.em-rail-tab .em-rail-label { flex: 1 1 auto; }
+.em-rail-tab:hover { background: var(--surface2, #1f1f26); color: var(--text, #fff); }
+.em-rail-tab.active {
+  background: var(--gold, #f2ff58);
+  color: #14140a;
+}
+.em-rail-tab.active svg { opacity: 1; }
+.em-rail-spacer { flex: 1 1 auto; }
+.em-rail-note {
+  padding: 10px 12px;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--text-dim, #74747e);
+  border-top: 1px solid var(--border, #2a2a31);
+  margin-top: 6px;
+}
+
+/* Right stage (section content) */
+.em-overlay .em-stage {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Two-pane split (İndir / Video) ──────────────────── */
+.em-split { display: flex; width: 100%; min-width: 0; }
+
+.em-preview {
+  flex: 1.15 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 26px;
+  border-right: 1px solid var(--border, #2a2a31);
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.03), transparent 60%),
+    var(--bg, #0d0d11);
+}
+.em-preview-frame {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  /* checkerboard so transparency reads */
+  background-color: var(--surface2, #1f1f26);
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.045) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.045) 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+.em-preview-frame img { display: block; max-width: 100%; max-height: 52vh; object-fit: contain; }
+.em-preview-sk {
+  width: 240px; height: 150px; border-radius: 10px;
+  background: linear-gradient(90deg, var(--surface2), var(--surface3, #262630), var(--surface2));
+  background-size: 200% 100%;
+  animation: emSk 1.15s ease-in-out infinite;
+}
+@keyframes emSk { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.em-preview-empty { font-size: 12px; color: var(--text-dim, #74747e); }
+.em-preview-chip {
+  position: absolute;
+  left: 26px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: var(--text, #f4f4f6);
+}
+.em-preview-chip b { font-weight: 700; }
+.em-preview-chip .em-chip-dim { color: var(--text-dim, #9a9aa4); font-weight: 500; }
+
+/* Right settings column */
+.em-settings {
+  flex: 0 0 384px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+/* The settings column scrolls. The default Windows scrollbar sat there as a wide opaque grey slab
+   next to the volt accent and dominated the panel; this is the thin translucent kind that only
+   appears when the pointer is in the column. `overlay` where it is supported so the track takes no
+   layout width at all, `stable` elsewhere so revealing the thumb cannot reflow the fields. */
+.em-settings-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-y: overlay;
+  padding: 20px 20px 8px;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color .18s ease;
+}
+.em-settings-scroll:hover,
+.em-settings-scroll:focus-within {
+  scrollbar-color: rgba(255, 255, 255, .18) transparent;
+}
+.em-settings-scroll::-webkit-scrollbar { width: 6px; }
+.em-settings-scroll::-webkit-scrollbar-track { background: transparent; }
+.em-settings-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background .18s ease;
+}
+.em-settings-scroll:hover::-webkit-scrollbar-thumb,
+.em-settings-scroll:focus-within::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .18);
+}
+.em-settings-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, .30); }
+.em-settings-foot {
+  flex: 0 0 auto;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--border, #2a2a31);
+  background: var(--surface, #16161b);
+}
+
+/* Section labels + rows */
+.em-sec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim, #74747e);
+  margin: 4px 2px 9px;
+}
+.em-sec-label + .em-sec-label { margin-top: 16px; }
+.em-options { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.em-opt-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.em-opt-label { font-size: 12px; color: var(--text, #f4f4f6); font-weight: 600; }
+
+/* ── Format / resolution cards ───────────────────────── */
+.em-format-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+.em-fmt-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px 12px;
+  border: 1.5px solid var(--border, #2a2a31);
+  border-radius: 12px;
+  background: var(--surface2, #1f1f26);
+  color: var(--text, #f4f4f6);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.13s, background 0.13s, transform 0.08s;
+}
+.em-fmt-card:hover { border-color: var(--text-dim, #74747e); }
+.em-fmt-card:active { transform: scale(0.98); }
+.em-fmt-card.active { border-color: var(--gold, #f2ff58); background: var(--gold-dim, rgba(242, 255, 88, 0.09)); }
+.em-fmt-label { font-size: 13px; font-weight: 700; }
+.em-fmt-desc { font-size: 10px; color: var(--text-dim, #9a9aa4); }
+.em-fmt-warn { font-size: 9.5px; color: var(--warn, #ffb020); margin-top: 2px; }
+
+/* ── Segmented control (DPI / FPS / aspect) ──────────── */
+.em-dpi-btns { display: inline-flex; align-items: center; gap: 4px; padding: 3px; border-radius: 10px; background: var(--surface2, #1f1f26); border: 1px solid var(--border, #2a2a31); flex-wrap: wrap; }
+.em-dpi-btn {
+  min-width: 34px;
+  padding: 6px 11px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-dim, #9a9aa4);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.em-dpi-btn:hover { color: var(--text, #fff); }
+.em-dpi-btn.active { background: var(--gold, #f2ff58); color: #14140a; }
+.em-dpi-custom {
+  width: 56px; margin-left: 2px;
+  background: var(--bg, #0d0d11);
+  border: 1px solid var(--border, #2a2a31);
+  color: var(--text, #fff);
+  border-radius: 7px;
+  font-size: 11px; font-family: inherit;
+  padding: 5px 7px; outline: none;
+  transition: border-color 0.12s;
+}
+.em-dpi-custom:focus { border-color: var(--gold, #f2ff58); }
+.em-dpi-custom::-webkit-outer-spin-button, .em-dpi-custom::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Checkbox row */
+.em-check-row { cursor: pointer; }
+.em-check-row input { accent-color: var(--gold, #f2ff58); width: 15px; height: 15px; cursor: pointer; }
+.em-check-row span { font-size: 12px; color: var(--text, #f4f4f6); font-weight: 600; }
+
+/* Quality slider */
+.em-range { flex: 1; accent-color: var(--gold, #f2ff58); height: 4px; cursor: pointer; }
+.em-range-val { font-size: 11px; color: var(--text-dim, #9a9aa4); min-width: 24px; text-align: right; font-weight: 700; }
+
+/* ── Primary / secondary buttons ─────────────────────── */
+.em-export-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 12px;
+  background: var(--gold, #f2ff58);
+  color: #14140a;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: filter 0.13s, transform 0.08s, opacity 0.13s;
+}
+.em-export-btn svg { width: 15px; height: 15px; }
+.em-export-btn:hover { filter: brightness(1.06); }
+.em-export-btn:active { transform: scale(0.985); }
+.em-export-btn:disabled { opacity: 0.6; cursor: default; }
+.em-export-btn.em-btn-secondary { background: var(--surface2, #1f1f26); color: var(--text, #f4f4f6); border: 1px solid var(--border, #2a2a31); }
+.em-export-btn.em-btn-secondary:hover { border-color: var(--text-dim, #74747e); filter: none; }
+.em-export-btn + .em-export-btn { margin-top: 9px; }
+
+/* ── CapCut-style stacked dropdown fields (video export settings) ── */
+.em-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 15px; }
+.em-field-label { font-size: 11.5px; font-weight: 700; color: var(--text, #f4f4f6); }
+.em-select, .em-input {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 10px;
+  background: var(--surface2, #1f1f26);
+  color: var(--text, #f4f4f6);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.em-select {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239a9aa4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  cursor: pointer;
+}
+.em-select:hover, .em-input:hover { border-color: var(--text-dim, #74747e); }
+.em-select:focus, .em-input:focus { border-color: var(--gold, #f2ff58); box-shadow: 0 0 0 3px var(--gold-dim, rgba(242, 255, 88, 0.12)); }
+.em-select option { background: var(--surface, #16161b); color: var(--text, #f4f4f6); font-weight: 600; }
+.em-field .em-check-row { justify-content: space-between; }
+
+/* Video export progress */
+.em-vprog { margin: 14px 0 2px; }
+.em-vprog-track { height: 7px; background: var(--surface2, #1f1f26); border: 1px solid var(--border, #2a2a31); border-radius: 5px; overflow: hidden; }
+.em-vprog-fill { height: 100%; width: 0; background: var(--gold, #f2ff58); transition: width 0.2s ease; }
+.em-vprog-text { font-size: 11px; color: var(--text-dim, #9a9aa4); margin-top: 7px; }
+
+/* ── Single-column sections (Selected / Group / Project / Import) ── */
+.em-stage > .em-pane { flex: 1 1 auto; min-width: 0; overflow-y: auto; padding: 22px 24px; }
+
+.em-empty { font-size: 13px; color: var(--text-dim, #9a9aa4); text-align: center; padding: 40px 20px 8px; }
+.em-hint { font-size: 11.5px; color: var(--text-dim, #74747e); text-align: center; margin-top: 6px; }
+.em-section-header { font-size: 13px; font-weight: 700; color: var(--text, #f4f4f6); margin-bottom: 14px; }
+.em-subsection { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-dim, #74747e); margin: 4px 0 9px; }
+
+/* Selected: search toolbar + thumbnail grid */
+.em-sel-toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+.em-search {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 10px;
+  background: var(--bg, #0d0d11);
+  color: var(--text, #fff);
+  font-family: inherit; font-size: 12px; outline: none;
+  transition: border-color 0.12s;
+}
+.em-search:focus { border-color: var(--gold, #f2ff58); }
+.em-tool-btn {
+  width: 38px; border: 1px solid var(--border, #2a2a31); border-radius: 10px;
+  background: var(--surface2, #1f1f26); color: var(--text, #f4f4f6);
+  cursor: pointer; font-size: 14px; transition: border-color 0.12s, background 0.12s;
+}
+.em-tool-btn:hover { border-color: var(--text-dim, #74747e); }
+.em-sel-count { font-size: 11px; color: var(--text-dim, #9a9aa4); margin: 0 2px 10px; font-weight: 600; }
+.em-thumb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.em-pcard {
+  position: relative; display: flex; flex-direction: column; gap: 4px;
+  padding: 7px; border: 1.5px solid var(--border, #2a2a31); border-radius: 12px;
+  cursor: pointer; transition: border-color 0.12s, background 0.12s; background: var(--surface2, #1f1f26);
+}
+.em-pcard:hover { border-color: var(--text-dim, #74747e); }
+.em-pcard.sel { border-color: var(--gold, #f2ff58); background: var(--gold-dim, rgba(242, 255, 88, 0.09)); }
+.em-pcard .em-page-cb { position: absolute; opacity: 0; pointer-events: none; }
+.em-pcard-check {
+  position: absolute; top: 11px; right: 11px; z-index: 2;
+  width: 19px; height: 19px; border-radius: 50%;
+  background: var(--gold, #f2ff58); color: #14140a;
+  font-size: 12px; font-weight: 800; line-height: 19px; text-align: center;
+  opacity: 0; transform: scale(0.6); transition: opacity 0.12s, transform 0.12s;
+}
+.em-pcard.sel .em-pcard-check { opacity: 1; transform: scale(1); }
+.em-pcard-thumb {
+  width: 100%; height: 84px; border-radius: 8px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background-color: var(--bg, #0d0d11);
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%);
+  background-size: 12px 12px; background-position: 0 0, 6px 6px;
+}
+.em-pcard-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.em-thumb-sk { width: 60%; height: 60%; border-radius: 6px; background: linear-gradient(90deg, var(--surface2), var(--surface3, #262630), var(--surface2)); background-size: 200% 100%; animation: emSk 1.1s ease-in-out infinite; }
+.em-thumb-empty { font-size: 10px; color: var(--text-dim, #74747e); }
+.em-pcard-label { font-size: 11px; font-weight: 600; color: var(--text, #f4f4f6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.em-pcard-dim { font-size: 9px; color: var(--text-dim, #74747e); }
+
+/* Selected: batch options */
+.em-sel-options { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border, #2a2a31); }
+.em-batch-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.em-batch-btn {
+  padding: 10px 8px; border: 1.5px solid var(--border, #2a2a31); border-radius: 10px;
+  background: var(--surface2, #1f1f26); color: var(--text, #f4f4f6);
+  font-family: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+.em-batch-btn:hover { border-color: var(--gold, #f2ff58); }
+.em-batch-btn:disabled { opacity: 0.6; cursor: default; }
+
+/* Group list */
+.em-group-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.em-group-row {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  padding: 12px 14px; border: 1.5px solid var(--border, #2a2a31); border-radius: 12px;
+  background: var(--surface2, #1f1f26); color: var(--text, #f4f4f6);
+  font-family: inherit; cursor: pointer; text-align: left;
+  transition: border-color 0.12s, background 0.12s;
+}
+.em-group-row:hover { border-color: var(--text-dim, #74747e); }
+.em-group-row.active { border-color: var(--gold, #f2ff58); background: var(--gold-dim, rgba(242, 255, 88, 0.09)); }
+.em-gr-dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
+.em-gr-name { flex: 1; font-size: 13px; font-weight: 600; }
+.em-gr-count { font-size: 11px; color: var(--text-dim, #9a9aa4); }
+
+/* Project export */
+.em-proj-info { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border, #2a2a31); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+.em-pi-row { display: flex; justify-content: space-between; padding: 12px 15px; background: var(--surface2, #1f1f26); font-size: 12.5px; }
+.em-pi-row span:first-child { color: var(--text-dim, #9a9aa4); }
+.em-pi-row span:last-child { color: var(--text, #f4f4f6); font-weight: 600; }
+.em-proj-btns { display: flex; flex-direction: column; margin-top: 16px; }
+
+/* Import zones */
+.em-import-zones { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 16px; }
+.em-import-zone {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  padding: 34px 18px; border: 2px dashed var(--border, #2a2a31); border-radius: 14px;
+  background: var(--surface2, #1f1f26); cursor: pointer; text-align: center;
+  transition: border-color 0.13s, background 0.13s;
+}
+.em-import-zone:hover { border-color: var(--text-dim, #74747e); }
+.em-import-zone.em-iz-over { border-color: var(--gold, #f2ff58); background: var(--gold-dim, rgba(242, 255, 88, 0.09)); }
+.em-iz-icon { font-size: 30px; line-height: 1; }
+.em-iz-title { font-size: 13px; font-weight: 700; color: var(--text, #f4f4f6); }
+.em-iz-desc { font-size: 10.5px; color: var(--text-dim, #74747e); }
+.em-import-status { min-height: 20px; text-align: center; font-size: 12px; }
+.em-status-loading { color: var(--text-dim, #9a9aa4); }
+.em-status-ok { color: var(--gold, #f2ff58); }
+.em-status-err { color: var(--danger, #ff5a5a); }
+
+/* ── Export progress overlay (modal-wide, percentage ring + bar) ── */
+.em-overlay .em-modal { position: relative; }
+.em-prog-overlay {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10, 10, 14, 0.74);
+  -webkit-backdrop-filter: blur(7px) saturate(1.05);
+  backdrop-filter: blur(7px) saturate(1.05);
+  animation: emProgIn 0.18s ease;
+}
+@keyframes emProgIn { from { opacity: 0; } to { opacity: 1; } }
+.em-prog-overlay.em-prog-out { opacity: 0; transition: opacity 0.24s ease; }
+.em-prog-card {
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  padding: 34px 44px;
+}
+.em-prog-ring { position: relative; width: 132px; height: 132px; }
+.em-prog-ring svg { width: 132px; height: 132px; transform: rotate(-90deg); }
+.em-prog-track { fill: none; stroke: var(--surface3, #2a2a31); stroke-width: 9; }
+.em-prog-fill {
+  fill: none; stroke: var(--gold, #f2ff58); stroke-width: 9; stroke-linecap: round;
+  stroke-dasharray: 326.726; stroke-dashoffset: 326.726;
+  transition: stroke-dashoffset 0.12s linear;
+  filter: drop-shadow(0 0 6px rgba(242, 255, 88, 0.35));
+}
+.em-prog-pct {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 30px; font-weight: 700; color: var(--text, #fff); letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+.em-prog-pct span { font-size: 15px; font-weight: 600; color: var(--text-dim, #9a9aa4); margin-left: 2px; }
+.em-prog-label { font-size: 13px; color: var(--text-dim, #b7b7c0); text-align: center; max-width: 240px; }
+.em-prog-bar { width: 220px; height: 5px; border-radius: 3px; overflow: hidden; background: var(--surface3, #2a2a31); }
+.em-prog-bar-fill { height: 100%; width: 0%; border-radius: 3px; background: var(--gold, #f2ff58); transition: width 0.12s linear; }
+.em-prog-complete .em-prog-fill { transition: stroke-dashoffset 0.3s ease; }
+.em-prog-complete .em-prog-bar-fill { transition: width 0.3s ease; }
+
+/* ── Responsive: collapse the split on narrow viewports ── */
+@media (max-width: 860px) {
+  .em-overlay .em-modal { height: 88vh; }
+  .em-split { flex-direction: column; }
+  .em-preview { border-right: none; border-bottom: 1px solid var(--border, #2a2a31); flex: 0 0 40%; }
+  .em-settings { flex: 1 1 auto; }
+  .em-overlay .em-rail { flex-basis: 172px; }
+}

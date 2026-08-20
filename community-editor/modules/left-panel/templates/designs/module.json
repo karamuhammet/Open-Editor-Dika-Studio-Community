@@ -1,0 +1,11 @@
+{
+  "id": "left-panel.templates.designs",
+  "children": [
+    "card-builders",
+    "card-thumbs",
+    "cv",
+    "invoice",
+    "logo",
+    "marketing"
+  ]
+}

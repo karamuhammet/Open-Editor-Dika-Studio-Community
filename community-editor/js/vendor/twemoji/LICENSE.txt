@@ -1,0 +1,5 @@
+Twemoji graphics: Copyright Twitter, Inc and other contributors.
+Licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+Vendored from https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/
+Only the emoji this editor offers are included, not the full set.

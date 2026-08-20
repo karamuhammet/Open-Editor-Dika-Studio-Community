@@ -1,0 +1,36 @@
+/* Image inspector.
+
+   Almost nothing lives here ON PURPOSE. The panel is rendered with the video clip inspector's own
+   classes (.ve-insp-docktabs, .ve-insp-section, .ve-insp-trcard, .ve-insp-fxnav, .ve-insp-slider,
+   .ve-flt-adv*, .ve-cg-*), all defined in modules/video/video-editor/video-editor.css and already
+   in the same bundle. That is what makes the two panels identical rather than similar, and it means
+   a later restyle of one restyles both. Adding local copies of those rules here would quietly undo
+   that, so this file only carries what the image panel genuinely has and the clip panel does not. */
+
+/* ACCORDION, stated outright instead of inherited.
+   The clip inspector collapses with `max-height:0` + a transition, which assumes a body shorter
+   than its 600px cap and a panel that is on screen when the class flips. Docked here neither holds:
+   the Color Grading body is taller than 600px (so an OPEN section would clip), and a section can be
+   toggled while its tab is display:none, where the transition never runs and the body stayed stuck
+   at max-height 0 with the class already removed - measured, and it is what "accordion düğmeler
+   çalışmıyor" was. Both states are therefore declared explicitly, with no transition to get stuck
+   in and no cap to clip against. */
+#rp-image .ve-insp-section.collapsed > .ve-insp-section-body { display: none; }
+#rp-image .ve-insp-section:not(.collapsed) > .ve-insp-section-body {
+  display: block; max-height: none; opacity: 1; padding: 4px 12px 10px; transition: none;
+}
+#rp-image .ve-insp-section:last-child { border-bottom: none; }
+
+/* A swatch sitting in a .ve-insp-row needs the row's baseline, not the field's. */
+#rp-image .ve-insp-row .rpf-swatch { flex: none; width: 18px; height: 18px; }
+
+/* Stacked full-width buttons inside a section body (Reset, Apply duotone, AI tools). */
+#rp-image .ve-insp-section-body > .ve-insp-btn { width: 100%; margin-top: 6px; }
+
+/* The select in the Effect tab matches the slider rows around it. */
+.ve-insp-select {
+  flex: 1; min-width: 0; background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  font: 400 11px var(--font-ui); padding: 5px 7px; outline: none; cursor: pointer;
+}
+.ve-insp-select:focus { border-color: var(--gold); }

@@ -1,0 +1,7 @@
+{
+  "id": "video.video-editor.preview-render",
+  "children": [
+    "nodes",
+    "overlay"
+  ]
+}

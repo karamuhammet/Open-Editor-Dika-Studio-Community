@@ -1,0 +1,5 @@
+{
+  "id": "system.register-wizard",
+  "title": "Registration wizard",
+  "note": "Full-screen registration, rendered from the wizard published at :3001 (Forms > Signup (Community Editor)). The steps are NOT written here: an authored flow that lives in the app is one nobody can change. Falls back to the last definition seen, then to a built-in screen."
+}

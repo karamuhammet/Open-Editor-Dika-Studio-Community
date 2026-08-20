@@ -1,0 +1,10 @@
+{
+  "id": "left-panel.tools.barcode-tools",
+  "children": [
+    "bulk",
+    "core",
+    "panel",
+    "single",
+    "util"
+  ]
+}

@@ -1,0 +1,228 @@
+/* wireframe — no styles yet. */
+
+/* ===== co-located from css/styles.css (wireframe) ===== */
+/* ═══════════════════════════════════════════════════════════════════
+   WIREFRAME MODULE STYLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Wireframe Flyout Sub-Tabs (Pages / Blocks) ── */
+.wf-flyout-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  margin: 0 -14px 8px;
+  padding: 0 14px;
+}
+
+.wf-flyout-tab {
+  flex: 1;
+  padding: 9px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  text-align: center;
+}
+
+.wf-flyout-tab:hover { color: var(--text); }
+
+.wf-flyout-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ── Wireframe Category Cards (WF Pages & WF Blocks flyouts) ── */
+#wf-tpl-cat-view,
+#wf-el-cat-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.wf-cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.wf-cat-card:hover {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  transform: translateY(-1px);
+}
+
+.wf-cat-icon { color: var(--gold); margin-bottom: 2px; }
+
+.wf-cat-name {
+  font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.2;
+}
+
+.wf-cat-desc {
+  font-size: 9px; color: var(--text-dim); line-height: 1.3;
+}
+
+/* ── Template Thumbnails ── */
+#wf-tpl-drill-grid,
+#wf-el-drill-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.wf-tpl-thumb {
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: all 0.15s;
+  background: var(--surface2);
+}
+
+.wf-tpl-thumb:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.wf-tpl-preview {
+  padding: 8px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.wf-tpl-name {
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Element Variant Cards ── */
+.wf-el-variant {
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: all 0.15s;
+  background: var(--surface2);
+}
+
+.wf-el-variant:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.wf-el-preview {
+  padding: 6px 8px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.wf-el-name {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ═══ Wireframe Settings Modal ════════════════════════════════ */
+
+.wf-settings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s;
+}
+
+.wf-settings-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  width: 380px;
+  max-width: 90vw;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.wf-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.wf-settings-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.wf-settings-close:hover { color: var(--text); }
+
+.wf-settings-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+.wf-stab {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.wf-stab:hover { color: var(--text); }
+
+.wf-stab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.wf-settings-body {
+  padding: 16px 20px;
+}
+
+.wf-stab-content { display: none; }
+
+.wf-stab-content.active { display: block; }
+
+.wf-settings-footer {
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border);
+}

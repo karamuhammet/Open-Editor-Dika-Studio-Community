@@ -1,0 +1,109 @@
+/* The update notice. A CARD IN THE CORNER, not a modal over the canvas.
+   Nothing here blocks: no backdrop, no pointer trap, no focus cage. The editor stays fully usable
+   while it is on screen, which is what "an update is an offer" has to look like as well as mean.
+   Tokens only - the same volt-on-soft-dark surface the rest of the app uses. */
+
+.cc-upd-wrap {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9998;              /* below a real modal (9999): this must never sit over one */
+  max-width: 380px;
+  animation: cc-upd-in 160ms ease-out;
+}
+
+@keyframes cc-upd-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-upd-wrap { animation: none; }
+}
+
+.cc-upd {
+  background: var(--panel, #1c1c22);
+  border: 1px solid var(--border, #2a2a33);
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .45);
+  color: var(--text, #e8e8ee);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cc-upd-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.cc-upd-sub {
+  color: var(--text-dim, #9a9aa6);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.cc-upd-notes {
+  color: var(--text-dim, #9a9aa6);
+  background: var(--bg, #16161b);
+  border: 1px solid var(--border, #2a2a33);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  max-height: 132px;
+  overflow-y: auto;
+  white-space: pre-wrap;      /* release notes arrive as text and stay text */
+}
+
+.cc-upd-why {
+  color: var(--text-faint, #6f6f7a);
+  font-size: 11px;
+  margin: -4px 0 10px;
+}
+
+.cc-upd-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cc-upd-btn {
+  appearance: none;
+  border: 1px solid var(--border, #2a2a33);
+  background: var(--panel-2, #22222a);
+  color: var(--text, #e8e8ee);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.cc-upd-btn:hover { background: var(--panel-3, #2a2a33); }
+
+.cc-upd-btn:focus-visible {
+  outline: 2px solid var(--brand, #f2ff58);
+  outline-offset: 2px;
+}
+
+.cc-upd-btn:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+/* Volt is a FILL, never a border. */
+.cc-upd-primary {
+  background: var(--brand, #f2ff58);
+  border-color: transparent;
+  color: var(--ink, #16161b);
+}
+
+.cc-upd-primary:hover { background: var(--brand, #f2ff58); filter: brightness(1.06); }
+
+.cc-upd-foot {
+  color: var(--text-faint, #6f6f7a);
+  font-size: 11px;
+  margin-top: 10px;
+}

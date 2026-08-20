@@ -1,0 +1,71 @@
+/* ============================================================
+   dika studio editor — DESIGN TOKENS (single source of truth).
+   Aligned to the panel design system (docs/dika-design-system.md
+   + /kit): Volt #f2ff58 single accent, lifted soft-dark #16161b,
+   Geist font, kit radius/spacing/control/border-state/ring scale.
+
+   This is the ONE token surface every module CSS may depend on.
+   Loaded FIRST in <head>; nothing else (styles.css/module CSS) may
+   redefine these — they inherit from here. (Was a legacy pink dup;
+   folded the kit-tokens overlay in here for a real single source.)
+   ============================================================ */
+:root {
+  /* ---- surfaces — lifted soft-dark (never flat black) ---- */
+  --bg: #16161b;
+  --surface: #1d1d23;
+  --surface2: #25252c;
+  --surface3: #2e2e36;
+
+  /* ---- borders — subtle white-alpha (shadcn dark) + interaction states ---- */
+  --border: rgba(255, 255, 255, 0.09);    /* rest */
+  --border2: rgba(255, 255, 255, 0.15);   /* hover / stronger */
+  --bd-active: rgba(255, 255, 255, 0.22);  /* active / pressed */
+
+  /* ---- text ---- */
+  --text: #ededf0;
+  --text-dim: #8888a0;
+  --text-faint: #44444f;
+
+  /* ---- accent — Volt #f2ff58 (single brand accent; was pink) ---- */
+  --gold: #f2ff58;
+  --gold-light: #f6ffb9;
+  --gold-dim: rgba(242, 255, 88, 0.15);
+  --gold-ring: rgba(242, 255, 88, 0.42);
+  --text-on-gold: #0b0b0d;                 /* ink on volt */
+
+  /* ---- system ---- */
+  --red: #ef4444;
+
+  /* ---- radius scale (kit) ---- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;    /* buttons, inputs, small controls */
+  --r-lg: 12px;   /* cards, popovers */
+  --r-xl: 16px;
+  --r-2xl: 24px;
+  --r-pill: 999px;
+
+  /* ---- spacing (4px base) ---- */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
+
+  /* ---- control heights ---- */
+  --ctl-sm: 32px;
+  --ctl-md: 36px;
+
+  /* ---- focus ring (volt) ---- */
+  --ring: 0 0 0 3px var(--gold-ring);
+  --ring-dim: 0 0 0 3px var(--gold-dim);
+
+  /* ---- fonts ---- */
+  --font-ui: "Geist", "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  /* ---- layout (legacy names kept) ---- */
+  --rpanel: 248px;
+  --bar: 50px;
+}
+
+/* editor chrome font (canvas/design text fonts stay per-object) */
+body {
+  font-family: var(--font-ui);
+}

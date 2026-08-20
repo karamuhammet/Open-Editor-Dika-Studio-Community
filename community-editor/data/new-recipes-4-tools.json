@@ -1,0 +1,218 @@
+[
+  {
+    "id": "r-tool-draw-cat",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "kedi", "cat", "hayvan", "animal", "path", "kalem", "pen", "çizim", "cizim"],
+    "title": "Draw a cat with SVG path",
+    "scenario": "User says 'draw a cat', 'kedi çiz', or wants a cat illustration.",
+    "recipe": "Kedi çizimi — addPath ile SVG path kullan:\n\nStep 1: Kedi gövdesi + baş\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 60 160 C 60 120 40 100 50 70 C 55 50 45 30 35 15 L 50 40 C 55 30 65 30 70 40 L 85 15 C 75 30 65 50 70 70 C 80 100 60 120 60 160 Z\", \"fill\": \"#ff9944\", \"stroke\": \"#cc6600\", \"strokeWidth\": 2, \"left\": 250, \"top\": 100, \"scaleX\": 2.5, \"scaleY\": 2.5}}]\n```\n\nStep 2: Göz ve burun detayları\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 4, \"fill\": \"#2d2d2d\", \"left\": 305, \"top\": 210}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 4, \"fill\": \"#2d2d2d\", \"left\": 330, \"top\": 210}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 2, \"fill\": \"#ff6666\", \"left\": 316, \"top\": 225}}]\n```\n\nNOT: Karmaşık çizimler için birden fazla addPath ve addShape birleştirin. Daha gerçekçi sonuç için generateImage kullanın.",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-draw-dog",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "köpek", "kopek", "dog", "hayvan", "animal", "path"],
+    "title": "Draw a dog with SVG path",
+    "scenario": "User says 'draw a dog', 'köpek çiz', or wants a dog illustration.",
+    "recipe": "Köpek çizimi — addPath ile:\n\nStep 1: Köpek gövde + baş silueti\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 30 90 C 30 60 40 40 60 35 C 65 25 55 10 50 5 L 65 25 C 70 20 80 20 85 25 L 100 5 C 95 10 85 25 90 35 C 110 40 120 60 120 90 L 110 90 C 110 120 100 140 90 145 L 90 90 L 60 90 L 60 145 C 50 140 40 120 40 90 Z\", \"fill\": \"#c8a060\", \"stroke\": \"#8b6914\", \"strokeWidth\": 2, \"left\": 200, \"top\": 80, \"scaleX\": 2.5, \"scaleY\": 2.5}}]\n```\n\nStep 2: Gözler + burun\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 5, \"fill\": \"#2d2d2d\", \"left\": 300, \"top\": 185}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 5, \"fill\": \"#2d2d2d\", \"left\": 340, \"top\": 185}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"ellipse\", \"width\": 16, \"height\": 12, \"fill\": \"#333333\", \"left\": 313, \"top\": 205}}]\n```",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-draw-dragon",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "ejderha", "dragon", "fantezi", "fantasy", "canavar", "monster"],
+    "title": "Draw a dragon with SVG path",
+    "scenario": "User says 'draw a dragon', 'ejderha çiz', or wants a mythical creature.",
+    "recipe": "Ejderha çizimi — basit stilize siluet:\n\nStep 1: Ejderha gövde + kanat silueti\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 120 C 40 100 30 80 35 60 C 38 45 45 35 55 30 C 60 25 58 15 55 5 L 65 20 C 70 15 75 15 80 20 L 90 5 C 87 15 85 25 90 30 C 100 35 105 45 108 60 L 140 30 L 130 55 L 160 35 L 140 60 C 135 70 120 75 110 80 C 115 90 112 100 105 115 C 100 125 95 130 85 132 L 85 150 L 75 145 L 75 132 C 65 130 58 125 50 120 Z\", \"fill\": \"#228b22\", \"stroke\": \"#145214\", \"strokeWidth\": 2, \"left\": 150, \"top\": 60, \"scaleX\": 3, \"scaleY\": 3}}]\n```\n\nStep 2: Göz + ateş detayı\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 4, \"fill\": \"#ff4444\", \"left\": 330, \"top\": 175}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 0 20 C 10 5 25 0 40 10 C 30 8 20 12 15 20 C 10 28 5 25 0 20 Z\", \"fill\": \"#ff6600\", \"left\": 345, \"top\": 220, \"scaleX\": 1.5, \"scaleY\": 1.5}}]\n```\n\nDaha detaylı ejderha istiyorsanız:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"detailed dragon illustration, green scales, fire breathing, fantasy art style, isolated on transparent background\", \"model\": \"qwen-image-max\"}}\n```",
+    "tools": ["addPath", "addShape", "generateImage"]
+  },
+  {
+    "id": "r-tool-draw-person",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "insan", "person", "adam", "kadın", "kadin", "figür", "figur", "stickman", "silüet", "siluet"],
+    "title": "Draw a person / human figure",
+    "scenario": "User says 'draw a person', 'insan çiz', 'adam çiz', or wants a human figure.",
+    "recipe": "İnsan figürü çizimi:\n\nBasit stilize insan (stickman+):\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 25 C 50 11 61 0 75 0 C 89 0 100 11 100 25 C 100 39 89 50 75 50 C 61 50 50 39 50 25 Z M 75 50 L 75 110 M 30 75 L 75 65 L 120 75 M 75 110 L 45 160 M 75 110 L 105 160\", \"fill\": \"transparent\", \"stroke\": \"#ffffff\", \"strokeWidth\": 4, \"left\": 250, \"top\": 50, \"scaleX\": 2, \"scaleY\": 2}}]\n```\n\nDolu silüet:\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 40 30 C 40 15 50 0 65 0 C 80 0 90 15 90 30 C 90 45 80 55 65 55 C 50 55 40 45 40 30 Z M 45 60 L 85 60 C 95 60 100 70 100 80 L 100 120 L 80 120 L 80 170 L 50 170 L 50 120 L 30 120 L 30 80 C 30 70 35 60 45 60 Z\", \"fill\": \"#f2ff58\", \"stroke\": \"#cc88aa\", \"strokeWidth\": 1, \"left\": 250, \"top\": 50, \"scaleX\": 2.5, \"scaleY\": 2.5}}]\n```\n\nGerçekçi insan için:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"professional businessman standing, full body, minimal illustration style, isolated on white background\"}}\n```",
+    "tools": ["addPath", "generateImage"]
+  },
+  {
+    "id": "r-tool-draw-flower",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "çiçek", "cicek", "flower", "gül", "gul", "rose", "bitki", "plant"],
+    "title": "Draw a flower with SVG path",
+    "scenario": "User says 'draw a flower', 'çiçek çiz', or wants a floral element.",
+    "recipe": "Çiçek çizimi:\n\n5 yapraklı çiçek:\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 30 C 40 10 60 0 50 30 C 70 15 80 30 50 30 C 75 40 65 60 50 30 C 35 55 25 40 50 30 C 20 20 35 10 50 30 Z\", \"fill\": \"#ff6b9d\", \"stroke\": \"#cc4477\", \"strokeWidth\": 1, \"left\": 280, \"top\": 100, \"scaleX\": 4, \"scaleY\": 4}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 15, \"fill\": \"#ffdd44\", \"left\": 315, \"top\": 195}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 5 0 L 5 80 C 5 80 0 60 5 50 C 10 40 20 45 15 35 C 10 25 5 20 5 0\", \"fill\": \"transparent\", \"stroke\": \"#44aa44\", \"strokeWidth\": 3, \"left\": 327, \"top\": 230, \"scaleX\": 2, \"scaleY\": 2}}]\n```",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-draw-tree",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "ağaç", "agac", "tree", "orman", "forest", "yaprak", "nature"],
+    "title": "Draw a tree with SVG path",
+    "scenario": "User says 'draw a tree', 'ağaç çiz', or wants nature elements.",
+    "recipe": "Ağaç çizimi:\n\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 45 160 L 55 160 L 55 100 L 45 100 Z\", \"fill\": \"#8B4513\", \"left\": 280, \"top\": 50, \"scaleX\": 3, \"scaleY\": 3}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 10 C 20 20 5 50 15 70 C 0 65 -5 90 15 95 C 5 100 10 120 30 115 C 25 130 45 140 55 130 C 60 140 80 135 75 115 C 95 120 100 100 90 95 C 110 90 105 65 90 70 C 100 50 85 20 50 10 Z\", \"fill\": \"#44aa44\", \"stroke\": \"#338833\", \"strokeWidth\": 1, \"left\": 215, \"top\": 10, \"scaleX\": 3, \"scaleY\": 3}}]\n```",
+    "tools": ["addPath"]
+  },
+  {
+    "id": "r-tool-draw-star",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "yıldız", "yildiz", "star", "shape", "path"],
+    "title": "Draw a star with SVG path",
+    "scenario": "User says 'draw a star', 'yıldız çiz'.",
+    "recipe": "Yıldız çizimi:\n\n5 köşeli yıldız:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 0 L 61 35 L 98 35 L 68 57 L 79 91 L 50 70 L 21 91 L 32 57 L 2 35 L 39 35 Z\", \"fill\": \"#ffd700\", \"stroke\": \"#cc9900\", \"strokeWidth\": 1, \"scaleX\": 3, \"scaleY\": 3}}\n```\n\n6 köşeli yıldız:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 0 L 61 25 L 93 7 L 75 35 L 100 50 L 75 65 L 93 93 L 61 75 L 50 100 L 39 75 L 7 93 L 25 65 L 0 50 L 25 35 L 7 7 L 39 25 Z\", \"fill\": \"#ffd700\", \"scaleX\": 3, \"scaleY\": 3}}\n```",
+    "tools": ["addPath"]
+  },
+  {
+    "id": "r-tool-draw-house",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "ev", "house", "bina", "building", "yapı", "yapi"],
+    "title": "Draw a house with SVG path",
+    "scenario": "User says 'draw a house', 'ev çiz'.",
+    "recipe": "Ev çizimi:\n\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 10 L 10 45 L 10 90 L 90 90 L 90 45 Z\", \"fill\": \"#cc4444\", \"stroke\": \"#992222\", \"strokeWidth\": 2, \"left\": 200, \"top\": 50, \"scaleX\": 3, \"scaleY\": 3}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 10 45 L 10 90 L 90 90 L 90 45 Z\", \"fill\": \"#f5deb3\", \"stroke\": \"#8b7355\", \"strokeWidth\": 2, \"left\": 200, \"top\": 155, \"scaleX\": 3, \"scaleY\": 3}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 35 55 L 65 55 L 65 90 L 35 90 Z\", \"fill\": \"#654321\", \"left\": 225, \"top\": 220, \"scaleX\": 3, \"scaleY\": 3}}]\n```",
+    "tools": ["addPath"]
+  },
+  {
+    "id": "r-tool-draw-car",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "araba", "car", "araç", "arac", "otomobil", "vehicle"],
+    "title": "Draw a car with SVG path",
+    "scenario": "User says 'draw a car', 'araba çiz'.",
+    "recipe": "Araba çizimi:\n\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 20 50 L 30 25 L 70 25 L 85 50 L 95 50 C 100 50 100 65 95 65 L 5 65 C 0 65 0 50 5 50 Z\", \"fill\": \"#ff3344\", \"stroke\": \"#cc1122\", \"strokeWidth\": 1, \"left\": 180, \"top\": 120, \"scaleX\": 4, \"scaleY\": 4}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 18, \"fill\": \"#333333\", \"stroke\": \"#666666\", \"strokeWidth\": 3, \"left\": 245, \"top\": 265}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 18, \"fill\": \"#333333\", \"stroke\": \"#666666\", \"strokeWidth\": 3, \"left\": 475, \"top\": 265}}]\n```",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-draw-any",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "çizim yap", "cizim yap", "resim çiz", "resim ciz", "illustration", "sketch", "şekil çiz", "sekil ciz"],
+    "title": "Draw ANY object — general drawing strategy",
+    "scenario": "User says 'draw X', 'X çiz', where X is any object, animal, or thing.",
+    "recipe": "Genel çizim stratejisi:\n\n**Basit/stilize çizimler** → addPath kullan:\n1. Objenin ana siluetini düşün (vücut, gövde, ana şekil)\n2. SVG path ile silueti çiz (M=başla, C=eğri, L=düz çizgi, Z=kapat)\n3. Detayları ayrı path'ler veya shape'ler olarak ekle (gözler=circle, ağız=path)\n4. scaleX/scaleY ile boyutlandır (2-4x arası iyi çalışır)\n\nKoordinat sistemi: 0-100 arası tasarla, scaleX/Y ile büyüt.\n\n**Gerçekçi/detaylı çizimler** → generateImage kullan:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"[obje açıklaması], [stil: flat/realistic/cartoon/vector], isolated on white background\", \"model\": \"qwen-image-plus\"}}\n```\n\n**Seçim rehberi:**\n- Basit ikon/sembol → addPath\n- Logo/simge → addPath + addShape\n- Fotoğrafik → generateImage (qwen-image-plus)\n- Yüksek kalite sanat → generateImage (qwen-image-max)\n- Karikatür/illüstrasyon → generateImage (qwen-image-2.0-pro)",
+    "tools": ["addPath", "generateImage"]
+  },
+  {
+    "id": "r-tool-generate-image-basic",
+    "category": "tools",
+    "tags": ["resim oluştur", "resim olustur", "image generate", "görsel oluştur", "gorsel olustur", "AI resim", "yapay zeka resim", "dall-e", "text to image"],
+    "title": "Generate image with AI (basic usage)",
+    "scenario": "User wants to generate/create an image using AI.",
+    "recipe": "AI ile resim oluşturma — generateImage tool:\n\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"[İngilizce detaylı açıklama]\", \"model\": \"qwen-image-plus\"}}\n```\n\n**Modeller:**\n- `qwen-image-plus` — Hızlı, genel amaçlı (varsayılan)\n- `qwen-image-max` — En yüksek kalite\n- `qwen-image-2.0-pro` — En yeni model\n- `z-image-turbo` — En hızlı\n\n**Prompt yazma ipuçları:**\n- Her zaman İngilizce yaz (daha iyi sonuç)\n- Stil belirt: flat design, realistic photo, cartoon, watercolor, vector art\n- Arka plan: 'isolated on white background', 'transparent background'\n- Detay ver: renk, açı, ışık, kompozisyon\n\nÖrnek:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"professional business team in modern office, corporate photography style, bright lighting\", \"size\": \"1024*1024\", \"model\": \"qwen-image-max\"}}\n```\n\n**NOT:** Resim ~10 saniyede canvas'a eklenir. Qwen API key gerektirir.",
+    "tools": ["generateImage"]
+  },
+  {
+    "id": "r-tool-generate-image-icon",
+    "category": "tools",
+    "tags": ["ikon oluştur", "ikon olustur", "icon generate", "simge oluştur", "AI ikon", "logo oluştur", "logo olustur"],
+    "title": "Generate icon/logo with AI image",
+    "scenario": "User wants to create a custom icon or logo using AI image generation.",
+    "recipe": "AI ile özel ikon/logo oluşturma:\n\nFlat ikon:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"minimalist flat icon of [obje], simple geometric shapes, solid colors, isolated on white background, Material Design style, 512x512\", \"size\": \"512*512\", \"model\": \"qwen-image-plus\"}}\n```\n\nLogo:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"modern minimalist logo design for [şirket/konsept], clean lines, professional, vector style, solid background\", \"size\": \"1024*1024\", \"model\": \"qwen-image-max\"}}\n```\n\nMaskot:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"cute cartoon mascot character of a [hayvan/obje], friendly expression, vibrant colors, isolated on transparent background\", \"model\": \"qwen-image-2.0-pro\"}}\n```",
+    "tools": ["generateImage"]
+  },
+  {
+    "id": "r-tool-generate-image-bg",
+    "category": "tools",
+    "tags": ["arka plan oluştur", "arka plan olustur", "background generate", "AI arka plan", "arkaplan resim", "fon resmi"],
+    "title": "Generate background image with AI",
+    "scenario": "User wants a custom AI-generated background for their design.",
+    "recipe": "AI ile arka plan resmi oluştur, sonra canvas BG olarak kullan:\n\nSoyut arka plan:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"abstract gradient background, dark blue and purple tones, smooth flowing shapes, digital art, no text\", \"size\": \"1024*1024\", \"model\": \"qwen-image-plus\"}}\n```\n\nDoğa arka planı:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"beautiful sunset landscape, mountain silhouette, warm orange and purple sky, photography style, no text\", \"model\": \"qwen-image-max\"}}\n```\n\nDoku/pattern:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"seamless marble texture, white and gold veins, luxurious surface, tileable pattern\", \"size\": \"1024*1024\", \"model\": \"qwen-image-plus\"}}\n```\n\nNOT: Oluşturulan resim canvas'a nesne olarak eklenir. Arka plan olarak kullanmak için resmi seçip boyutlandırın ve en alta gönderin (sendBackward).",
+    "tools": ["generateImage"]
+  },
+  {
+    "id": "r-tool-describe-object",
+    "category": "tools",
+    "tags": ["tanımla", "tanimla", "describe", "ne bu", "bilgi", "info", "seçili", "secili", "selected", "açıkla", "acikla", "detay"],
+    "title": "Describe selected canvas object",
+    "scenario": "User wants to know what object is selected, or asks 'what is this?' about a selected element.",
+    "recipe": "Seçili nesneyi tanımla — describeSelected tool:\n\n```tool\n{\"tool\": \"describeSelected\", \"params\": {}}\n```\n\nBu tool seçili nesne hakkında bilgi verir:\n- Tip (text, image, rect, circle, path, group)\n- Pozisyon ve boyut\n- Renk, stroke, opaklık\n- Metin içeriği (textbox ise)\n- Resim kaynağı ve boyutu (image ise)\n- Path komut sayısı (path ise)\n- Grup eleman sayısı (group ise)\n- Özel özellikler (ikon adı, QR URL, chart tipi)\n\nÖnce describeSelected çağır, sonra kullanıcıya bilgi ver veya modifySelected ile değiştir.",
+    "tools": ["describeSelected"]
+  },
+  {
+    "id": "r-tool-addtext-detailed",
+    "category": "tools",
+    "tags": ["addText", "metin ekle", "yazı ekle", "yazi ekle", "text tool", "font", "karakter aralığı", "satır yüksekliği"],
+    "title": "addText tool — complete parameter guide",
+    "scenario": "User needs detailed guidance on addText parameters.",
+    "recipe": "addText — tüm parametreler:\n\n```tool\n{\"tool\": \"addText\", \"params\": {\n  \"text\": \"Hello World\",\n  \"fontSize\": 24,\n  \"fontFamily\": \"Inter, sans-serif\",\n  \"fill\": \"#ffffff\",\n  \"fontWeight\": \"bold\",\n  \"textAlign\": \"center\",\n  \"left\": 100,\n  \"top\": 50,\n  \"width\": 400,\n  \"opacity\": 0.8,\n  \"angle\": -5,\n  \"charSpacing\": 100,\n  \"lineHeight\": 1.4\n}}\n```\n\n**Parametre açıklamaları:**\n- `fontSize`: Piksel cinsinden. 12=küçük, 24=normal, 48=büyük, 72+=çok büyük\n- `fontFamily`: 'Inter', 'Roboto', 'Montserrat', 'Playfair Display', 'Bebas Neue', 'Caveat', 'Great Vibes'\n- `fontWeight`: 'normal', 'bold', '300', '500', '700', '900'\n- `textAlign`: 'left', 'center', 'right'\n- `charSpacing`: Harf aralığı (1/1000 em). 0=normal, 100=geniş, 500=çok geniş\n- `lineHeight`: Satır yüksekliği. 1.0=sıkı, 1.4=normal, 2.0=geniş\n- `opacity`: 0.0 (görünmez) - 1.0 (tam görünür)\n- `angle`: Derece. -30=sola eğik, 0=düz, 45=sağa eğik",
+    "tools": ["addText"]
+  },
+  {
+    "id": "r-tool-addshape-detailed",
+    "category": "tools",
+    "tags": ["addShape", "şekil ekle", "sekil ekle", "shape tool", "dikdörtgen", "daire", "üçgen", "elips"],
+    "title": "addShape tool — all shape types",
+    "scenario": "User needs detailed guidance on addShape parameters and shape types.",
+    "recipe": "addShape — tüm şekil tipleri:\n\n**Desteklenen şekiller:**\n- `rect` / `rectangle` — Dikdörtgen: width, height, rx (köşe yuvarlaklığı)\n- `circle` — Daire: radius\n- `triangle` — Üçgen: width, height\n- `ellipse` — Elips: width, height (rx, ry otomatik)\n- `diamond` — Elmas: width, height (45° döndürülmüş kare)\n- `line` — Çizgi: width (uzunluk), height=2 otomatik\n\nÖrnekler:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 200, \"height\": 60, \"fill\": \"#f2ff58\", \"stroke\": \"#cc88aa\", \"strokeWidth\": 2}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 50, \"fill\": \"#44aaff\"}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"triangle\", \"width\": 80, \"height\": 70, \"fill\": \"#ffdd44\"}}]\n```\n\nYuvarlatılmış köşe dikdörtgen:\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 200, \"height\": 60, \"fill\": \"#f2ff58\", \"rx\": 12, \"ry\": 12}}\n```",
+    "tools": ["addShape"]
+  },
+  {
+    "id": "r-tool-addpath-detailed",
+    "category": "tools",
+    "tags": ["addPath", "SVG", "path", "vektör", "vektor", "vector", "bezier", "eğri", "egri", "curve"],
+    "title": "addPath tool — SVG path commands guide",
+    "scenario": "User needs to understand SVG path syntax for addPath.",
+    "recipe": "addPath — SVG path komutları rehberi:\n\n**Temel komutlar:**\n- `M x y` — Hareket (move to) — kalemi taşı\n- `L x y` — Düz çizgi (line to)\n- `C x1 y1 x2 y2 x y` — Kübik Bezier eğri (2 kontrol noktası)\n- `Q x1 y1 x y` — Kuadratik Bezier (1 kontrol noktası)\n- `A rx ry rotation large-arc sweep x y` — Ark (yay)\n- `Z` — Kapat (başlangıç noktasına dön)\n\n**Büyük/küçük harf:** Büyük=mutlak koordinat, küçük=göreceli.\n\nKare:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 0 0 L 100 0 L 100 100 L 0 100 Z\", \"fill\": \"#ff0000\", \"scaleX\": 2, \"scaleY\": 2}}\n```\n\nKalp:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 90 C 25 70 0 50 0 30 C 0 10 15 0 30 0 C 40 0 48 5 50 15 C 52 5 60 0 70 0 C 85 0 100 10 100 30 C 100 50 75 70 50 90 Z\", \"fill\": \"#ff4466\", \"scaleX\": 3, \"scaleY\": 3}}\n```\n\nİpucu: 0-100 arası koordinat sistemi kullan, scaleX/Y ile büyüt.",
+    "tools": ["addPath"]
+  },
+  {
+    "id": "r-tool-modify-detailed",
+    "category": "tools",
+    "tags": ["modifySelected", "değiştir", "degistir", "düzenle", "duzenle", "modify", "edit", "güncelle", "guncelle", "renk değiştir", "boyut değiştir"],
+    "title": "modifySelected tool — complete properties guide",
+    "scenario": "User wants to modify/edit a selected object's properties.",
+    "recipe": "modifySelected — seçili nesneyi düzenle:\n\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\n  \"fill\": \"#ff0000\",\n  \"stroke\": \"#660000\",\n  \"strokeWidth\": 2,\n  \"fontSize\": 36,\n  \"fontFamily\": \"Bebas Neue\",\n  \"fontWeight\": \"bold\",\n  \"opacity\": 0.8,\n  \"angle\": 15,\n  \"scaleX\": 1.5,\n  \"scaleY\": 1.5,\n  \"text\": \"New text\"\n}}\n```\n\n**ÖNEMLİ:** Nesne seçili olmalı! Değilse: 'No object selected' hatası alırsın.\n\n**Yaygın işlemler:**\n- Renk değiştir: `{\"fill\": \"#newcolor\"}`\n- Büyüt: `{\"scaleX\": 2, \"scaleY\": 2}`\n- Döndür: `{\"angle\": 45}`\n- Şeffaflaştır: `{\"opacity\": 0.5}`\n- Metin güncelle: `{\"text\": \"yeni metin\"}`\n- Kenarlık ekle: `{\"stroke\": \"#fff\", \"strokeWidth\": 3}`\n\nBirden fazla özelliği aynı anda değiştirebilirsin.",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-tool-generate-image-sizes",
+    "category": "tools",
+    "tags": ["image size", "resim boyutu", "generate size", "oluşturma boyutu", "kare", "dikey", "yatay", "square", "portrait", "landscape"],
+    "title": "Image generation size options",
+    "scenario": "User asks about image generation sizes or wants a specific aspect ratio.",
+    "recipe": "generateImage boyut seçenekleri:\n\n**Desteklenen boyutlar** (genişlik*yükseklik):\n- `512*512` — Küçük kare (hızlı, ikon için)\n- `768*512` — Yatay (landscape)\n- `512*768` — Dikey (portrait)\n- `1024*1024` — Büyük kare (varsayılan, yüksek kalite)\n- `1024*768` — Geniş yatay\n- `768*1024` — Uzun dikey\n\nKullanım:\n```tool\n{\"tool\": \"generateImage\", \"params\": {\"prompt\": \"...\", \"size\": \"768*1024\"}}\n```\n\n**Model performans farkları:**\n- `z-image-turbo` — 3-5 saniye, temel kalite\n- `qwen-image-plus` — 5-10 saniye, iyi kalite\n- `qwen-image-max` — 10-20 saniye, üstün kalite\n- `qwen-image-2.0-pro` — 10-15 saniye, en yeni teknoloji",
+    "tools": ["generateImage"]
+  },
+  {
+    "id": "r-tool-canvas-workflow",
+    "category": "tools",
+    "tags": ["iş akışı", "is akisi", "workflow", "sıra", "sira", "order", "adımlar", "adimlar", "steps", "nasıl kullanılır"],
+    "title": "AI tools workflow — correct order of operations",
+    "scenario": "User wants to understand the correct workflow for using AI tools.",
+    "recipe": "AI araçları doğru kullanım sırası:\n\n**1. Canvas hazırla:**\n- `setCanvasSize` — Boyut ayarla (opsiyonel)\n- `setBackground` — Arka plan rengi\n\n**2. İçerik ekle:**\n- `addText` — Metin ekle\n- `addShape` — Şekil ekle\n- `addPath` — Özel şekil çiz\n- `addIcon` — İkon ekle\n- `generateImage` — AI resim oluştur\n\n**3. Düzenle:**\n- `describeSelected` — Nesneyi incele\n- `modifySelected` — Özellik değiştir (nesne seçili olmalı!)\n- `alignObject` — Hizala\n\n**4. Katman yönet:**\n- `bringForward` / `sendBackward` — Sırala\n- `groupSelected` / `ungroupSelected` — Grupla\n\n**5. Çoğalt:**\n- `duplicateSelected` — Tek kopya\n- `arrangeGrid` — Grid düzeni\n- `createTextPattern` — Metin deseni\n\n**Kurallar:**\n- Max 6 tool call per response\n- Her zaman ÖNCE ekle, SONRA düzenle\n- modifySelected için nesne SEÇİLİ olmalı\n- Döngü kullanma, createTextPattern/arrangeGrid kullan",
+    "tools": []
+  },
+  {
+    "id": "r-tool-draw-heart-detailed",
+    "category": "tools",
+    "tags": ["kalp", "heart", "aşk", "ask", "love", "sevgi", "valentine"],
+    "title": "Draw a heart shape",
+    "scenario": "User wants to draw a heart shape.",
+    "recipe": "Kalp çizimi:\n\nKlasik kalp:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 90 C 25 70 0 50 0 30 C 0 10 15 0 30 0 C 40 0 48 5 50 15 C 52 5 60 0 70 0 C 85 0 100 10 100 30 C 100 50 75 70 50 90 Z\", \"fill\": \"#ff4466\", \"stroke\": \"#cc0033\", \"strokeWidth\": 1, \"scaleX\": 3, \"scaleY\": 3}}\n```\n\nKalp contour (sadece çizgi):\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 90 C 25 70 0 50 0 30 C 0 10 15 0 30 0 C 40 0 48 5 50 15 C 52 5 60 0 70 0 C 85 0 100 10 100 30 C 100 50 75 70 50 90 Z\", \"fill\": \"transparent\", \"stroke\": \"#ff4466\", \"strokeWidth\": 3, \"scaleX\": 3, \"scaleY\": 3}}\n```",
+    "tools": ["addPath"]
+  },
+  {
+    "id": "r-tool-draw-fish",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "balık", "balik", "fish", "deniz", "sea", "akvaryum"],
+    "title": "Draw a fish with SVG path",
+    "scenario": "User says 'draw a fish', 'balık çiz'.",
+    "recipe": "Balık çizimi:\n\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 90 50 C 85 30 70 15 50 15 C 30 15 10 30 5 50 C 10 70 30 85 50 85 C 70 85 85 70 90 50 Z M 0 30 L 15 50 L 0 70 Z\", \"fill\": \"#ff8844\", \"stroke\": \"#cc5500\", \"strokeWidth\": 2, \"left\": 200, \"top\": 100, \"scaleX\": 3.5, \"scaleY\": 3.5}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 6, \"fill\": \"#000000\", \"left\": 435, \"top\": 210}}]\n```",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-draw-bird",
+    "category": "tools",
+    "tags": ["çiz", "ciz", "draw", "kuş", "kus", "bird", "uçan", "ucan", "flying"],
+    "title": "Draw a bird with SVG path",
+    "scenario": "User says 'draw a bird', 'kuş çiz'.",
+    "recipe": "Kuş çizimi:\n\nUçan kuş silueti:\n```tool\n{\"tool\": \"addPath\", \"params\": {\"path\": \"M 50 50 C 35 30 10 20 0 35 C 15 30 30 35 45 48 M 50 50 C 65 30 90 20 100 35 C 85 30 70 35 55 48 M 50 50 L 55 55 L 50 60 Z\", \"fill\": \"transparent\", \"stroke\": \"#333333\", \"strokeWidth\": 3, \"left\": 200, \"top\": 100, \"scaleX\": 4, \"scaleY\": 4}}\n```\n\nRenkli kuş:\n```tool\n[{\"tool\": \"addPath\", \"params\": {\"path\": \"M 60 40 C 50 25 30 20 25 35 C 15 30 10 40 15 50 C 20 60 35 65 50 60 C 65 55 70 45 60 40 Z\", \"fill\": \"#3399ff\", \"stroke\": \"#1166cc\", \"strokeWidth\": 1, \"left\": 200, \"top\": 100, \"scaleX\": 4, \"scaleY\": 4}}, {\"tool\": \"addPath\", \"params\": {\"path\": \"M 10 38 L 0 35 L 10 42 Z\", \"fill\": \"#ffaa00\", \"left\": 228, \"top\": 195, \"scaleX\": 4, \"scaleY\": 4}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 4, \"fill\": \"#000000\", \"left\": 300, \"top\": 195}}]\n```",
+    "tools": ["addPath", "addShape"]
+  },
+  {
+    "id": "r-tool-image-gen-providers",
+    "category": "tools",
+    "tags": ["provider", "sağlayıcı", "model", "image generation", "resim modeli", "hangi model", "desteklenen", "supported"],
+    "title": "Image generation — supported providers and models",
+    "scenario": "User asks which providers/models support image generation.",
+    "recipe": "Resim oluşturma destekleyen sağlayıcılar:\n\n**✅ Qwen (DashScope International)**\nModeller:\n- `qwen-image-plus` — Hızlı genel amaç (varsayılan)\n- `qwen-image-max` — En yüksek kalite\n- `qwen-image-2.0` — Yeni nesil\n- `qwen-image-2.0-pro` — En yeni ve en iyi\n- `z-image-turbo` — Ultra hızlı\nEndpoint: dashscope-intl.aliyuncs.com (async task API)\n\n**❌ Diğer sağlayıcılar**\n- OpenAI DALL-E: Şu an entegre değil (farklı API format)\n- Google Imagen: Şu an entegre değil\n- DeepSeek: Resim üretimi desteklemiyor\n- Kimi: Resim üretimi desteklemiyor\n- GLM CogView: Şu an entegre değil\n\n**Gereksinimler:**\n- Qwen API key (DashScope International)\n- Settings'te Qwen provider seçili olmalı VEYA Knowledge Engine'de Embedding API Key girilmiş olmalı\n\n**ÖNEMLİ:** Mainland China key (`dashscope.aliyuncs.com`) çalışmaz! International konsol key gerekir: https://www.alibabacloud.com/en/product/model-studio",
+    "tools": ["generateImage"]
+  }
+]

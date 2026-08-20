@@ -1,0 +1,71 @@
+/* Preset library. The modal SHELL is the video inspector's (.ve-cgm), so only the pieces that
+   shell does not already provide live here: the backdrop, the card grid and the header buttons. */
+
+.cc-ps-back { position: fixed; inset: 0; z-index: 10050; background: rgba(0, 0, 0, 0.5);
+  display: flex; align-items: center; justify-content: center; }
+/* .ve-cgm is positioned for its floating use; inside the backdrop it is a normal flex child. */
+.cc-ps-modal { position: relative !important; inset: auto !important; max-height: 82vh;
+  display: flex; flex-direction: column; }
+
+.cc-ps-input { width: 100%; background: var(--surface2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-md); padding: 8px 10px;
+  font: 400 12px var(--font-ui); outline: none; margin-bottom: 4px; }
+.cc-ps-input:focus { border-color: var(--gold); }
+
+.cc-ps-ck { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--text);
+  padding: 5px 0; cursor: pointer; }
+.cc-ps-ck input { accent-color: var(--gold); width: 13px; height: 13px; }
+/* A part with nothing in it stays VISIBLE and dimmed rather than disappearing: the list is also how
+   you learn what a preset can carry. */
+.cc-ps-ck.is-off { color: var(--text-faint); cursor: default; }
+.cc-ps-mut { margin-left: auto; font-size: 9.5px; color: var(--text-faint); }
+
+.cc-ps-btns { display: flex; gap: 7px; margin-top: 12px; }
+.cc-ps-btns .ve-insp-btn { flex: 1; margin: 0; }
+.cc-ps-btns .ve-insp-btn.is-pri { flex: 1.4; background: var(--gold); border-color: var(--gold);
+  color: var(--text-on-gold); font-weight: 500; }
+.cc-ps-btns .ve-insp-btn.is-pri:hover { background: var(--gold-light); }
+
+/* Category chips. They live here rather than in the image panel's CSS because the library is now
+   their only user - the panel's own rows moved to the clip inspector's .ve-insp-trcard, and an
+   unowned rule is one nobody notices deleting. That is exactly how these rendered as raw browser
+   buttons on first run. */
+.rpf-chipbtns { display: flex; flex-wrap: wrap; gap: 4px; }
+.rpf-chipbtn { font-size: 10.5px; color: var(--text-dim); background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--r-pill); padding: 4px 10px; cursor: pointer;
+  font-family: var(--font-ui); }
+.rpf-chipbtn:hover { color: var(--text); border-color: var(--border2); }
+.rpf-chipbtn.on { background: var(--gold); border-color: var(--gold); color: var(--text-on-gold); font-weight: 500; }
+
+.cc-ps-search { display: flex; align-items: center; gap: 7px; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--r-md); padding: 7px 9px; margin-bottom: 9px;
+  color: var(--text-dim); }
+.cc-ps-search input { flex: 1; background: none; border: none; outline: none; color: var(--text);
+  font: 400 11.5px var(--font-ui); }
+
+.cc-ps-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin-top: 11px; }
+.cc-ps-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 9px;
+  overflow: hidden; cursor: pointer; padding: 0 0 7px; text-align: left; display: flex;
+  flex-direction: column; gap: 5px; }
+.cc-ps-card:hover { border-color: var(--border2); }
+.cc-ps-card.on { border-color: var(--gold); }
+.cc-ps-thumb { width: 100%; height: 62px; object-fit: cover; display: block; background: var(--bg); }
+.cc-ps-nothumb { display: flex; align-items: center; justify-content: center; color: var(--text-faint); }
+.cc-ps-cname { font-size: 10.5px; color: var(--text); padding: 0 7px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-ps-badges { display: flex; gap: 3px; flex-wrap: wrap; padding: 0 7px; }
+.cc-ps-bdg { font-size: 8.5px; color: var(--text-dim); background: var(--bg);
+  border: 1px solid var(--border); border-radius: 4px; padding: 1px 4px; }
+.cc-ps-bdg.is-full { color: var(--gold); border-color: rgba(242, 255, 88, 0.35); }
+.cc-ps-empty { grid-column: 1 / -1; font-size: 11px; color: var(--text-faint);
+  text-align: center; padding: 26px 10px; }
+
+/* Header buttons. They sit inside the accordion title, which is itself a click target, so they
+   stop propagation in JS - and they must not stretch the title's line height. */
+.cc-ps-hdr { display: inline-flex; gap: 4px; margin-left: auto; }
+.cc-ps-hbtn { display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; background: none; border: none; border-radius: var(--r-xs);
+  color: var(--text-faint); cursor: pointer; padding: 0; }
+.cc-ps-hbtn:hover { color: var(--gold); background: var(--surface2); }
+.cc-ps-hdr + .ve-acc-chev { margin-left: 6px; }
+.cc-ps-tabbtn { width: 26px; height: 26px; flex: none; align-self: center; margin-right: 4px; }

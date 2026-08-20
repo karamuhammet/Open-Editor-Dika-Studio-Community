@@ -1,0 +1,304 @@
+/* scene/toolbar — the floating infinite-canvas tool bar (T0 shell). Dark tokens, Lucide icons,
+   gray-elevated active state (D2) with a 2px pink whisper dot. Bottom-center, above the page-tabs bar.
+   Hidden/inert unless scene mode is active (.sctb.show toggled by toolbar.js on cc 'scene:active'). */
+
+.sctb {
+  position: absolute;
+  bottom: 50px;                 /* clears the 36px page-tabs bar; sits at the zoom-pill's height */
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 120;                 /* above frames, below modals (9000+); coexists with page-tabs (130) */
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.sctb.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.sctb-btn {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--r-md);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.sctb-btn svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.sctb-btn:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.sctb-btn.active {
+  background: var(--surface3);   /* D2 — gray elevated, NOT pink */
+  color: var(--text);
+}
+
+/* launcher (Shapes / More) while its menu is open — same elevated read, no pink dot (it's not a mode) */
+.sctb-btn.open {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+/* D2 — a 2px pink whisper dot under the icon: pink only as a hint, never a loud fill */
+.sctb-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* corner chevron marking a tool-group (Select / Frame / Pen / Shapes / More) — a tiny Figma-style
+   triangle in the bottom-right, drawn in CSS so there is no icon dependency. */
+.sctb-chev {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-bottom: 4px solid currentColor;
+  opacity: 0.4;
+  transition: opacity 0.14s ease;
+}
+
+.sctb-btn:hover .sctb-chev,
+.sctb-btn.active .sctb-chev {
+  opacity: 0.75;
+}
+
+.sctb-sep {
+  width: 1px;
+  height: 22px;
+  margin: 0 3px;
+  background: var(--border2);
+  flex: none;
+}
+
+/* a group button (Select / Pen) + its fly-up share one hover region */
+.sctb-group {
+  position: relative;
+  display: inline-flex;
+}
+
+/* vertical fly-up of tool variants — opens above the button, same look as the Add-page menu */
+.sctb-fly {
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  min-width: 172px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 6;
+}
+
+.sctb-fly.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.sctb-fly::after {           /* little pointer over the button */
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--surface2);
+}
+
+.sctb-fly-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 9px;
+  border: none;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  text-align: left;
+  font: 500 12px/1.2 'DM Sans', sans-serif;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.sctb-fly-row:hover { background: var(--surface3); color: var(--text); }
+.sctb-fly-row.on { color: var(--text); }
+
+/* More menu rows: a trailing toggle check for grid / snap */
+.sctb-fly-divider { height: 1px; margin: 3px 4px; background: var(--border2); }
+.sctb-menu-row .sctb-check {
+  margin-left: auto;
+  width: 15px; height: 15px;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r-xs);
+  flex: none;
+  position: relative;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.sctb-menu-row .sctb-check.on { background: var(--gold); border-color: var(--gold); }
+.sctb-menu-row .sctb-check.on::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 4px; height: 8px;
+  border: solid #1a1a1f;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.sctb-fly-row.on .sctb-fly-label { font-weight: 600; }
+.sctb-fly-row svg { width: 16px; height: 16px; flex: none; }
+.sctb-fly-row .sctb-fly-label { flex: 1; }
+.sctb-fly-row .sctb-key { margin-left: auto; }
+
+/* Frame preset rows: a tiny aspect-ratio swatch + the size, right-aligned */
+.sctb-fly-preset { gap: 10px; }
+.sctb-ar {
+  display: inline-flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--text-dim);
+  border-radius: 2px;
+  transition: border-color 0.12s ease;
+}
+.sctb-fly-preset:hover .sctb-ar { border-color: var(--text); }
+.sctb-fly-sub {
+  margin-left: auto;
+  color: var(--text-dim);
+  font: 500 10px/1.3 'Space Mono', monospace;
+}
+
+/* Shapes horizontal sub-bar (CapCut-style): a row of icon cells + a gallery cell */
+.sctb-fly.sctb-subbar {
+  flex-direction: row;
+  gap: 2px;
+  min-width: 0;
+  padding: 5px;
+}
+.sctb-shape-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 50px;
+  padding: 8px 2px 6px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  font: 500 9.5px/1 'DM Sans', sans-serif;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.sctb-shape-cell svg { width: 18px; height: 18px; flex: none; }
+.sctb-shape-cell:hover { background: var(--surface3); color: var(--text); border-color: var(--border2); }
+.sctb-shape-gallery { color: var(--text); }
+.sctb-shape-gallery::before {   /* a hairline divider before the gallery cell */
+  content: '';
+  position: absolute;
+  margin-left: -4px;
+  width: 1px;
+  height: 30px;
+  background: var(--border2);
+  align-self: center;
+}
+.sctb-shape-gallery { position: relative; }
+
+/* tooltip: name + monospace key chip, floats above the bar (left set per-button by toolbar.js) */
+.sctb-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  transform: translateX(-50%) translateY(3px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font: 500 11px/1.3 'DM Sans', sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 5;
+}
+
+.sctb-tip.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.sctb-key {
+  padding: 1px 5px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r-xs);
+  background: var(--surface);
+  color: var(--text-dim);
+  font: 600 10px/1.3 'Space Mono', monospace;
+}
+
+/* When a whole FRAME is selected, trim the generic #float-tb to duplicate / rotate / lock / delete —
+   hide the Layers + Align + Copy-Style dropdowns (the frame context bar + real Layers panel own those).
+   The class is toggled by core/floating-toolbar.js updateFloatTB. Editing a child inside a frame keeps all. */
+#float-tb.ft-frame-only [data-ft-dd="ft-panel-layers"],
+#float-tb.ft-frame-only [data-ft-dd="ft-panel-align"],
+#float-tb.ft-frame-only [data-ft-dd="ft-panel-style-copy"],
+#float-tb.ft-frame-only .ft-sep:first-of-type { display: none !important; }
+
+/* D1 — in scene mode the toolbar owns bottom-center, so the zoom-pill moves to the bottom-right
+   (the mode indicator rides along with it). Scoped to .scene-active so other modes are untouched. */
+#canvas-area.scene-active .zoom-pill,
+.canvas-area.scene-active .zoom-pill {
+  left: auto;
+  right: 16px;
+  transform: none;
+}

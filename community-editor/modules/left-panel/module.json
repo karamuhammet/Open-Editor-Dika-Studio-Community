@@ -1,0 +1,19 @@
+{
+  "id": "left-panel",
+  "title": "Left panel",
+  "icon": "panel-left",
+  "version": "0.1.0",
+  "note": "Groups the left rail/flyout feature modules (text, gallery, items, charts, …). children[] is auto-maintained by tools/build-manifest.mjs.",
+  "children": [
+    "ai",
+    "background",
+    "charts",
+    "gallery",
+    "items",
+    "products",
+    "templates",
+    "text",
+    "tools",
+    "whiteboard"
+  ]
+}

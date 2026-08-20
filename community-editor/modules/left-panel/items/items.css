@@ -1,0 +1,279 @@
+/* Module: left-panel/items — panel styles (.items-*), extracted from styles.css (Faz 2). */
+/* ══════════════════════════════════════════════════════════════
+   ITEMS PANEL — Shapes, Emoji, GIFs, Stickers
+   Clideo-style flyout with horizontal preview sliders + drill-in
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Category Row (one per category on main view) ── */
+.items-cat-row {
+  margin-bottom: 16px;
+}
+.items-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 2px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+.items-cat-header:hover { color: var(--gold); }
+.items-cat-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.15s;
+}
+.items-cat-header:hover .items-cat-title { color: var(--gold); }
+.items-cat-arrow {
+  font-size: 18px;
+  color: var(--text-dim);
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.items-cat-header:hover .items-cat-arrow { color: var(--gold); }
+
+/* ── Horizontal Slider ── */
+.items-slider {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.items-slider::-webkit-scrollbar { height: 4px; }
+.items-slider::-webkit-scrollbar-track { background: transparent; }
+.items-slider::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--r-xs); }
+.items-slider::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+/* ── Slider Cells (generic) ── */
+.items-slider-cell {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  overflow: hidden;
+}
+.items-slider-cell:hover {
+  border-color: var(--gold);
+  background: var(--surface3);
+  transform: translateY(-1px);
+}
+
+/* ── Shape cells ── */
+.items-shape-cell svg {
+  color: var(--text-dim);
+  transition: color 0.15s;
+}
+.items-shape-cell:hover svg { color: var(--gold); }
+
+/* ── Icon slider cells ── */
+.items-icon-cell svg {
+  color: var(--text-dim);
+  transition: color 0.15s;
+}
+.items-icon-cell:hover svg { color: var(--gold); }
+
+/* ── Emoji slider cells ── */
+.items-emoji-cell {
+  padding: 8px;
+}
+.items-emoji-cell img {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* ── GIF/Sticker slider cells ── */
+.items-gif-cell,
+.items-sticker-cell {
+  width: 70px;
+  height: 60px;
+  padding: 0;
+}
+.items-gif-cell img,
+.items-sticker-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+}
+
+/* ── No API key message ── */
+.items-no-key {
+  color: var(--text-dim);
+  font-size: 11px;
+  padding: 12px 8px;
+  white-space: nowrap;
+}
+
+/* ── Back Button (drill-in views) ── */
+.items-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 0;
+  margin-bottom: 8px;
+  transition: opacity 0.15s;
+}
+.items-back-btn:hover { opacity: 0.8; }
+
+/* ── Search Input (drill-in views) ── */
+.items-search-input {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.items-search-input:focus { border-color: var(--gold); }
+
+/* ── Emoji Tabs (pill-style category tabs) ── */
+.items-emoji-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.items-emoji-tabs::-webkit-scrollbar { height: 3px; }
+.items-emoji-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.items-emoji-tab {
+  flex: 0 0 auto;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  color: var(--text-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.items-emoji-tab:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+.items-emoji-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0b0b0d;
+}
+
+/* ── Emoji Grid (drill-in) ── */
+.items-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+.items-emoji-grid-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  padding: 4px;
+}
+.items-emoji-grid-cell:hover {
+  transform: scale(1.12);
+  border-color: var(--gold);
+  background: var(--surface3);
+}
+.items-emoji-grid-cell img {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+/* ── GIPHY Attribution Badge ── */
+.items-giphy-badge {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 4px 0 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ── GIF/Sticker Masonry Grid (drill-in) ── */
+.items-masonry {
+  columns: 2;
+  column-gap: 8px;
+}
+.items-masonry-cell {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  transition: border-color 0.15s, transform 0.12s;
+}
+.items-masonry-cell:hover {
+  border-color: var(--gold);
+  transform: scale(1.02);
+}
+.items-masonry-cell img {
+  width: 100%;
+  display: block;
+  border-radius: var(--r-sm);
+}
+
+/* ── Load More Button ── */
+.items-load-more {
+  column-span: all;
+  text-align: center;
+  padding: 10px;
+  margin-top: 4px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.items-load-more:hover {
+  background: var(--surface3);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── Infinite Scroll Loading Indicator ── */
+.items-loading-indicator {
+  column-span: all;
+  text-align: center;
+  padding: 12px;
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 500;
+}

@@ -1,0 +1,61 @@
+/* ============================================================
+   dika studio editor — KIT SHELL (E1).
+   Shell chrome → kit: topbar (Download=kit primary, size/FREE badge),
+   left rail (active=volt), page-tabs, zoom HUD (kit pill).
+   Built on kit-tokens.css; loaded after kit-base.css. CSS-only.
+   ============================================================ */
+
+/* ---- topbar: Download / export → kit primary button ---- */
+.export-btn {
+  height: var(--ctl-md);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-md);
+  font: 600 13px/1 var(--font-ui);
+  background: var(--gold);
+  color: #0b0b0d;
+  border: 1px solid transparent;
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  box-shadow: 0 2px 10px rgba(242, 255, 88, 0.16);
+  transition: background .15s, box-shadow .15s, transform .1s;
+}
+.export-btn:hover { background: var(--gold-light); box-shadow: 0 4px 16px rgba(242, 255, 88, 0.24); }
+.export-btn:active { transform: translateY(1px); }
+.export-btn:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* FREE badge → kit sm radius */
+.free-badge { border-radius: var(--r-sm); }
+
+/* center size badge → kit pill, subtle border */
+.card-size-badge { border-radius: var(--r-pill); border-color: var(--border); background: var(--surface2); }
+
+/* ---- left rail: active = kit selected (volt) ---- */
+.rail-item.active { background: var(--gold-dim); border-left-color: var(--gold); color: var(--gold); }
+.rail-item:focus-visible { outline: none; box-shadow: inset var(--ring); }
+
+/* ---- page tabs: active = kit selected ---- */
+.page-tab.active { background: var(--surface2); color: var(--gold); border-color: var(--border); }
+.page-tab:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* ---- zoom HUD → cohesive kit pill + kit icon buttons ---- */
+.zoom-pill {
+  border-radius: var(--r-pill);
+  background: rgba(28, 28, 34, 0.9);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+.zoom-pill button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.zoom-pill button:hover {
+  background: var(--surface3);
+  border-color: var(--border2);
+  color: var(--gold);
+}
+.zoom-pill button:focus-visible { outline: none; box-shadow: var(--ring); }
+.zoom-pill .zlabel {
+  font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  color: var(--text-dim);
+}

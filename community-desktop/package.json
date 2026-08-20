@@ -1,0 +1,23 @@
+{
+  "name": "dika-studio-desktop",
+  "productName": "dika.studio",
+  "version": "1.0.0",
+  "description": "Offline design and video studio. Desktop shell for the BUSL-1.1 Community Editor.",
+  "license": "BUSL-1.1",
+  "homepage": "https://dika.studio",
+  "author": {
+    "name": "Dika Design Ltd",
+    "email": "hello@dika.studio"
+  },
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --linux",
+    "dist:all": "electron-builder --linux --win --mac"
+  },
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-builder": "25.1.8"
+  }
+}

@@ -1,0 +1,265 @@
+/* command-bar — no styles yet. */
+
+/* ===== co-located from css/styles.css (command bar) ===== */
+.cmdk-trigger {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.cmdk-trigger:hover,
+.cmdk-trigger.active {
+  color: var(--text);
+}
+
+.cmdk-trigger-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.cmdk-trigger-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.cmdk-trigger-kbd {
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: none;
+}
+
+.cmdk-overlay.show {
+  display: block;
+}
+
+.cmdk-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 4, 7, 0.56);
+  backdrop-filter: blur(8px);
+}
+
+.cmdk-positioner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 26px 16px 16px;
+}
+
+.cmdk-box {
+  width: min(520px, calc(100vw - 32px));
+  max-height: min(72vh, 620px);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+    var(--surface);
+  box-shadow: 0 18px 54px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cmdk-head {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cmdk-head-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.cmdk-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.cmdk-input::placeholder {
+  color: rgba(237,237,240,0.44);
+  font-weight: 500;
+}
+
+.cmdk-head-hint {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-dim);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.cmdk-results {
+  overflow: auto;
+  padding: 6px 8px 4px;
+}
+
+.cmdk-group + .cmdk-group {
+  margin-top: 6px;
+}
+
+.cmdk-group-title {
+  padding: 5px 8px 6px;
+  color: rgba(237,237,240,0.52);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cmdk-item {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease;
+}
+
+.cmdk-item:hover,
+.cmdk-item.active {
+  border-color: rgba(242, 255, 88, 0.14);
+  background: rgba(255,255,255,0.035);
+}
+
+.cmdk-item-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.cmdk-item-title {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.cmdk-item-desc {
+  margin-top: 2px;
+  color: rgba(237,237,240,0.56);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.cmdk-item-meta {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmdk-item-cat {
+  color: rgba(237,237,240,0.40);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.cmdk-item-kbd {
+  padding: 3px 6px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-dim);
+  font-size: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cmdk-empty {
+  padding: 26px 14px 30px;
+  text-align: center;
+}
+
+.cmdk-empty-title {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cmdk-empty-text {
+  margin-top: 6px;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.cmdk-footer {
+  border-top: 1px solid var(--border);
+  padding: 8px 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 9px;
+}
+
+.cmdk-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cmdk-results::-webkit-scrollbar-thumb {
+  border-radius: var(--r-pill);
+  background: rgba(242, 255, 88, 0.18);
+}
+
+.cmdk-results::-webkit-scrollbar-track {
+  background: transparent;
+}

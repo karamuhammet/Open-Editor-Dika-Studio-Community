@@ -1,0 +1,159 @@
+# THE APP IS CALLED `dika.studio`. The owner named it: "program ismi de dika.studio".
+#
+# `appId` CHANGED 2026-08-16, and the timing is the whole point. It is the install identity Windows
+# and macOS key an UPGRADE on: change it after a release and the next version installs as a SECOND
+# app beside the first instead of updating it. Nothing has shipped yet - the only thing in the old
+# app-data folders is development data - so this is the last free moment to drop the old project
+# name, and after the first download it stops being free forever.
+#   design.cardcraft.community  ->  design.dika.studio
+# CardCraft was this project's working name and is being retired from everything a user can see or
+# find (docs/dika-rename-plan.md). If a build ever has to accept an in-place upgrade FROM the old
+# id, that is a migration, not an edit to this line.
+#
+# The user data folder is derived from productName, not from this, and productName has not changed:
+#   %APPDATA%\CardCraft Community Editor  ->  %APPDATA%\dika  ->  %APPDATA%\dika.studio
+appId: design.dika.studio
+productName: dika.studio
+copyright: Copyright (C) 2026 Dika Design Ltd. Business Source License 1.1.
+
+directories:
+  output: dist
+  buildResources: build
+
+# The editor tree ships as an UNPACKED resource, not inside the asar. Two reasons, both measured:
+# the ONNX weights and the wasm runtimes are read by the renderer at runtime, and asar adds nothing
+# for files that are already one bundle plus static assets.
+extraResources:
+  - from: ../community-editor
+    to: editor
+    filter:
+      - "**/*"
+      - "!node_modules/**"
+      - "!tools/**"
+      - "!tests/**"
+      - "!scripts/**"
+      - "!index.dev.html"
+      - "!package.json"
+      - "!pnpm-lock.yaml"
+      - "!*.zip"
+      # scripts/ and package.json are the DEV static server and the bundler's manifest. Neither is
+      # read at runtime, and the protocol handler will serve anything inside the tree, so the smaller
+      # the tree the smaller the question.
+
+# EVERY main-process file this app requires must be named here. Specifying `files` REPLACES
+# electron-builder's default, so a `require()` target that is not on this list is simply absent from
+# the package and the app dies on launch with "Cannot find module". `updater.js` was missing for one
+# build: the source was complete, every proof was green, and the shipped .exe would not have opened.
+files:
+  - main.js
+  - preload.js
+  - updater.js
+  - package.json
+
+# Linux first, and unsigned on purpose: AppImage and deb are normally distributed unsigned, and this
+# is an open-source project. Windows and macOS builds will warn (SmartScreen, Gatekeeper) until
+# somebody buys a certificate; that is a decision, not an oversight.
+linux:
+  # tar.gz FIRST because it is the one that builds anywhere. Measured on this Windows machine:
+  #   tar.gz  works, 207 MB, extract and run ./dika
+  #   deb     needs `fpm` (a Ruby packaging tool) on PATH; not installed, and it wants Linux tooling
+  #   AppImage needs `mksquashfs`, which electron-builder ships ONLY as a Linux ELF binary
+  # Neither failure is this app's configuration. Both need a Linux host, WSL, Docker or CI, and the
+  # application itself packages fine on Windows: dist/linux-unpacked is produced complete either way.
+  target:
+    - tar.gz
+    - AppImage
+    - deb
+  # Without this the binary is named from package.json `name` (dika-studio-desktop) while
+  # Windows and macOS use productName. One product, one command to type.
+  # `dika-studio`, not `dika.studio`: a dot in a Linux executable name reads as an extension to both
+  # shells and desktop files, and `./dika.studio` invites "what opens a .studio file". The window,
+  # the taskbar and the installer all still say dika.studio.
+  executableName: dika-studio
+  # Without this the tar.gz is named from package.json `name` (dika-studio-desktop) while the
+  # AppImage beside it is named from productName. One product, one file name; the dot is dropped for
+  # the same reason as the executable, so nothing downstream reads `.studio` as an extension.
+  artifactName: dika-studio-${version}-${arch}.${ext}
+  category: Graphics
+  synopsis: Offline design and video studio
+  desktop:
+    MimeType: application/x-dika-project
+
+win:
+  target: nsis
+  # signAndEditExecutable stays default; no certificate is configured.
+
+# The installer is the first thing anybody sees of this product, and the default one-click NSIS
+# dialog is a grey progress bar that says nothing. `oneClick: false` turns it into real pages, which
+# is what gives us a welcome page, a licence page (showing the licence is right)
+# and a finish page.
+#
+# The artwork is GENERATED, not hand-drawn: `node build/make-installer-art.mjs` writes
+# installerSidebar.bmp (164x314) and installerHeader.bmp (150x57). electron-builder picks both up
+# from build/ by filename, with no entry here. BMP because MUI2 will not load a PNG, and a wrong
+# format falls back to NSIS's own blue artwork WITHOUT an error, so the generator asserts the header.
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: false
+  # ENGLISH, ALWAYS. Left alone, electron-builder bundles every language it ships and NSIS picks the
+  # system one, so this installer opened as "dika.studio Kurulumu" on a Turkish Windows while every
+  # word we wrote stayed English. One language in the build means one language on screen. Our own
+  # pages carry no NSIS message strings, so nothing is lost by dropping the other translations.
+  multiLanguageInstaller: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  # NO LICENCE PAGE. It was here for one build and is removed on the owner's question, "whose licence
+  # is this and why does the design not look like ours".
+  #
+  # Whose: OURS. The Business Source License 1.1 is the licence dika.studio is released under; the
+  # TEXT is MariaDB's document and may not be modified, which is why that page looked like somebody
+  # else's product in the middle of our installer.
+  #
+  # Why it can go: the licence has to travel WITH the software, not be clicked through at install
+  # time. It still ships (community-editor/LICENSE, in the package) and is named
+  # in Settings > About and in the README. A click-through adds a page nobody reads and cannot be
+  # themed: NSIS gives no way to colour the licence text, so a dark background there would have
+  # produced black text on near-black. Put `license: ../community-editor/LICENSE` back if it is ever
+  # wanted for legal reasons rather than aesthetic ones.
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  # The finish page's two checkboxes and the sign-up offer live here.
+  include: build/installer.nsh
+  # `runAfterFinish` is left to the custom finish page, which defines MUI_FINISHPAGE_RUN itself.
+  runAfterFinish: false
+  deleteAppDataOnUninstall: false   # somebody's projects live in appData. Never delete them silently.
+
+mac:
+  target: dmg
+  artifactName: dika-studio-${version}-${arch}.${ext}
+  category: public.app-category.graphics-design
+
+# FOUR entries, and the last two are not dead weight. `.dika` and `.dikapack` are what this build
+# writes; `.ccproj` and `.cardcraft` are the same two formats under the names used before the rename.
+# Dropping them here would DEREGISTER those types on upgrade, so a file somebody exported last week
+# would stop opening on a double click and the new version would be blamed for it. They cost one
+# registry entry each and they are never written again.
+fileAssociations:
+  - ext: dikapack
+    name: dika studio project
+    role: Editor
+  - ext: dika
+    name: dika studio project (structure only)
+    role: Editor
+  - ext: ccproj
+    name: dika studio project (legacy)
+    role: Editor
+  - ext: cardcraft
+    name: dika studio project (legacy, structure only)
+    role: Editor
+
+# `publish: null` is NOT "no update channel". It means electron-builder must not write its own
+# `latest.yml` and must not wire electron-updater: our channel is ours (a signed manifest served from
+# app.dika.studio, the binary from GitHub, verified against a key compiled into `updater.js`), and an
+# unsigned `latest.yml` sitting beside the installer is a second, weaker answer to the same question.
+# The check is a network request and is declared as such in `core/edition.js` NETWORK; `--no-update`
+# turns it off entirely.
+publish: null

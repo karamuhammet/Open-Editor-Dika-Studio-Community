@@ -1,0 +1,8 @@
+{
+  "id": "left-panel.tools.qr",
+  "title": "QR Studio",
+  "icon": "qr-code",
+  "version": "0.1.0",
+  "storageKeys": [],
+  "note": "QR Studio wizard — the structured QR content panel (URL / Wi-Fi / vCard / …) extracted VERBATIM from app.js section 10b. Rendered lazily by the gallery module's openToolGenerator('qrcode') via window.renderQrToolPanel. Depends on the SHARED QR encoders generateQRImage/generateQRSvg, which stay global in app.js (canvas QR-object render + bulk-builder.js also use them)."
+}

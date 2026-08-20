@@ -1,0 +1,18 @@
+{
+  "id": "canvas.tools",
+  "children": [
+    "alt-distance",
+    "bleed-guides",
+    "brush-eraser",
+    "brush-tool",
+    "crop-tool",
+    "fill-bucket",
+    "grid-ruler",
+    "pen-tools",
+    "perspective-mockup",
+    "polygon-edit",
+    "selection-tools",
+    "smart-guides",
+    "vendor-dragselect"
+  ]
+}

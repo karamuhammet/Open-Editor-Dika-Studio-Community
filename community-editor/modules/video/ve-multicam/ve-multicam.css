@@ -1,0 +1,146 @@
+/* VE Multi-Cam — Create Multi-Camera Source dialog (Phase D).
+   Editor-legacy CSS (the panel design system does not govern apps/editor); colours come from
+   the editor's existing --surface/--border/--gold vars with the same fallbacks the sibling
+   video panels use. */
+
+.ve-mc-create {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 560px; max-width: calc(100vw - 32px); max-height: calc(100vh - 64px);
+  background: var(--surface2, #1b1b1f);
+  border: 1px solid var(--border, #27272d);
+  border-radius: 10px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .7);
+  z-index: 10050;
+  display: none; flex-direction: column; overflow: hidden;
+  font-size: 12px; color: var(--text, #ededf0);
+}
+
+.ve-mc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px; border-bottom: 1px solid var(--border, #27272d);
+}
+.ve-mc-title { display: flex; align-items: center; gap: 7px; font-weight: 600; font-size: 13px; }
+.ve-mc-x {
+  background: none; border: none; color: var(--text-dim, #888);
+  cursor: pointer; padding: 2px; border-radius: 4px; display: flex;
+}
+.ve-mc-x:hover { color: var(--text, #ededf0); background: var(--surface3, #232328); }
+
+.ve-mc-body { padding: 12px 14px; overflow-y: auto; flex: 1; }
+
+/* Same volt scrollbar as the monitor and the timeline (.ve-scroll-wrap) */
+.ve-mc-body::-webkit-scrollbar { width: 6px; }
+.ve-mc-body::-webkit-scrollbar-track { background: transparent; }
+.ve-mc-body::-webkit-scrollbar-thumb {
+  background: rgba(242, 255, 88, .16);
+  border-radius: 3px;
+  transition: background .15s;
+}
+.ve-mc-body:hover::-webkit-scrollbar-thumb { background: rgba(242, 255, 88, .3); }
+.ve-mc-body::-webkit-scrollbar-thumb:hover { background: rgba(242, 255, 88, .55); }
+.ve-mc-body { scrollbar-width: thin; scrollbar-color: rgba(242, 255, 88, .28) transparent; }
+
+.ve-mc-methods { display: flex; gap: 6px; }
+.ve-mc-m {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 7px 8px; border-radius: 6px; cursor: pointer; font-size: 11px;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface3, #232328); color: var(--text-dim, #888);
+  transition: background .12s, color .12s, border-color .12s;
+}
+.ve-mc-m:hover { color: var(--text, #ededf0); border-color: var(--gold, #f2ff58); }
+.ve-mc-m.is-on {
+  background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58);
+  color: #0b0b0d; font-weight: 600;
+}
+
+.ve-mc-hint {
+  margin: 9px 0 0; color: var(--text-dim, #888); font-size: 11px; line-height: 1.5;
+}
+
+.ve-mc-prog { display: none; margin-top: 10px; }
+.ve-mc-prog-t { font-size: 10px; color: var(--text-dim, #888); margin-bottom: 4px; }
+.ve-mc-prog-track {
+  height: 4px; border-radius: 3px; overflow: hidden; background: var(--surface3, #232328);
+}
+.ve-mc-prog-bar {
+  height: 100%; width: 0; background: var(--gold, #f2ff58);
+  transition: width .2s ease;
+}
+
+.ve-mc-rows { margin-top: 12px; display: flex; flex-direction: column; gap: 5px; }
+.ve-mc-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px; border-radius: 6px;
+  background: var(--surface3, #232328); border: 1px solid transparent;
+}
+.ve-mc-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.ve-mc-name {
+  flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px;
+}
+
+.ve-mc-chip {
+  display: inline-flex; align-items: center; gap: 3px; flex: none;
+  padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 600;
+}
+.ve-mc-chip-ok   { background: rgba(34, 197, 94, .14);  color: #4ade80; }
+.ve-mc-chip-ref  { background: rgba(242, 255, 88, .14); color: var(--gold, #f2ff58); }
+.ve-mc-chip-warn { background: rgba(245, 158, 11, .16); color: #fbbf24; }
+.ve-mc-chip-bad  { background: rgba(239, 68, 68, .16);  color: #f87171; }
+
+.ve-mc-off { display: flex; align-items: center; gap: 4px; flex: none; }
+.ve-mc-off > span:first-child { font-size: 9px; color: var(--text-dim, #888); }
+.ve-mc-unit { font-size: 9px; color: var(--text-dim, #888); }
+.ve-mc-off-in {
+  width: 68px; padding: 3px 5px; font-size: 11px; text-align: right;
+  border-radius: 4px; border: 1px solid var(--border2, #35353c);
+  background: var(--surface, #131316); color: var(--text, #ededf0);
+}
+.ve-mc-off-in:focus { outline: none; border-color: var(--gold, #f2ff58); }
+.ve-mc-off-in:disabled { opacity: .45; cursor: not-allowed; }
+
+.ve-mc-warn {
+  display: none; align-items: flex-start; gap: 6px; margin-top: 10px;
+  padding: 8px 10px; border-radius: 6px; font-size: 10px; line-height: 1.5;
+  background: rgba(245, 158, 11, .1); border: 1px solid rgba(245, 158, 11, .3); color: #fbbf24;
+}
+
+.ve-mc-audio {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border, #27272d);
+}
+.ve-mc-audio-head {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--text, #ededf0); margin-bottom: 6px;
+}
+.ve-mc-audio-row { display: flex; gap: 6px; }
+.ve-mc-sel {
+  flex: 1; padding: 5px 7px; font-size: 11px; border-radius: 5px;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface, #131316); color: var(--text, #ededf0);
+  cursor: pointer;
+}
+.ve-mc-sel:focus { outline: none; border-color: var(--gold, #f2ff58); }
+.ve-mc-sel-narrow { flex: 0 0 38%; }
+.ve-mc-audio-hint {
+  margin: 6px 0 0; font-size: 10px; line-height: 1.5; color: var(--text-dim, #888);
+}
+
+.ve-mc-foot {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; border-top: 1px solid var(--border, #27272d);
+}
+.ve-mc-spacer { flex: 1; }
+.ve-mc-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface3, #232328); color: var(--text, #ededf0);
+}
+.ve-mc-btn:hover:not(:disabled) { border-color: var(--gold, #f2ff58); }
+.ve-mc-btn:disabled { opacity: .5; cursor: default; }
+.ve-mc-btn-go {
+  background: var(--gold, #f2ff58); border-color: var(--gold, #f2ff58);
+  color: #0b0b0d; font-weight: 600;
+}

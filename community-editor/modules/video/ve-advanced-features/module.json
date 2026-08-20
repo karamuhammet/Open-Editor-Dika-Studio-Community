@@ -1,0 +1,14 @@
+{
+  "id": "video.ve-advanced-features",
+  "children": [
+    "hdr",
+    "lut",
+    "motion-tracking",
+    "plugin-sandbox",
+    "power-windows",
+    "scene-detection",
+    "scopes",
+    "smart-crop",
+    "stabilization"
+  ]
+}

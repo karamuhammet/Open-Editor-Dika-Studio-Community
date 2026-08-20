@@ -1,0 +1,125 @@
+/* Video Scopes panel. Editor-legacy CSS; colours from the editor's existing vars.
+   Plan: docs/video-scopes-plan.md
+
+   Geometry mirrors the multicam monitor and SmartCam on purpose: positioned by JS in px, draggable
+   by the header, native resize grip, pop-out to a real window. A colourist on two screens wants the
+   scope on the second one, and this is the third panel in this app to need exactly that, so it
+   copies rather than invents. Never transform:translate(-50%) for centring: it fights native
+   resize, the box grows away from the cursor.
+
+   The scope canvas itself is painted entirely from JS (putImageData for the density rasters, 2D
+   calls for the graticules). Nothing here styles the measurement, only the furniture. */
+
+.ve-scope {
+  position: fixed; left: 0; top: 0;
+  width: 340px; height: 320px;
+  min-width: 240px; min-height: 200px;
+  max-width: calc(100vw - 16px); max-height: calc(100vh - 16px);
+  resize: both;
+  background: var(--surface2, #1b1b1f);
+  border: 1px solid var(--border, #2a2a31);
+  border-radius: 10px;
+  box-shadow: 0 14px 48px rgba(0, 0, 0, .6);
+  z-index: 10040;
+  display: none; flex-direction: column; overflow: hidden;
+  font-size: 12px; color: var(--text, #ededf0);
+}
+
+.ve-scope.is-popped {
+  position: static;
+  width: 100%; height: 100vh;
+  max-width: none; max-height: none;
+  resize: none; border: none; border-radius: 0; box-shadow: none;
+}
+.ve-scope.is-popped .ve-scope-head { cursor: default; }
+.ve-scope.is-popped .ve-scope-grip { display: none; }
+
+.ve-scope-head {
+  flex: 0 0 28px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5px 0 9px; cursor: move; user-select: none;
+  border-bottom: 1px solid var(--border, #2a2a31);
+}
+.ve-scope-title {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; color: var(--text-dim, #9b9ba3);
+}
+.ve-scope-head-r { display: flex; gap: 1px; }
+.ve-scope-icon {
+  background: transparent; border: none; color: var(--text-dim, #82828b);
+  cursor: pointer; width: 21px; height: 21px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ve-scope-icon:hover { background: rgba(255, 255, 255, .07); color: var(--text, #ededf0); }
+
+/* Mode tabs. Their absence was most of "why is it so simple": four scopes existed and only one was
+   ever reachable, because setScopeMode had no caller. */
+.ve-scope-bar {
+  flex: 0 0 auto; display: flex; gap: 2px;
+  padding: 5px 5px 0; overflow-x: auto;
+}
+.ve-scope-tab {
+  flex: 0 0 auto;
+  background: transparent; border: 1px solid transparent; border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  color: var(--text-dim, #82828b); cursor: pointer;
+  padding: 3px 8px; font-size: 10px; white-space: nowrap;
+}
+.ve-scope-tab:hover:not(:disabled) { color: var(--text, #ededf0); background: rgba(255, 255, 255, .04); }
+.ve-scope-tab.is-on { color: #0b0b0d; background: var(--accent, #f2ff58); font-weight: 600; }
+/* In 2/4-up the grid dictates which scopes are shown, so a mode tab would be a control that does
+   nothing. Disable it rather than leave it looking live. */
+.ve-scope-tab:disabled { opacity: .3; cursor: not-allowed; }
+
+.ve-scope-body {
+  flex: 1 1 auto; min-height: 0;
+  padding: 5px; background: #0b0b0d;
+  display: flex; align-items: stretch; justify-content: stretch;
+}
+.ve-scope-body canvas { display: block; width: 100%; height: 100%; border-radius: 4px; }
+
+.ve-scope-foot {
+  flex: 0 0 auto; display: flex; align-items: center; gap: 8px;
+  padding: 5px 6px; border-top: 1px solid var(--border, #2a2a31);
+  background: var(--surface1, #141418);
+}
+.ve-scope-lays { display: flex; gap: 2px; flex: 0 0 auto; }
+.ve-scope-lay {
+  width: 20px; height: 20px; border-radius: 4px;
+  background: var(--surface2, #1b1b1f); border: 1px solid var(--border, #2a2a31);
+  color: var(--text-dim, #82828b); cursor: pointer;
+  font-size: 10px; font-weight: 600;
+}
+.ve-scope-lay:hover { color: var(--text, #ededf0); border-color: #3d3d46; }
+.ve-scope-lay.is-on { border-color: var(--accent, #f2ff58); color: var(--accent, #f2ff58); }
+
+/* The density gain. Not a nicety: a bin can hold hundreds of hits and the display has 256 steps, so
+   the log curve needs a user-facing dial or the trace is someone else's guess. Both Resolve and
+   Premiere expose this. */
+.ve-scope-gain {
+  flex: 1 1 auto; display: flex; align-items: center; gap: 5px;
+  color: var(--text-dim, #6f6f78); min-width: 0;
+}
+.ve-scope-gain input[type="range"] {
+  flex: 1 1 auto; min-width: 40px; height: 3px;
+  -webkit-appearance: none; appearance: none;
+  background: var(--border, #2a2a31); border-radius: 2px; outline: none; cursor: pointer;
+}
+.ve-scope-gain input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent, #f2ff58); cursor: pointer;
+}
+.ve-scope-gain b {
+  flex: 0 0 auto; font-size: 9px; font-weight: 400; font-variant-numeric: tabular-nums;
+  min-width: 30px; text-align: right;
+}
+
+.ve-scope-grip {
+  position: absolute; right: 2px; bottom: 2px;
+  width: 11px; height: 11px; pointer-events: none; opacity: .5;
+  background:
+    linear-gradient(135deg, transparent 45%, var(--border, #3d3d46) 45%, var(--border, #3d3d46) 55%, transparent 55%),
+    linear-gradient(135deg, transparent 72%, var(--border, #3d3d46) 72%, var(--border, #3d3d46) 82%, transparent 82%);
+}
+
+.ve-scope-bar::-webkit-scrollbar { height: 0; }

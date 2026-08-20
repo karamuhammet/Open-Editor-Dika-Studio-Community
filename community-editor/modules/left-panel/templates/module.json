@@ -1,0 +1,9 @@
+{
+  "id": "left-panel.templates",
+  "children": [
+    "apply",
+    "designs",
+    "renderer",
+    "saved"
+  ]
+}

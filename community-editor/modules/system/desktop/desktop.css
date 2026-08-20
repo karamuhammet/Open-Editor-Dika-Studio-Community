@@ -1,0 +1,2 @@
+/* system/desktop - no UI of its own; it wires the shell's menus to the editor's existing paths.
+   Kept as a file because core/loader.js requests <name>.css for every module. */

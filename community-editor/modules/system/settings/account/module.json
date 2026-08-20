@@ -1,0 +1,5 @@
+{
+  "id": "system.settings.account",
+  "title": "Settings: Account",
+  "note": "Sign in, sign out, what the app sends, and where the session is kept. Renders CCAccount's shared panel; owns no flow state of its own."
+}

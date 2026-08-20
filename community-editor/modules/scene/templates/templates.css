@@ -1,0 +1,3 @@
+/* scene/templates — no panel styles here anymore. The templates panel UI (the Command Rail: type
+   segment, Single/Infinite pill, chips, category sections, cards) lives in
+   modules/left-panel/templates/templates.css. This module is scene-side logic only. */

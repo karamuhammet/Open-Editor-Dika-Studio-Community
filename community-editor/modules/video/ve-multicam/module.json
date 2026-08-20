@@ -1,0 +1,7 @@
+{
+  "id": "video.ve-multicam",
+  "children": [
+    "monitor",
+    "smartcam"
+  ]
+}

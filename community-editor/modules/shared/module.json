@@ -1,0 +1,28 @@
+{
+  "id": "shared",
+  "title": "Shared",
+  "icon": "package",
+  "version": "0.1.0",
+  "note": "Cross-cutting reusable modules (Faz 6, §2B.1) used by many panels — not a feature group. children[] auto-maintained by tools/build-manifest.mjs.",
+  "children": [
+    "bg-image-position",
+    "bulk-builder",
+    "color-picker",
+    "email-verify",
+    "fonts",
+    "image-modal",
+    "modals",
+    "my-shapes-browser",
+    "presets",
+    "qr-encode",
+    "smart-views",
+    "social-icons",
+    "tag-modal",
+    "tag-palette",
+    "tags",
+    "text-effects",
+    "upload-queue",
+    "works",
+    "works-browser"
+  ]
+}

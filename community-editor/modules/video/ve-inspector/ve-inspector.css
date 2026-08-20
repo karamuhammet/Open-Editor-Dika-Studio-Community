@@ -1,0 +1,146 @@
+/* ve-inspector — Multi-Cam angle switcher (Phase G).
+   The rest of the inspector's styling lives in video-editor.css; this file carries only what
+   the multicam section adds. */
+
+.ve-insp-mc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.ve-insp-mc-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  text-align: left;
+  overflow: hidden;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface3, #232328);
+  color: var(--text-dim, #888);
+  transition: border-color .12s, color .12s, background .12s;
+}
+.ve-insp-mc-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ve-insp-mc-btn b {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  background: var(--surface, #131316);
+}
+.ve-insp-mc-btn:hover {
+  color: var(--text, #ededf0);
+  border-color: var(--gold, #f2ff58);
+}
+.ve-insp-mc-btn.is-on {
+  background: var(--gold, #f2ff58);
+  border-color: var(--gold, #f2ff58);
+  color: #0b0b0d;
+  font-weight: 600;
+}
+.ve-insp-mc-btn.is-on b {
+  background: rgba(0, 0, 0, .25);
+  color: #0b0b0d;
+}
+
+.ve-insp-mc-flatten {
+  width: 100%;
+  margin-top: 6px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  border: 1px solid var(--border2, #35353c);
+  background: var(--surface3, #232328);
+  color: var(--text-dim, #888);
+}
+.ve-insp-mc-flatten:hover {
+  color: var(--text, #ededf0);
+  border-color: var(--gold, #f2ff58);
+}
+
+/* Color Grading target chips (owner 2026-07-17: "color grading'de vermek isterim çizdiğim yerlere").
+   The panel edits a power window's grade when one is targeted, so it must SAY so: an identical
+   looking panel that silently writes somewhere else is worse than no panel. Shares
+   VE._veGradeTarget with the LUT Browser, so the two can never disagree. */
+.ve-cg-target {
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  padding: 0 0 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border, #27272d);
+}
+.ve-cg-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 11px;
+  border: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  color: var(--text-dim, #8a8a94);
+  font-size: 10px;
+  cursor: pointer;
+}
+.ve-cg-chip:hover { color: var(--text, #ededf0); border-color: var(--text-dim, #8a8a94); }
+.ve-cg-chip.on { border-color: var(--gold, #f2ff58); color: var(--gold, #f2ff58); background: rgba(242,255,88,.08); }
+.ve-cg-chip:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 1px; }
+.ve-cg-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(0,0,0,.6); }
+
+/* The Color Grading modal (owner 2026-07-17: "bu pencereye color grading de, onun için özel modal
+   yap"). Grading a window is a canvas activity, so the full grader floats over the picture next to
+   the LUT Browser instead of living in a properties tab.
+   It hosts the SAME _cgSection markup as the dock, so everything inside inherits the dock's styles
+   and only the shell is defined here. */
+.ve-cgm {
+  position: fixed;
+  z-index: 10007;
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  max-height: min(80vh, 760px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface, #131316);
+  border: 1px solid var(--border, #27272d);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .6);
+  color: var(--text, #ededf0);
+  overflow: hidden;
+  resize: both;
+}
+.ve-cgm-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border, #27272d);
+  background: var(--surface2, #17171b);
+  flex: 0 0 auto;
+  user-select: none;
+}
+.ve-cgm-title { display: flex; align-items: center; gap: 7px; font-weight: 600; font-size: 13px; }
+.ve-cgm-x {
+  background: none; border: none; color: var(--text-dim, #8a8a94);
+  cursor: pointer; padding: 3px; display: flex; border-radius: 5px;
+}
+.ve-cgm-x:hover { color: var(--text, #ededf0); background: var(--surface3, #202027); }
+/* The body is the only scrolling part: the curve editor and the wheels are tall, and the header must
+   stay reachable to close or drag the thing. */
+.ve-cgm-body { flex: 1 1 auto; overflow-y: auto; padding: 10px 12px 12px; }
+/* Inside the modal the section is the whole point, so it does not need its own accordion chrome. */
+.ve-cgm-body .ve-insp-section { border: none; margin: 0; }
+.ve-cgm-body .ve-insp-section-title { display: none; }
+
+/* CG modal popped into a real second window (owner: "pencere açma butonu ver"). */
+.ve-cgm.is-popped {
+  position: static;
+  left: auto; top: auto; right: auto; bottom: auto;
+  width: 100%; max-width: none; height: 100vh; max-height: none;
+  border: none; border-radius: 0; box-shadow: none; resize: none;
+}
+.ve-cgm.is-popped .ve-cgm-head { cursor: default; }

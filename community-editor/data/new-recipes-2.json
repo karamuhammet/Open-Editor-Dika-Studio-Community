@@ -1,0 +1,254 @@
+[
+  {
+    "id": "r-email-header-design",
+    "category": "banner",
+    "tags": ["email", "header", "email header", "newsletter", "bülten", "bulten", "email banner", "mail header"],
+    "title": "Email header/banner design",
+    "scenario": "User wants to design an email header image.",
+    "recipe": "Email header: 600x200 canvas.\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 600, \"height\": 200}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"COMPANY NAME\", \"fontSize\": 32, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 500, \"left\": 50, \"top\": 60, \"charSpacing\": 30}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Monthly Newsletter — January 2025\", \"fontSize\": 14, \"fill\": \"#8899aa\", \"textAlign\": \"center\", \"width\": 500, \"left\": 50, \"top\": 120}}]\n```\n\nEmail boyutları:\n- Header: 600x200\n- Banner: 600x300\n- Social image: 600x315\n\nÖnemli: Email tasarımları genellikle 600px genişlikte olmalı (email istemci uyumu).",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-group-objects",
+    "category": "layer",
+    "tags": ["grupla", "group", "birleştir", "birlestir", "gruplayın", "gruplayin", "grup yap", "merge", "combine", "birlikte hareket"],
+    "title": "Group/ungroup objects",
+    "scenario": "User wants to group multiple objects together or ungroup them.",
+    "recipe": "Nesneleri gruplama:\n\n1. Önce tüm nesneleri seçin (Shift+tıklama veya selectAll)\n2. Sonra groupSelected çağırın:\n\n```tool\n[{\"tool\": \"selectAll\", \"params\": {}}, {\"tool\": \"groupSelected\", \"params\": {}}]\n```\n\nGrubu çözmek:\n```tool\n{\"tool\": \"ungroupSelected\", \"params\": {}}\n```\n\nKısayollar:\n- Ctrl+G → Grupla\n- Ctrl+Shift+G → Grubu çöz\n\nNOT: Gruplama yapıldığında tüm seçili nesneler tek nesne gibi davranır — birlikte taşınır, boyutlandırılır ve döndürülür.",
+    "tools": ["selectAll", "groupSelected", "ungroupSelected"]
+  },
+  {
+    "id": "r-duplicate-arrange",
+    "category": "layout",
+    "tags": ["çoğalt", "cogalt", "kopyala", "copy", "duplicate", "klonla", "clone", "aynısı", "aynisi", "tekrar", "repeat"],
+    "title": "Duplicate and arrange objects",
+    "scenario": "User wants to copy an existing object or create repeated patterns.",
+    "recipe": "Seçili nesneyi kopyalama:\n```tool\n{\"tool\": \"duplicateSelected\", \"params\": {}}\n```\nKopya orijinalin yanına (+10px offset) eklenir.\n\nGrid düzeninde kopyalama (arrangeGrid):\n```tool\n{\"tool\": \"arrangeGrid\", \"params\": {\"cols\": 3, \"rows\": 3, \"gap\": 20}}\n```\nBu, seçili nesneyi 3x3 grid'e kopyalar (toplam 9 adet).\n\nKısayol: Ctrl+D → Duplicate\n\nÖnemli: arrangeGrid seçili nesneyi siler ve grid olarak yeniden oluşturur. Büyük grid'ler dikkatli kullanılmalı.",
+    "tools": ["duplicateSelected", "arrangeGrid"]
+  },
+  {
+    "id": "r-watermark-create",
+    "category": "effect",
+    "tags": ["filigran", "watermark", "damga", "marka", "brand mark", "logo damga", "watermark ekle"],
+    "title": "Create watermark overlay",
+    "scenario": "User wants to add a watermark to protect their design.",
+    "recipe": "Watermark oluştur (tek büyük, merkeze):\n```tool\n{\"tool\": \"createWatermark\", \"params\": {\"text\": \"DRAFT\", \"color\": \"#ffffff\", \"opacity\": 0.08, \"angle\": -30}}\n```\n\nAlternatif — text pattern watermark (grid biçiminde):\n```tool\n{\"tool\": \"createTextPattern\", \"params\": {\"text\": \"SAMPLE\", \"cols\": 5, \"rows\": 5, \"fontSize\": 14, \"color\": \"#ffffff\", \"opacity\": 0.05, \"angle\": -30}}\n```\n\nWatermark parametreleri:\n- opacity: 0.03-0.10 (çok hafif)\n- angle: -30 veya -45 (çapraz)\n- color: #ffffff (koyu bg) veya #000000 (açık bg)\n\nText pattern max: 15x15 grid (225 element). Performans için 8x8 ve altı önerilir.",
+    "tools": ["createWatermark", "createTextPattern"]
+  },
+  {
+    "id": "r-clear-canvas",
+    "category": "canvas",
+    "tags": ["temizle", "sil", "boşalt", "bosalt", "clear", "yeni", "new", "sıfırla", "sifirla", "reset", "tüm sil", "hepsini sil"],
+    "title": "Clear canvas / start fresh",
+    "scenario": "User wants to clear everything and start from scratch.",
+    "recipe": "Canvas'ı tamamen temizle:\n```tool\n{\"tool\": \"clearCanvas\", \"params\": {}}\n```\n\nUYARI: Bu işlem TÜM nesneleri siler! Geri almak için Ctrl+Z.\n\nAlternatif — sadece seçili nesneyi sil:\n```tool\n{\"tool\": \"deleteSelected\", \"params\": {}}\n```\n\nNOT: clearCanvas arka plan rengini değiştirmez. Arka planı da sıfırlamak için:\n```tool\n[{\"tool\": \"clearCanvas\", \"params\": {}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#ffffff\"}}]\n```",
+    "tools": ["clearCanvas", "deleteSelected", "setBackground"]
+  },
+  {
+    "id": "r-canvas-info-inspect",
+    "category": "canvas",
+    "tags": ["bilgi", "info", "durum", "state", "ne var", "neler var", "inspect", "incele", "boyut", "dimension", "mevcut"],
+    "title": "Get canvas info and current state",
+    "scenario": "User asks what's on the canvas, or AI needs to understand current state before making changes.",
+    "recipe": "Canvas durumunu kontrol et:\n```tool\n{\"tool\": \"getCanvasInfo\", \"params\": {}}\n```\n\nBu komut döndürür:\n- Canvas boyutu (width x height)\n- Arka plan rengi\n- Toplam nesne sayısı\n- Seçili nesne bilgisi (varsa)\n- Nesne listesi (tür, konum, boyut)\n\nNe zaman kullanılmalı:\n- Kullanıcı 'ne var canvas'ta?' dediğinde\n- Değişiklik yapmadan önce mevcut durumu anlamak için\n- Seçili nesne olup olmadığını kontrol etmek için\n- Canvas boyutunu öğrenmek için (doğru fontSize seçimi için)\n\nÖNEMLİ: Tasarım yapmadan önce her zaman getCanvasInfo ile mevcut durumu kontrol et!",
+    "tools": ["getCanvasInfo"]
+  },
+  {
+    "id": "r-product-type-change",
+    "category": "canvas",
+    "tags": ["ürün tipi", "urun tipi", "product type", "kartvizit", "card", "logo", "cv", "social post", "story", "banner", "wireframe", "email header"],
+    "title": "Change product type / canvas preset",
+    "scenario": "User wants to switch to a different product type (card, logo, social post, etc.).",
+    "recipe": "Ürün tipi değiştir (canvas boyutu otomatik ayarlanır):\n\n```tool\n{\"tool\": \"setProductType\", \"params\": {\"type\": \"card\"}}\n```\n\nMevcut ürün tipleri ve boyutları:\n- **card**: 700×400 (kartvizit)\n- **logo**: 500×500 (logo/kare)\n- **cv**: 794×1123 (A4 dikey)\n- **socialPost**: 1080×1080 (Instagram post)\n- **story**: 1080×1920 (Instagram story/reels)\n- **banner**: 1200×628 (Facebook/Twitter banner)\n- **emailHeader**: 600×200 (email header)\n- **wireframe**: 1440×900 (web wireframe)\n- **custom**: Özel boyut\n\nUYARI: Ürün tipi değiştirmek canvas boyutunu değiştirir ama içeriği silmez. Mevcut nesneler yeni boyuta sığmayabilir.",
+    "tools": ["setProductType"]
+  },
+  {
+    "id": "r-text-pattern-decorative",
+    "category": "pattern",
+    "tags": ["text pattern", "yazi deseni", "yazı deseni", "tekrarlayan", "repeating", "süsleme", "decorative text", "arka plan yazi"],
+    "title": "Create decorative text pattern (repeating text)",
+    "scenario": "User wants a repeating text pattern as decoration or background fill.",
+    "recipe": "Tekrarlayan text pattern (arka plan deseni olarak):\n\n```tool\n{\"tool\": \"createTextPattern\", \"params\": {\"text\": \"DESIGN\", \"cols\": 8, \"rows\": 8, \"fontSize\": 12, \"color\": \"#ffffff\", \"opacity\": 0.04, \"angle\": -15}}\n```\n\nMarka ismi/slogan pattern:\n```tool\n{\"tool\": \"createTextPattern\", \"params\": {\"text\": \"BRAND NAME\", \"cols\": 6, \"rows\": 6, \"fontSize\": 14, \"color\": \"#f2ff58\", \"opacity\": 0.06, \"angle\": -30}}\n```\n\nParametreler:\n- cols/rows: Grid boyutu (max 15x15)\n- fontSize: 8-18 arası önerilir (çok büyük kalabalık olur)\n- opacity: 0.03-0.08 (çok hafif, arka planda kalmalı)\n- angle: -15, -30, -45 (çapraz daha estetik)\n- color: Arka plan renginin açık tonu\n\nPERFORMANS: 10x10 = 100 element. 15x15 = 225 element. Büyük grid'ler yavaşlatabilir.",
+    "tools": ["createTextPattern"]
+  },
+  {
+    "id": "r-shape-types-guide",
+    "category": "shape",
+    "tags": ["şekil", "sekil", "shape", "dikdörtgen", "dikdortgen", "rect", "daire", "circle", "üçgen", "ucgen", "triangle", "elips", "ellipse", "diamond", "baklava", "çizgi", "line"],
+    "title": "Available shapes and their parameters",
+    "scenario": "User wants to add a shape. Reference for all shape types.",
+    "recipe": "Kullanılabilir şekiller (addShape):\n\n**Dikdörtgen (rect):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 200, \"height\": 100, \"fill\": \"#f2ff58\"}}\n```\n\n**Daire (circle):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 80, \"fill\": \"#00aaff\"}}\n```\n\n**Üçgen (triangle):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"triangle\", \"width\": 150, \"height\": 130, \"fill\": \"#ff3344\"}}\n```\n\n**Elips (ellipse):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"ellipse\", \"rx\": 120, \"ry\": 60, \"fill\": \"#00cc88\"}}\n```\n\n**Baklava (diamond):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"diamond\", \"width\": 100, \"height\": 100, \"fill\": \"#ffd700\"}}\n```\n\n**Çizgi (line):**\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"line\", \"width\": 200, \"fill\": \"#ffffff\"}}\n```\n\nOrtak parametreler: fill, stroke, strokeWidth, left, top, opacity, angle",
+    "tools": ["addShape"]
+  },
+  {
+    "id": "r-align-directions",
+    "category": "layout",
+    "tags": ["hizala", "align", "sola hizala", "saga hizala", "sağa hizala", "üste hizala", "uste hizala", "alta hizala", "ortala", "center"],
+    "title": "All alignment directions reference",
+    "scenario": "User wants to align an object to a specific position.",
+    "recipe": "alignObject yönleri:\n\n- **center-h**: Yatay ortala (canvas ortası, soldan-sağa)\n- **center-v**: Dikey ortala (canvas ortası, yukarıdan-aşağıya)\n- **left**: Sola hizala\n- **right**: Sağa hizala\n- **top**: Üste hizala\n- **bottom**: Alta hizala\n\nTam ortala (her iki eksende):\n```tool\n[{\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-v\"}}]\n```\n\nSol üst:\n```tool\n[{\"tool\": \"alignObject\", \"params\": {\"direction\": \"left\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"top\"}}]\n```\n\nSağ alt:\n```tool\n[{\"tool\": \"alignObject\", \"params\": {\"direction\": \"right\"}}, {\"tool\": \"alignObject\", \"params\": {\"direction\": \"bottom\"}}]\n```\n\nÖNEMLİ: alignObject sadece seçili nesneyi hizalar. Birden fazla nesneyi aynı anda hizalamak için önce groupSelected yapın.",
+    "tools": ["alignObject"]
+  },
+  {
+    "id": "r-delete-objects",
+    "category": "modification",
+    "tags": ["sil", "delete", "kaldır", "kaldir", "remove", "çıkar", "cikar", "yok et", "temizle"],
+    "title": "Delete selected objects",
+    "scenario": "User wants to remove/delete an object from canvas.",
+    "recipe": "Seçili nesneyi sil:\n```tool\n{\"tool\": \"deleteSelected\", \"params\": {}}\n```\n\nTümünü sil:\n```tool\n{\"tool\": \"clearCanvas\", \"params\": {}}\n```\n\nKlavye: Delete veya Backspace tuşu\n\nYanlışlıkla silindiyse:\n```tool\n{\"tool\": \"undo\", \"params\": {}}\n```\n\nÖNEMLİ: Silmeden önce doğru nesnenin seçili olduğundan emin olun. getCanvasInfo ile kontrol edebilirsiniz.",
+    "tools": ["deleteSelected", "clearCanvas", "undo", "getCanvasInfo"]
+  },
+  {
+    "id": "r-social-icon-placement",
+    "category": "social",
+    "tags": ["sosyal ikon", "social icon", "linkedin ikon", "twitter ikon", "instagram ikon", "facebook ikon", "sosyal medya ikon", "social media icon"],
+    "title": "Social media icon placement",
+    "scenario": "User wants social media icons on their design.",
+    "recipe": "Sosyal medya ikonları addIcon ile eklenebilir:\n\n```tool\n{\"tool\": \"addIcon\", \"params\": {\"name\": \"linkedin\"}}\n```\n\nMevcut sosyal medya ikonları:\n- linkedin, twitter, instagram, facebook, youtube, github, dribbble, behance, pinterest\n\nKartvizitte sosyal medya satırı:\n```tool\n[{\"tool\": \"addIcon\", \"params\": {\"name\": \"linkedin\"}}, {\"tool\": \"addIcon\", \"params\": {\"name\": \"twitter\"}}, {\"tool\": \"addIcon\", \"params\": {\"name\": \"instagram\"}}]\n```\n\nNOT: İkonlar canvas ortasına eklenir. Kullanıcıya yatay sıralamak için sürüklemesini söyleyin.\n\nAlternatif: Sol paneldeki Social Icons butonunda 77 adet özel sosyal platform monochrome ikonu var (daha profesyonel görünüm).\n\nİkon boyutu ayarlama (seçili iken):\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 0.7, \"scaleY\": 0.7}}\n```",
+    "tools": ["addIcon", "modifySelected"]
+  },
+  {
+    "id": "r-composition-minimal-card",
+    "category": "card",
+    "tags": ["minimal", "minimalist", "sade", "temiz", "clean", "az", "less", "basit", "simple", "elegant"],
+    "title": "Minimal / clean business card design",
+    "scenario": "User wants a minimalist, clean business card.",
+    "recipe": "Minimal business card — az element, çok boşluk:\n\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#ffffff\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Jane Smith\", \"fontSize\": 24, \"fontFamily\": \"Inter\", \"fill\": \"#1a1a1a\", \"left\": 40, \"top\": 60, \"width\": 300}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Product Designer\", \"fontSize\": 11, \"fill\": \"#888888\", \"left\": 40, \"top\": 95, \"width\": 300, \"charSpacing\": 30}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 30, \"height\": 2, \"fill\": \"#1a1a1a\", \"left\": 40, \"top\": 125}}, {\"tool\": \"addText\", \"params\": {\"text\": \"jane@studio.com\\n+90 555 123 4567\", \"fontSize\": 10, \"fill\": \"#aaaaaa\", \"left\": 40, \"top\": 320, \"width\": 250, \"lineHeight\": 1.8}}]\n```\n\nMinimal prensipleri:\n- Beyaz veya çok açık arka plan\n- 2-3 renk maximum\n- Büyük boşluklar\n- fontSize küçük tutulur\n- charSpacing ÇOK az: 20-50",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-composition-dark-luxury",
+    "category": "card",
+    "tags": ["lüks", "luks", "luxury", "premium", "gold", "altın", "altin", "high-end", "elegant", "zengin", "koyu"],
+    "title": "Dark luxury / premium business card",
+    "scenario": "User wants a dark, premium-looking business card with gold accents.",
+    "recipe": "Lüks kartvizit — koyu arka plan, altın aksan:\n\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a0a0f\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"ALEXANDER\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fontFamily\": \"Playfair Display\", \"fill\": \"#ffd700\", \"left\": 40, \"top\": 60, \"width\": 400, \"charSpacing\": 60}}, {\"tool\": \"addText\", \"params\": {\"text\": \"HAMILTON\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fontFamily\": \"Playfair Display\", \"fill\": \"#ffffff\", \"left\": 40, \"top\": 105, \"width\": 400, \"charSpacing\": 60}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 50, \"height\": 2, \"fill\": \"#ffd700\", \"left\": 40, \"top\": 165}}, {\"tool\": \"addText\", \"params\": {\"text\": \"CEO & Founder\", \"fontSize\": 12, \"fill\": \"#888888\", \"left\": 40, \"top\": 185, \"charSpacing\": 40, \"width\": 300}}]\n```\n\nStep 2 (next response): İletişim bilgileri\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"info@hamilton.co\\n+44 20 7946 0958\\nwww.hamilton.co\", \"fontSize\": 10, \"fill\": \"#666666\", \"left\": 40, \"top\": 310, \"width\": 250, \"lineHeight\": 1.8}}]\n```",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-rotate-object",
+    "category": "modification",
+    "tags": ["döndür", "dondur", "rotate", "rotation", "çevir", "cevir", "açı", "aci", "angle", "eğ", "tilt"],
+    "title": "Rotate an object",
+    "scenario": "User wants to rotate a selected object.",
+    "recipe": "Seçili nesneyi döndür:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"angle\": 45}}\n```\n\nYaygın açılar:\n- 45° — çapraz\n- 90° — dikey/yatay dönüş\n- 180° — ters çevirme\n- -15° veya -30° — hafif eğim (dekoratif)\n- -45° — çapraz watermark/text\n\nÖrnek — dekoratif açılı text:\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"SALE\", \"fontSize\": 72, \"fontWeight\": \"bold\", \"fill\": \"#ff3344\"}}, {\"tool\": \"modifySelected\", \"params\": {\"angle\": -15}}]\n```\n\nKlavye: Shift+sürükle ile 15° adımlarla döndürme.\nSıfırla: angle: 0",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-opacity-transparency",
+    "category": "modification",
+    "tags": ["saydamlık", "saydamlik", "şeffaflık", "seffaflik", "transparan", "transparent", "opacity", "görünürlük", "gorunurluk", "soluk", "faded"],
+    "title": "Adjust opacity / transparency",
+    "scenario": "User wants to make an object semi-transparent or adjust its visibility.",
+    "recipe": "Seçili nesnenin saydamlığını ayarla:\n\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"opacity\": 0.5}}\n```\n\nOpacity değerleri:\n- 1.0 → Tamamen görünür (varsayılan)\n- 0.8 → Hafif saydam\n- 0.5 → Yarı saydam\n- 0.3 → Çoğunlukla saydam\n- 0.1 → Çok hafif görünür\n- 0.05 → Neredeyse görünmez (watermark/decoration)\n- 0 → Tamamen görünmez\n\nKullanım alanları:\n- Arka plan dekorasyonu: 0.05-0.15\n- Watermark: 0.03-0.10\n- Overlay shape: 0.1-0.3\n- Gölge simülasyonu: 0.2-0.4\n- Hafif metin: 0.4-0.6",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-scale-resize",
+    "category": "modification",
+    "tags": ["boyut", "boyutlandir", "boyutlandır", "resize", "büyüt", "buyut", "küçült", "kucult", "scale", "ölçek", "olcek", "genişlet", "genislet", "daralt"],
+    "title": "Resize / scale an object",
+    "scenario": "User wants to make an object bigger or smaller.",
+    "recipe": "Seçili nesneyi boyutlandır:\n\nOrantılı büyütme (1.5x):\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 1.5, \"scaleY\": 1.5}}\n```\n\nOrantılı küçültme (0.5x):\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 0.5, \"scaleY\": 0.5}}\n```\n\nSadece genişliği artır:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 2.0}}\n```\n\nMetin için fontSize değiştirmek daha iyi:\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"fontSize\": 48}}\n```\n\nScale referansı:\n- 0.25x → 1/4 boyut\n- 0.5x → Yarım boyut\n- 1.0x → Normal (varsayılan)\n- 1.5x → 1.5 kat\n- 2.0x → 2 kat\n- 3.0x → 3 kat",
+    "tools": ["modifySelected"]
+  },
+  {
+    "id": "r-design-principles",
+    "category": "composition",
+    "tags": ["tasarım ilkeleri", "tasarim ilkeleri", "design principles", "iyi tasarım", "iyi tasarim", "kural", "ipucu", "tip", "best practice", "tavsiye", "nasil", "nasıl"],
+    "title": "Design principles and best practices",
+    "scenario": "User asks for design advice or their design looks unbalanced.",
+    "recipe": "Temel tasarım ilkeleri — AI her zaman bunlara uy:\n\n1. **Hiyerarşi**: En önemli bilgi (isim) en büyük, en az önemli (adres) en küçük\n2. **Kontrast**: Koyu arka plan → açık metin, açık arka plan → koyu metin\n3. **Hizalama**: Tüm elemanlar ortak bir kenara hizalı olmalı (genellikle sol)\n4. **Boşluk**: Elemanlar arası yeterli boşluk bırak, sıkışıklık kötü\n5. **Tutarlılık**: Aynı türdeki bilgiler aynı font boyutu ve renkte\n6. **3 Renk Kuralı**: Max 3 renk kullan (bg, metin, aksan)\n7. **Okunabilirlik**: Min. fontSize 9px, metin rengi bg'den en az %60 kontrast\n\nKartvizit özel kurallar:\n- İsim: En belirgin element\n- Max 7-8 bilgi satırı\n- Safe zone içinde kal (35px margin)\n- Logo sağ üst veya sol üst\n- İletişim bilgileri alt yarıda",
+    "tools": []
+  },
+  {
+    "id": "r-canvas-size-common",
+    "category": "canvas",
+    "tags": ["canvas boyut", "boyut değiştir", "boyut degistir", "resize canvas", "dimensions", "en boy", "ölçü", "olcu", "boyutlar"],
+    "title": "Common canvas sizes reference",
+    "scenario": "User asks about canvas sizes or wants a specific size.",
+    "recipe": "setCanvasSize kullan:\n```tool\n{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1080}}\n```\n\nYaygın boyutlar:\n\n**Kartvizit:**\n- 700×400 (varsayılan, 2:1.14)\n- 1050×600 (yüksek çözünürlük)\n\n**Logo:**\n- 500×500 (kare)\n- 1000×1000 (yüksek çözünürlük)\n\n**Sosyal Medya:**\n- 1080×1080 (Instagram post)\n- 1080×1920 (Instagram Story/Reels)\n- 1200×628 (Facebook/Twitter post)\n- 1500×500 (Twitter header)\n- 1584×396 (LinkedIn banner)\n- 820×312 (Facebook cover)\n\n**Baskı:**\n- 794×1123 (A4 dikey)\n- 1123×794 (A4 yatay)\n- 612×792 (Letter)\n\n**Web:**\n- 1440×900 (wireframe)\n- 1200×630 (OG image)\n- 600×200 (email header)",
+    "tools": ["setCanvasSize"]
+  },
+  {
+    "id": "r-composition-centered-card",
+    "category": "card",
+    "tags": ["ortalanmış", "ortalanmis", "centered card", "ortalı kartvizit", "ortali kartvizit", "simetrik", "symmetric"],
+    "title": "Centered/symmetric business card design",
+    "scenario": "User wants a centered, symmetrical business card layout.",
+    "recipe": "Ortalanmış kartvizit — tüm elemanlar canvas ortasında:\n\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"JANE SMITH\", \"fontSize\": 30, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 640, \"left\": 30, \"top\": 80, \"charSpacing\": 40}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Creative Director\", \"fontSize\": 13, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 640, \"left\": 30, \"top\": 120, \"charSpacing\": 20}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 60, \"height\": 2, \"fill\": \"#f2ff58\", \"left\": 320, \"top\": 160}}, {\"tool\": \"addText\", \"params\": {\"text\": \"jane@company.com | +90 555 123 4567\\nwww.company.com | Istanbul, Turkey\", \"fontSize\": 10, \"fill\": \"#777777\", \"textAlign\": \"center\", \"width\": 640, \"left\": 30, \"top\": 300, \"lineHeight\": 1.8}}]\n```\n\nOrtalanmış dekoratif çizgi left hesabı: (canvasWidth - lineWidth) / 2 = (700-60)/2 = 320",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-social-ig-promo",
+    "category": "social",
+    "tags": ["promosyon", "promotion", "indirim", "discount", "kampanya", "campaign", "sale", "satış", "satis", "duyuru", "announcement"],
+    "title": "Promotional / sale social media post",
+    "scenario": "User wants a promotional or sale announcement post.",
+    "recipe": "Promosyon/indirim postu (1080x1080):\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1080}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a0a0f\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"%50\", \"fontSize\": 180, \"fontWeight\": \"bold\", \"fill\": \"#ff3344\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 250, \"fontFamily\": \"Bebas Neue\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"İNDİRİM\", \"fontSize\": 72, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 460, \"charSpacing\": 60}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Tüm ürünlerde geçerli\\n01-31 Ocak 2025\", \"fontSize\": 22, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 580, \"lineHeight\": 1.6}}]\n```\n\nİpucu: İndirim yüzdesi en büyük, en dikkat çekici element olmalı.",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-artboard-info",
+    "category": "canvas",
+    "tags": ["artboard", "çalışma alanı", "calisma alani", "frame", "çerçeve", "cerceve", "sayfa alanı", "sayfa alani"],
+    "title": "Artboard system info",
+    "scenario": "User asks about artboards or multiple design areas.",
+    "recipe": "Artboard sistemi AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'dika studio artboard sistemi:\n- Her sayfa ayrı bir çalışma alanıdır\n- Alt taraftaki sayfa sekmelerinden yeni sayfa ekleyin (Ctrl+Shift+N)\n- Sayfalar arası geçiş: Alt+S / Alt+A (ileri/geri)\n- Sayfaları gruplarına ayırabilirsiniz (sürükle-bırak)\n- Her grup Active → Warm → Sleeping → Frozen yaşam döngüsüne sahip\n- Kopyalama: Ctrl+Shift+D (mevcut sayfayı kopyala)\n\nÖneri: Kartvizit ön yüz ve arka yüz için 2 sayfa oluşturun.'",
+    "tools": []
+  },
+  {
+    "id": "r-autosave-info",
+    "category": "export",
+    "tags": ["otomatik kaydet", "otomatik", "autosave", "auto save", "kayıp", "kayip", "kurtarma", "recovery", "versiyon", "version", "geçmiş", "gecmis", "history"],
+    "title": "Autosave and version history info",
+    "scenario": "User asks about saving, autosave, or recovering previous versions.",
+    "recipe": "Otomatik kaydetme ve versiyon geçmişi bilgisi:\n\n'dika studio otomatik kaydetme:\n- Her değişiklikte otomatik olarak localStorage'a kaydedilir\n- Tarayıcı kapatılsa bile tasarımınız korunur\n- Versiyon geçmişi: Settings → Version History\n- Önceki versiyonlara geri dönebilirsiniz\n- .dika dosyası olarak export edin (proje dosyası): Export → .dika\n- .dika dosyasını Import ile geri yükleyin\n\nUYARI: localStorage tarayıcıya özeldir. Farklı tarayıcıda açarsanız tasarım görünmez. Kalıcı kayıt için .dika export yapın.'",
+    "tools": []
+  },
+  {
+    "id": "r-composition-two-column",
+    "category": "layout",
+    "tags": ["iki sütun", "iki sutun", "two column", "sağ sol", "sag sol", "left right", "bölünmüş", "bolunmus", "split", "divided"],
+    "title": "Two-column layout design",
+    "scenario": "User wants a split/two-column card or design layout.",
+    "recipe": "İki sütunlu kartvizit (700x400):\n\nSol taraf: İsim + Ünvan\nSağ taraf: İletişim\n\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a1628\"}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 4, \"height\": 300, \"fill\": \"#f2ff58\", \"left\": 348, \"top\": 50}}, {\"tool\": \"addText\", \"params\": {\"text\": \"JOHN\\nSMITH\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"left\": 40, \"top\": 100, \"width\": 280, \"lineHeight\": 1.1}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Creative Director\", \"fontSize\": 12, \"fill\": \"#f2ff58\", \"left\": 40, \"top\": 200, \"width\": 280, \"charSpacing\": 30}}, {\"tool\": \"addText\", \"params\": {\"text\": \"john@company.com\\n+90 555 123 4567\\nwww.company.com\\nIstanbul, Turkey\", \"fontSize\": 11, \"fill\": \"#999999\", \"left\": 380, \"top\": 130, \"width\": 280, \"lineHeight\": 2.0}}]\n```\n\nDikey çizgi: canvas ortasında (350 - çizgi genişliği/2), iki bölümü ayırır.",
+    "tools": ["setBackground", "addShape", "addText"]
+  },
+  {
+    "id": "r-text-emphasis",
+    "category": "text",
+    "tags": ["vurgu", "emphasis", "önemli", "onemli", "dikkat", "attention", "highlight", "parlak", "bright", "belirgin", "stand out"],
+    "title": "Text emphasis techniques",
+    "scenario": "User wants to make certain text stand out or be more prominent.",
+    "recipe": "Metin vurgulama teknikleri:\n\n**1. Renk vurgusu** (accent renkle):\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"SPECIAL\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#f2ff58\"}}\n```\n\n**2. Büyük + Bold:**\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"BIG BOLD\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"charSpacing\": 30}}\n```\n\n**3. Arka plan kutucuğu** (renk bloku + metin):\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 250, \"height\": 50, \"fill\": \"#f2ff58\", \"left\": 40, \"top\": 175}}, {\"tool\": \"addText\", \"params\": {\"text\": \"HIGHLIGHTED\", \"fontSize\": 20, \"fontWeight\": \"bold\", \"fill\": \"#0a0a0f\", \"left\": 60, \"top\": 185}}]\n```\n\n**4. Outline text:**\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"OUTLINE\", \"fontSize\": 60, \"fontWeight\": \"bold\", \"fill\": \"transparent\"}}, {\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#f2ff58\", \"strokeWidth\": 2}}]\n```",
+    "tools": ["addText", "addShape", "modifySelected"]
+  },
+  {
+    "id": "r-pattern-bg-info",
+    "category": "pattern",
+    "tags": ["pattern", "desen", "motif", "tekrar desen", "arka plan deseni", "pattern background", "süslü arka plan"],
+    "title": "Pattern backgrounds (manual instruction)",
+    "scenario": "User wants patterned backgrounds with geometric/decorative patterns.",
+    "recipe": "Pattern arka planlar AI tool'larıyla uygulanamaz (sadece text pattern var). Kullanıcıya yönlendirme yap:\n\n'Pattern arka plan için:\n1. Sol panelde BG (Background) butonuna tıklayın\n2. Pattern sekmesini seçin\n3. 12 hazır pattern var: Dots, Grid, Diagonal, Zigzag, Crosshatch, Waves, Circles, Triangles, Hexagons, Stars, Diamonds, Checkerboard\n4. Her pattern'in renk ve ölçek ayarı değiştirilebilir\n5. Şeffaf arka plan üzerine pattern uygulanır'\n\nAI ile yapılabilecek alternatif:\n- Text pattern: Tekrarlayan yazı deseni (createTextPattern tool)\n- Shape tekrarı: arrangeGrid ile şekil grid'i oluştur\n\n```tool\n{\"tool\": \"createTextPattern\", \"params\": {\"text\": \"●\", \"cols\": 10, \"rows\": 10, \"fontSize\": 10, \"color\": \"#ffffff\", \"opacity\": 0.05}}\n```",
+    "tools": ["createTextPattern", "arrangeGrid"]
+  },
+  {
+    "id": "r-workflow-card-from-scratch",
+    "category": "card",
+    "tags": ["sıfırdan", "sifirdan", "from scratch", "baştan", "bastan", "yeni tasarım", "yeni tasarim", "new design", "başla", "basla", "start"],
+    "title": "Complete card design workflow — from scratch",
+    "scenario": "User starts a new card design from nothing. Full workflow guide.",
+    "recipe": "Sıfırdan kartvizit tasarımı — adım adım iş akışı:\n\nAdım 1 (Bu mesaj): Ürün tipi + arka plan + isim\n```tool\n[{\"tool\": \"setProductType\", \"params\": {\"type\": \"card\"}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"İSİM SOYİSİM\", \"fontSize\": 30, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"left\": 30, \"top\": 50, \"width\": 350, \"charSpacing\": 20}}]\n```\n\nAdım 2: Ünvan + dekoratif çizgi + şirket\nAdım 3: İletişim bilgileri (email, telefon, web)\nAdım 4: İkon ekleme (opsiyonel)\nAdım 5: Son düzeltmeler (hizalama, boşluk)\n\nHer adımda max 6 tool call + aynı tool max 3 kez kuralına uy.\nHer adımdan sonra kullanıcıya ne yaptığını açıkla ve devam etmek isteyip istemediğini sor.",
+    "tools": ["setProductType", "setBackground", "addText"]
+  },
+  {
+    "id": "r-responsive-text",
+    "category": "text",
+    "tags": ["taşma", "tasma", "overflow", "sığmıyor", "sigmiyor", "kesildi", "cut", "taşıyor", "tasiyor", "dışarı", "disari", "uzun metin", "long text"],
+    "title": "Fix text overflow / text not fitting",
+    "scenario": "Text is overflowing the canvas or box boundaries.",
+    "recipe": "Metin taşması düzeltme:\n\n1. **fontSize küçült**: En etkili çözüm\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"fontSize\": 14}}\n```\n\n2. **Width ayarla**: Text box genişliğini sınırla\n```tool\n{\"tool\": \"modifySelected\", \"params\": {\"scaleX\": 0.8, \"scaleY\": 0.8}}\n```\n\n3. **Pozisyon düzelt**: Canvas içine taşı\n```tool\n{\"tool\": \"alignObject\", \"params\": {\"direction\": \"center-h\"}}\n```\n\nCanvas boyutunu kontrol et:\n```tool\n{\"tool\": \"getCanvasInfo\", \"params\": {}}\n```\n\nKural: Metin genişliği canvas genişliğinin %85'ini geçmemeli.\n- 700px canvas → max text width ≈ 595px\n- 1080px canvas → max text width ≈ 918px\n\nAyrıca: width parametresini kullanarak text box'ı sınırla (addText'te).",
+    "tools": ["modifySelected", "alignObject", "getCanvasInfo"]
+  }
+]

@@ -1,0 +1,49 @@
+/* Platform preset advice (export modal, wizard step 1).
+
+   The picker itself is a plain `.ve-export-select`: it was written as a card grid whose HTML was
+   hardcoded to '' since day one, so step 1 was permanently blank, and a grid of cards had no way to
+   UNDO a choice. Only the advice box needs styling.
+
+   A warning is the interesting case: the export frame follows the canvas, so a vertical platform on
+   a landscape canvas is something the user has to fix upstream. */
+.ve-platform-warn-box,
+.ve-platform-ok-box {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: var(--r-md, 8px);
+  font-size: 11px;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.ve-platform-warn-box {
+  background: rgba(245, 158, 11, .12);
+  border: 1px solid rgba(245, 158, 11, .35);
+  color: #f5b23b;
+}
+
+.ve-platform-ok-box {
+  background: rgba(34, 197, 94, .10);
+  border: 1px solid rgba(34, 197, 94, .30);
+  color: #4ade80;
+}
+
+.ve-platform-warn-box svg,
+.ve-platform-ok-box svg { flex: 0 0 auto; margin-top: 1px; }
+
+/* Why the estimate says what it says: a relaxed quality target, or a tier that is an upscale.
+   Sits under the summary grid on step 2, so it wraps rather than widening the modal. */
+.ve-export-summary-note {
+  margin-top: 9px;
+  padding: 8px 10px;
+  border-radius: var(--r-md, 8px);
+  background: rgba(245, 158, 11, .11);
+  border: 1px solid rgba(245, 158, 11, .30);
+  color: #f5b23b;
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,561 @@
+/* ============================================================
+   dika studio editor — KIT COMPONENTS (component-type redesign).
+   Not per-panel makeup — these REBUILD the editor's recurring
+   component TYPES to mirror the kit's component design, applied to
+   ALL instances by class. Loaded LAST. !important to win over both
+   head + loader-module CSS.
+
+   COMPONENT 1 — Segmented tabs (kit Tabs/ToggleGroup look).
+   COMPONENT 2 — Modals (kit Dialog).
+   ARCHETYPE LAYER — inputs/buttons/cards/chips/rows/dropdowns/etc.
+   ============================================================ */
+
+/* ============ COMPONENT 1: SEGMENTED TABS ============ */
+/* container: was an underline bar -> kit segmented control.
+   NOTE: do NOT force `display` — some bars are intentionally hidden. */
+.rp-tab-bar {
+  gap: 2px !important;
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  padding: 3px !important;
+  box-sizing: border-box !important;
+}
+.rp-tab {
+  flex: 1 1 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  border: none !important;
+  border-bottom: none !important;
+  border-radius: var(--r-sm) !important;
+  padding: 7px 10px !important;
+  background: transparent !important;
+  color: var(--text-dim) !important;
+  font: 600 12px/1 var(--font-ui) !important;
+  cursor: pointer;
+  transition: background .15s, color .15s !important;
+}
+.rp-tab:hover {
+  color: var(--text) !important;
+}
+.rp-tab.active {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 0 0 1px var(--border) !important;
+}
+.rp-tab.active svg { color: var(--gold) !important; }
+.rp-tab:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }
+
+/* ============ COMPONENT 2: MODALS (kit Dialog) ============ */
+.ccmodal {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .6) !important;
+}
+.ccmodal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 14px 16px !important;
+  font: 600 14px/1.2 var(--font-ui) !important;
+}
+.ccmodal-close { border-radius: var(--r-sm) !important; }
+.ccmodal-body { padding: 16px !important; font-family: var(--font-ui) !important; }
+.ccmodal-footer { padding: 12px 16px !important; border-top: 1px solid var(--border) !important; }
+.ccmodal-btn {
+  height: var(--ctl-md) !important;
+  padding: 0 var(--sp-4) !important;
+  border-radius: var(--r-md) !important;
+  font: 600 13px/1 var(--font-ui) !important;
+}
+.ccmodal-btn-cancel { background: var(--surface2) !important; border-color: var(--border) !important; }
+.ccmodal-btn-cancel:hover { background: var(--surface3) !important; border-color: var(--border2) !important; }
+.ccmodal-btn-primary { background: var(--gold) !important; color: #0b0b0d !important; border-color: transparent !important; }
+.ccmodal-btn-primary:hover { background: var(--gold-light) !important; filter: none !important; }
+.ccmodal-btn-danger { background: var(--red) !important; border-color: transparent !important; }
+.ccmodal-input, .ccmodal-body input[type="text"], .ccmodal-body input[type="number"],
+.ccmodal-body textarea, .ccmodal-body select {
+  border-radius: var(--r-md) !important; font-family: var(--font-ui) !important;
+}
+.ccmodal-input:focus, .ccmodal-body input:focus, .ccmodal-body textarea:focus {
+  border-color: var(--gold) !important; box-shadow: var(--ring-dim) !important; outline: none !important;
+}
+
+/* ---- Reusable kit Dialog classes (for converting inline-styled JS modals) ---- */
+.kit-overlay {
+  position: fixed; inset: 0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--cc-overlay, rgba(8, 8, 12, .66));
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.kit-dialog {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 22px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .6);
+  color: var(--text); font-family: var(--font-ui);
+  max-width: 360px; width: 90%;
+}
+.kit-dialog--center { text-align: center; }
+.kit-dialog-title { font: 600 15px/1.25 var(--font-ui); color: var(--text); margin: 0 0 8px; }
+.kit-dialog-title--danger { color: var(--red); }
+.kit-dialog-text { font: 400 13px/1.5 var(--font-ui); color: var(--text-dim); margin: 0 0 16px; }
+.kit-dialog-text strong { color: var(--text); }
+.kit-dialog-actions { display: flex; gap: 8px; justify-content: center; }
+.kit-btn-ghost, .kit-btn-primary, .kit-btn-danger {
+  flex: 1; height: var(--ctl-md); border-radius: var(--r-md);
+  font: 600 13px/1 var(--font-ui); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background .15s, border-color .15s, box-shadow .15s;
+}
+.kit-btn-ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+.kit-btn-ghost:hover { background: var(--surface3); border-color: var(--border2); }
+.kit-btn-primary { background: var(--gold); border: 1px solid transparent; color: #0b0b0d; }
+.kit-btn-primary:hover { background: var(--gold-light); }
+.kit-btn-danger { background: var(--red); border: 1px solid transparent; color: #fff; }
+.kit-btn-danger:hover { filter: brightness(1.08); }
+.kit-btn-ghost:disabled, .kit-btn-primary:disabled, .kit-btn-danger:disabled { opacity: .45; cursor: default; }
+.kit-btn-ghost:focus-visible, .kit-btn-primary:focus-visible, .kit-btn-danger:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* ---- New Folder modal (fc-*) — class-based -> kit ---- */
+.fc-name-input, .fc-tabs, .fc-radio-label, .fc-create-btn, .fc-close { border-radius: var(--r-md) !important; }
+.fc-upload-zone { border-radius: var(--r-lg) !important; }
+.fc-name-input { font-family: var(--font-ui) !important; }
+.fc-name-input:focus { border-color: var(--gold) !important; box-shadow: var(--ring-dim) !important; outline: none !important; }
+.fc-tab { border-radius: var(--r-sm) !important; font-family: var(--font-ui) !important; }
+.fc-tab.active { background: var(--surface) !important; color: var(--text) !important; box-shadow: 0 1px 2px rgba(0,0,0,.35) !important; }
+.fc-radio-label.active, .fc-type-row input:checked + .fc-radio-label { border-color: var(--gold) !important; background: var(--gold-dim) !important; color: var(--text) !important; }
+.fc-create-btn { background: var(--gold) !important; color: #0b0b0d !important; height: var(--ctl-md) !important; font: 600 13px/1 var(--font-ui) !important; }
+.fc-create-btn:hover { background: var(--gold-light) !important; filter: none !important; }
+
+/* ============================================================
+   COMPONENT ARCHETYPE LAYER (2026-06-28) — the real redesign.
+   Groups the editor's hundreds of bespoke component classes into
+   ~14 ARCHETYPES and binds each to the kit's component DESIGN
+   (not just color). Applied to every instance by class name.
+   !important: head file must beat the runtime module loader.
+   NO `display` overrides (hidden elements stay hidden).
+   ============================================================ */
+
+/* ---------- A) INPUTS / SEARCH / SELECT / TEXTAREA ---------- */
+.pinput, .tpl-search, .icon-search, .items-search-input, .stock-search-input,
+.gal-folder-search, .gal-move-search, .gal-imgpop-search, .qr-url-input,
+.mform-input, .wiz-input, .pg-qnav-search, .rp-mf-search-input, .fc-name-input,
+.ai-input, .ai-provider-select, .ai-model-select, .bulk-builder-input,
+.cr-fb-trigger, .gal-imgpop-selected, .gal-move-trigger {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  color: var(--text) !important;
+  font-family: var(--font-ui) !important;
+  transition: border-color .15s, box-shadow .15s, background .15s !important;
+}
+.pinput:focus, .tpl-search:focus, .icon-search:focus, .items-search-input:focus,
+.stock-search-input:focus, .gal-folder-search:focus, .gal-move-search:focus,
+.qr-url-input:focus, .mform-input:focus, .wiz-input:focus, .pg-qnav-search:focus,
+.rp-mf-search-input:focus, .fc-name-input:focus, .ai-input:focus,
+.ai-provider-select:focus, .ai-model-select:focus, .bulk-builder-input:focus {
+  border-color: var(--gold) !important;
+  box-shadow: var(--ring-dim) !important;
+  background: var(--surface) !important;
+  outline: none !important;
+}
+.rpf-field, .rpf-pal-hex, .cp-hex-input {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  transition: border-color .15s, box-shadow .15s !important;
+}
+.rpf-field:focus-within, .rpf-pal-hex:focus-within, .cp-hex-input:focus-within {
+  border-color: var(--gold) !important; box-shadow: var(--ring-dim) !important;
+}
+
+/* ---------- B) PRIMARY BUTTONS (volt CTA) ---------- */
+.txp-add-text, .fc-create-btn, .ai-send-btn, .ai-ssave-btn, .stock-search-btn,
+.gal-prompt-confirm, .bulk-builder-cta, .mform-submit, .wiz-next {
+  background: var(--gold) !important;
+  color: #0b0b0d !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--r-md) !important;
+  font-family: var(--font-ui) !important; font-weight: 600 !important;
+  box-shadow: 0 2px 10px rgba(242,255,88,.16) !important;
+  transition: background .15s, box-shadow .15s, transform .1s !important;
+}
+.txp-add-text:hover, .fc-create-btn:hover, .ai-send-btn:hover, .ai-ssave-btn:hover,
+.stock-search-btn:hover, .gal-prompt-confirm:hover, .bulk-builder-cta:hover {
+  background: var(--gold-light) !important; filter: none !important;
+  box-shadow: 0 4px 16px rgba(242,255,88,.24) !important;
+}
+.txp-add-text:active, .fc-create-btn:active, .ai-send-btn:active { transform: translateY(1px) !important; }
+
+/* ---------- C) SECONDARY / GHOST BUTTONS ---------- */
+.txp-more, .cr-seeall, .items-load-more, .stock-load-more, .gal-add-sub-btn,
+.gal-load-more-btn, .gal-prompt-cancel, .ai-stest-btn, .ai-sk-new-btn,
+.ai-sk-save-btn, .ai-sk-dup-btn, .ai-sk-del-btn, .gal-trash-empty-btn {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  font-family: var(--font-ui) !important; font-weight: 600 !important;
+  transition: background .15s, border-color .15s !important;
+}
+.txp-more:hover, .cr-seeall:hover, .items-load-more:hover, .stock-load-more:hover,
+.gal-add-sub-btn:hover, .gal-load-more-btn:hover, .gal-prompt-cancel:hover,
+.ai-stest-btn:hover, .ai-sk-new-btn:hover {
+  background: var(--surface3) !important; border-color: var(--border2) !important;
+}
+
+/* ---------- D) ICON BUTTONS ---------- */
+.sbtn, .gal-bulk-btn, .gal-header-trash-btn, .gal-header-folder-btn, .gal-bulk-close,
+.ai-hdr-btn, .ai-action-btn, .ai-attach-btn, .ai-screenshot-btn, .wb-fbtn,
+.wb-layer-btn, .stock-orient-btn, .gal-ap-btn, .ai-sidebar-new, .ai-sidebar-close,
+.ai-sk-icon-btn {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  color: var(--text-dim) !important;
+  transition: background .15s, border-color .15s, color .15s !important;
+}
+.sbtn:hover, .gal-bulk-btn:hover, .gal-header-trash-btn:hover, .gal-header-folder-btn:hover,
+.gal-bulk-close:hover, .ai-hdr-btn:hover, .ai-action-btn:hover, .ai-attach-btn:hover,
+.ai-screenshot-btn:hover, .wb-fbtn:hover, .wb-layer-btn:hover, .stock-orient-btn:hover,
+.gal-ap-btn:hover, .ai-sidebar-new:hover, .ai-sidebar-close:hover, .ai-sk-icon-btn:hover {
+  background: var(--surface3) !important; border-color: var(--border2) !important; color: var(--text) !important;
+}
+
+/* ---------- E) CARDS / THUMBNAIL TILES (kit card + hover-lift) ---------- */
+.tpl-card, .tpl-cat-card, .txp-card, .txp-quick-card, .fp-card, .dyn-card, .fx-card,
+.chart-type-card, .pattern-card, .ai-smodel-card, .tpl-video-card,
+.items-slider-cell, .img-cat-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.30) !important;
+  transition: border-color .15s, background .15s, box-shadow .15s, transform .12s !important;
+}
+/* .cr-card is the Canva-style template card (full-bleed, bg-fill, hover scrim) — styled in templates.css, excluded here */
+.tpl-card:hover, .tpl-cat-card:hover, .txp-card:hover, .txp-quick-card:hover,
+.fp-card:hover, .dyn-card:hover, .fx-card:hover, .chart-type-card:hover,
+.pattern-card:hover, .ai-smodel-card:hover, .items-slider-cell:hover, .img-cat-card:hover {
+  border-color: var(--border2) !important; background: var(--surface2) !important;
+  transform: translateY(-2px) !important; box-shadow: 0 8px 22px rgba(0,0,0,.4) !important;
+}
+
+/* ---------- F) CHIPS (pill) ---------- */
+.txp-chip, .items-emoji-tab, .icon-tab, .stock-chip, .ai-stab, .ai-suggest-btn,
+.ccwb-chip {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-pill) !important;
+  color: var(--text-dim) !important;
+  font-family: var(--font-ui) !important; font-weight: 500 !important;
+  transition: background .15s, color .15s, border-color .15s !important;
+}
+.txp-chip:hover, .items-emoji-tab:hover, .icon-tab:hover, .stock-chip:hover,
+.ai-stab:hover, .ai-suggest-btn:hover {
+  color: var(--text) !important; border-color: var(--border2) !important;
+}
+.txp-chip.active, .items-emoji-tab.active, .icon-tab.active, .stock-chip.active,
+.ai-stab.active {
+  background: var(--gold-dim) !important; color: var(--text) !important; border-color: var(--gold) !important;
+}
+
+/* ---------- G) UNDERLINE TABS (keep underline, volt active) ---------- */
+.tpl-mode-tab, .face-tab, .cp-tab, .grid-wiz-steps span {
+  font-family: var(--font-ui) !important; transition: color .15s, border-color .15s !important;
+}
+.tpl-mode-tab.active, .face-tab.active, .cp-tab.active, .grid-wiz-steps span.active {
+  color: var(--text) !important; border-bottom-color: var(--gold) !important;
+}
+
+/* ---------- H) SECTION LABELS / TITLES (kit uppercase faint) ---------- */
+.txp-sec-title, .ptitle, .rp-section-title, .cp-section-title, .gal-section-title,
+.cr-sec-l, .ai-sk-group-title, .rpf-mini, .te-sub-title {
+  font-family: var(--font-ui) !important;
+  text-transform: uppercase !important; letter-spacing: .06em !important;
+  color: var(--text-faint) !important; font-weight: 600 !important;
+}
+
+/* ---------- I) LIST ROWS / NAV ITEMS (kit row) ---------- */
+.rail-item, .tools-btn, .ccwb-facet, .ccwb-row, .ccim-nav-btn, .rp-mf-item,
+.pg-qnav-item, .cr-dd-item, .gal-move-item, .ctx-item, .rp-ctx-item, .rpf-menu button,
+.gal-imgpop-opt, .stock-orient-item, .ai-sidebar-item, .ai-sk-item, .ai-sk-tree-item {
+  border-radius: var(--r-md) !important;
+  transition: background .12s, color .12s !important;
+}
+.rail-item:hover, .tools-btn:hover, .ccwb-facet:hover, .ccim-nav-btn:hover,
+.rp-mf-item:hover, .pg-qnav-item:hover, .cr-dd-item:hover, .gal-move-item:hover,
+.ctx-item:hover, .rp-ctx-item:hover, .rpf-menu button:hover, .gal-imgpop-opt:hover,
+.stock-orient-item:hover, .ai-sidebar-item:hover, .ai-sk-item:hover {
+  background: var(--surface2) !important;
+}
+
+/* ---------- J) DROPDOWNS / POPOVERS / MENUS (kit popover) ---------- */
+.gear-dropdown, .gear-flyout, .cr-dropdown, .gal-move-dropdown, .gal-imgpop-list,
+.gal-info-popup, .ctx-menu, .ctx-submenu, .ft-panel, .rpf-menu, .ai-slash-menu,
+.rp-layer-ctx, .rp-move-folder-popup, .cr-fb-menu, .bulk-builder-drop-menu {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.5) !important;
+}
+
+/* ---------- K) MODALS / DIALOG BOXES (kit dialog) ---------- */
+.modal-box, .icon-picker-box, .bulk-builder-panel {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.6) !important;
+}
+
+/* ---------- L) RANGE SLIDERS (volt accent) ---------- */
+.rpf-range input[type="range"], .ai-srange, .wb-bp-size, .gal-ap-seek,
+.rpf-pop2-row input[type="range"], #pattern-opacity {
+  -webkit-appearance: none !important; appearance: none !important;
+  height: 4px !important; border-radius: var(--r-pill) !important;
+  background: var(--surface3) !important; accent-color: var(--gold) !important;
+}
+.rpf-range input[type="range"]::-webkit-slider-thumb,
+.ai-srange::-webkit-slider-thumb, .gal-ap-seek::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--gold); border: 2px solid var(--bg); cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
+
+/* ---------- M) SCROLLBARS (thin kit) ---------- */
+.rpanel::-webkit-scrollbar, .flyout-panel::-webkit-scrollbar,
+.ai-panel-body::-webkit-scrollbar, .structure-body::-webkit-scrollbar { width: 8px !important; height: 8px !important; }
+.rpanel::-webkit-scrollbar-thumb, .flyout-panel::-webkit-scrollbar-thumb,
+.ai-panel-body::-webkit-scrollbar-thumb, .structure-body::-webkit-scrollbar-thumb {
+  background: var(--surface3) !important; border-radius: var(--r-pill) !important;
+  border: 2px solid var(--bg) !important;
+}
+
+/* ---------- N) CHECKBOX / RADIO (volt accent) ---------- */
+input[type="checkbox"], input[type="radio"] { accent-color: var(--gold) !important; }
+
+/* ============================================================
+   USER FEEDBACK FIXES (2026-06-28) — owner screenshots.
+   ============================================================ */
+
+/* FIX 1 — LEFT RAIL: no box/radius. Owner: "borderlara radius verme sol menüde".
+   The rail uses a left-border accent, NOT a rounded box. Remove the radius my
+   archetype layer added; restore the clean left-accent active state. */
+.rail-item {
+  border-radius: 0 !important;
+  border-left: 3px solid transparent !important;
+  background: transparent !important;
+}
+.rail-item:hover { background: var(--surface2) !important; }
+.rail-item.active {
+  background: var(--gold-dim) !important;
+  border-left-color: var(--gold) !important;
+  color: var(--gold) !important;
+}
+
+/* FIX 2 — RIGHT PANEL collapse/expand bar. Owner: "aynı kalmış". */
+.rp-toggle-btn, .lp-toggle-btn {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-dim) !important;
+  transition: background .15s, color .15s, border-color .15s !important;
+}
+.rp-toggle-btn:hover, .lp-toggle-btn:hover {
+  background: var(--gold-dim) !important;
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+
+/* FIX 3 — EXPORT/DOWNLOAD modal. Owner: olive/muddy "Download PNG" button.
+   Main download = BRIGHT volt (not gold-dim olive). */
+.mform-dl-btn, .export-dl-btn, #bulk-generate-btn {
+  background: var(--gold) !important;
+  color: #0b0b0d !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--r-md) !important;
+  font: 700 13.5px/1 var(--font-ui) !important;
+  box-shadow: 0 2px 12px rgba(242,255,88,.22) !important;
+  transition: background .15s, box-shadow .15s, transform .1s !important;
+}
+.mform-dl-btn:hover, .export-dl-btn:hover, #bulk-generate-btn:hover {
+  background: var(--gold-light) !important;
+  box-shadow: 0 5px 18px rgba(242,255,88,.32) !important;
+}
+.mform-dl-btn:disabled { opacity: .5 !important; }
+/* format / DPI toggle buttons → clean active (volt border + text + neutral bg,
+   NOT muddy olive fill). */
+.export-format-btn, .em-dpi-btn, .bulk-dpi-btn, .dpi-btn {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-dim) !important;
+  border-radius: var(--r-md) !important;
+  font-family: var(--font-ui) !important;
+  transition: border-color .15s, color .15s, background .15s !important;
+}
+.export-format-btn:hover, .em-dpi-btn:hover, .bulk-dpi-btn:hover, .dpi-btn:hover {
+  border-color: var(--border2) !important; color: var(--text) !important; background: var(--surface3) !important;
+}
+.export-format-btn.active, .em-dpi-btn.active, .bulk-dpi-btn.active, .dpi-btn.active {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  background: var(--surface3) !important;
+}
+
+/* FIX 4 — BROAD input coverage (owner: "çoğu yer eskiyle aynı").
+   Every text-like input/textarea/select inside a panel or modal → kit field.
+   Scoped to chrome containers so canvas/hidden controls are untouched. */
+.rpanel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.flyout-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.modal-box input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.ccmodal input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.ai-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.bulk-builder-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.rpanel textarea, .flyout-panel textarea, .modal-box textarea, .ccmodal textarea, .ai-panel textarea,
+.rpanel select, .flyout-panel select, .modal-box select, .ccmodal select, .ai-panel select {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--r-md) !important;
+  color: var(--text) !important;
+  font-family: var(--font-ui) !important;
+  transition: border-color .15s, box-shadow .15s, background .15s !important;
+}
+.rpanel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):focus,
+.flyout-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):focus,
+.modal-box input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):focus,
+.ccmodal input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):focus,
+.ai-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):focus,
+.modal-box textarea:focus, .ccmodal textarea:focus, .rpanel textarea:focus,
+.modal-box select:focus, .ccmodal select:focus {
+  border-color: var(--border2) !important;
+  background: var(--surface) !important;
+  outline: none !important;
+}
+
+/* ============================================================
+   USER FEEDBACK FIXES — round 2 (2026-06-28).
+   Owner: NO volt glow on input focus (annoying while typing) +
+   right collapse bar must be muted (not volt glow), classier icon.
+   ============================================================ */
+
+/* FIX 5 — KILL the volt focus GLOW on inputs (outer ring + inner).
+   Focus shows only a subtle neutral border, no glow, in any color. */
+.pinput:focus, .tpl-search:focus, .icon-search:focus, .items-search-input:focus,
+.stock-search-input:focus, .gal-folder-search:focus, .gal-move-search:focus,
+.qr-url-input:focus, .mform-input:focus, .wiz-input:focus, .pg-qnav-search:focus,
+.rp-mf-search-input:focus, .fc-name-input:focus, .ai-input:focus,
+.ai-provider-select:focus, .ai-model-select:focus, .bulk-builder-input:focus,
+.export-size-input:focus,
+.rpanel input:focus, .flyout-panel input:focus, .modal-box input:focus,
+.ccmodal input:focus, .ai-panel input:focus, .bulk-builder-panel input:focus,
+.rpanel textarea:focus, .modal-box textarea:focus, .ccmodal textarea:focus,
+.rpanel select:focus, .modal-box select:focus, .ccmodal select:focus {
+  box-shadow: none !important;
+  border-color: var(--border2) !important;
+  outline: none !important;
+}
+.rpf-field:focus-within, .rpf-pal-hex:focus-within, .cp-hex-input:focus-within {
+  box-shadow: none !important;
+  border-color: var(--border2) !important;
+}
+
+/* FIX 6 — RIGHT collapse bar: MUTED (no volt glow), classier. */
+.rp-toggle-btn, .lp-toggle-btn {
+  background: var(--surface) !important;
+  border: none !important;
+  border-left: 1px solid var(--border) !important;
+  color: var(--text-faint) !important;
+  transition: background .15s, color .15s !important;
+}
+.rp-toggle-btn:hover, .lp-toggle-btn:hover {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.rp-toggle-btn svg, .lp-toggle-btn svg { width: 15px !important; height: 15px !important; opacity: .9 !important; }
+
+/* FIX 7 — INPUTS too small + text touching edges (owner: "çok küçük ve
+   kenarlara bitişik"). Give panel inputs real height + inner breathing room. */
+.pinput, .qr-url-input, .export-size-input, .rp-mf-search-input,
+.rpanel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.flyout-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.modal-box input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.ccmodal input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.ai-panel input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]) {
+  min-height: 32px !important;
+  padding: 6px 11px !important;
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+}
+/* bordered field WRAPPERS (input lives inside) — height + side padding on the box,
+   inner input stays padless so text isn't double-indented but never edge-stuck. */
+.rpf-field, .rpf-size-field, .rpf-pal-hex, .cp-hex-input {
+  min-height: 32px !important;
+  padding: 2px 11px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.rpf-field input, .rpf-size-field input, .rpf-pal-hex input, .cp-hex-input input,
+.rpf-numin, .rpf-field select {
+  min-height: 0 !important;
+  padding: 4px 4px !important;
+  background: transparent !important;
+  border: none !important;
+}
+/* number/size fields: center the value with comfortable room */
+.rpf-size-field input, .export-size-input { text-align: center !important; }
+.rpf-size-x { padding: 0 4px !important; }
+.rpf-size-unit { padding: 0 4px 0 8px !important; }
+
+/* FIX 8 — DOUBLE BORDER kill (owner: "iç inputlara border verme, çift oluyor").
+   Inputs/selects INSIDE a bordered field/search WRAPPER must be borderless &
+   transparent — only the wrapper shows the box. The :not() chain matches the
+   broad rule's specificity so this (later in file) wins. Apply to all such wrappers. */
+.rpf-field input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.rpf-size-field input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.rpf-pal-hex input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.cp-hex-input input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.txp-search-wrap input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.tpl-search-wrap input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),
+.rpf-field select, .rpf-size-field select {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  min-height: 0 !important;
+  padding: 4px 2px !important;
+}
+
+/* ============================================================
+   TOPBAR — dika logo + Photoshop-style menu bar (2026-06-28).
+   ============================================================ */
+.dika-logo { display:flex; align-items:center; text-decoration:none; flex:0 0 auto; padding:0 8px 0 2px; }
+.dika-img { height:24px; width:auto; display:block; transition:opacity .12s; }
+.dika-logo:hover .dika-img { opacity:.85; }
+
+.mbar { display:flex; align-items:center; gap:2px; margin-left:4px; }
+.mbar-group { position:relative; }
+.mbar-item { background:transparent; border:none; color:var(--text-dim); font:500 13px/1 var(--font-ui); padding:7px 10px; border-radius:var(--r-sm); cursor:pointer; transition:background .12s, color .12s; }
+.mbar-item:hover { background:var(--surface2); color:var(--text); }
+.mbar-group.open .mbar-item { background:var(--surface2); color:var(--text); }
+.mbar-menu { display:none; position:absolute; top:calc(100% + 5px); left:0; min-width:224px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); box-shadow:0 14px 40px rgba(0,0,0,.5); padding:5px; z-index:10000; }
+.mbar-group.open .mbar-menu { display:block; }
+.mbar-mi { display:flex; align-items:center; justify-content:space-between; gap:18px; width:100%; background:transparent; border:none; color:var(--text); font:500 12.5px/1 var(--font-ui); text-align:left; padding:8px 10px; border-radius:var(--r-sm); cursor:pointer; transition:background .1s; }
+.mbar-mi:hover { background:var(--surface2); }
+.mbar-mi kbd { font:500 10.5px/1 var(--font-mono); color:var(--text-faint); background:var(--surface3); border:1px solid var(--border); border-radius:var(--r-xs); padding:3px 6px; flex:0 0 auto; }
+.mbar-sep { height:1px; background:var(--border); margin:5px 4px; }
+
+/* ── Video recorder tool cards (.ve-rec-card) → SAME size as format cards above
+   (vertical, centered, taller). Icons keep their ORIGINAL per-tool colors
+   (no volt override — .img-cat-icon base tile + inline color stays). */
+.ve-rec-card { min-height:104px !important; height:auto !important; padding:14px 12px !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; gap:7px !important; text-align:center !important; box-sizing:border-box !important; }
+.ve-rec-tx { display:flex !important; flex-direction:column !important; gap:2px !important; align-items:center !important; min-width:0 !important; max-width:100% !important; }
+.ve-rec-card .img-cat-name { font:600 12.5px/1.25 var(--font-ui) !important; color:var(--text) !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; max-width:100% !important; }
+.ve-rec-card .img-cat-desc { font:400 11px/1.2 var(--font-ui) !important; color:var(--text-dim) !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; max-width:100% !important; }
+
+/* ── Video format / category cards (.tpl-cat-card) → kit, readable, no overflow ──
+   centered column: volt icon-tile + name + dims; a bit more height so text fits. */
+.tpl-cat-card { min-height:104px !important; height:auto !important; padding:14px 12px !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; gap:7px !important; text-align:center !important; overflow:hidden !important; box-sizing:border-box !important; }
+/* icon keeps its ORIGINAL color (templates.css: text-dim, hover volt) — no override */
+.tpl-cat-name { font:600 12.5px/1.25 var(--font-ui) !important; color:var(--text) !important; max-width:100% !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+.tpl-cat-dims { font:400 11px/1.2 var(--font-ui) !important; color:var(--text-dim) !important; max-width:100% !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; }

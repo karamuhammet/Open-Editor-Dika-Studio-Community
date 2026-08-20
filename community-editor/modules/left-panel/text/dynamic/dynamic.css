@@ -1,0 +1,5 @@
+/* Sub-module: left-panel/text/dynamic — smart-field cards (.dyn-*). */
+.dyn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dyn-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px 10px; border: 1px solid var(--border2); border-radius: var(--r-lg); background: var(--surface2); color: var(--text); font-size: 12px; font-weight: 500; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; font-family: inherit; }
+.dyn-card:hover { border-color: var(--gold); background: rgba(255,255,255,.03); transform: translateY(-2px); }
+.dyn-card svg { color: var(--gold); }

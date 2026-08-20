@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "serve": "node scripts/static-server.js 8124",
+    "test": "node tests/smoke.mjs",
+    "verify": "node tests/verify-fixes.mjs",
+    "i18n:sync-es": "node ../../scripts/i18n/sync-community-editor-es.mjs",
+    "bundle": "pnpm i18n:sync-es && node tools/build-bundle.mjs",
+    "bundle:check": "node tools/build-bundle.mjs --check"
+  },
+  "dependencies": {
+    "html2canvas-pro": "2.0.2"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.1",
+    "jszip": "3.10.1"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "left-panel.gallery.canvas",
+  "children": [
+    "audio",
+    "drop",
+    "video"
+  ]
+}

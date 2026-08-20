@@ -1,0 +1,7 @@
+/* ============================================================
+   DEPRECATED (EF, 2026-06-27). The editor's design tokens now live in
+   css/theme.css as the single source of truth (Volt/dark kit system).
+   This overlay is no longer needed — theme.css (loaded first in <head>)
+   defines the full token set and nothing redefines :root anymore.
+   The <link> to this file will be removed in E8 cleanup.
+   ============================================================ */

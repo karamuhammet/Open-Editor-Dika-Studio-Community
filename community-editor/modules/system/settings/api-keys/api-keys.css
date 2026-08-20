@@ -1,0 +1,4 @@
+/* system/settings/api-keys - no styles of its own: the section reuses .settings-field /
+   .settings-label / .settings-input / .btn-primary from the settings screen, so the API Keys
+   page cannot drift away from the rest of Settings. Kept as a file because core/loader.js
+   requests <name>.css for every module and a 404 per boot hides real ones. */

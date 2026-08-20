@@ -1,0 +1,64 @@
+/* Settings > Uyku (system/settings/sleep) - the live status card. */
+.ps-stats-row {
+  display: flex;
+  gap: 8px;
+}
+.ps-stat {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md, 8px);
+  background: rgba(255, 255, 255, 0.02);
+}
+.ps-stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+.ps-stat-lbl {
+  margin-top: 3px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.ps-bar {
+  margin-top: 10px;
+  height: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.ps-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+
+/* Preset buttons: the shared .sbtn.active is identical to :hover (thin gold border), so a
+   selected value is indistinguishable. Give the SELECTED preset a solid volt fill + ink text
+   (memory: volt = solid+ink, never low-alpha volt + light text) so it is unmistakable. */
+.ps-awake-btn,
+.ps-nb-btn {
+  min-width: 40px;
+  padding: 6px 12px;
+  font-weight: 600;
+}
+/* kit-components.css sets .sbtn background/color with !important, so the active override
+   must also be !important to win (that base !important is also why the shared .sbtn.active
+   gold never showed). */
+.ps-awake-btn.active,
+.ps-nb-btn.active,
+.ps-awake-btn.active:hover,
+.ps-nb-btn.active:hover {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: #111 !important;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px var(--gold);
+}
+

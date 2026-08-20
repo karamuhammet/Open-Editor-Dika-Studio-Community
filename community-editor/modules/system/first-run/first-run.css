@@ -1,0 +1,50 @@
+/* system/first-run - the setup wizard. Tokens only, never an inline hex. */
+.cc-fr-ov {
+  position: fixed; inset: 0; z-index: 2147482000; display: flex;
+  align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--bg, #16161b) 62%, transparent);
+}
+.cc-fr {
+  width: min(520px, calc(100vw - 40px));
+  background: var(--surface, #1a1a1f);
+  border: 1px solid var(--border, #2c2c33);
+  border-radius: var(--r-md, 8px);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .6);
+  padding: 26px 26px 18px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  color: var(--text, #e8e8ea);
+}
+.cc-fr-title { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+.cc-fr-body { font-size: 13px; line-height: 1.6; min-height: 190px; }
+.cc-fr-body p { margin: 0 0 10px; }
+.cc-fr-dim { color: var(--text-faint, #6e6e78); font-size: 12px; }
+/* The one line that has to land. Volt is a FILL here, not a border. */
+.cc-fr-warn {
+  background: var(--gold, #f2ff58); color: var(--text-on-gold, #16161b);
+  padding: 9px 12px; border-radius: var(--r-sm, 6px); font-weight: 600;
+}
+.cc-fr-list { margin: 0 0 12px; padding-left: 18px; color: var(--text-dim, #9b9ba3); }
+.cc-fr-list li { margin-bottom: 4px; }
+.cc-fr-row { margin: 12px 0; }
+.cc-fr-field { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; font-size: 12px; color: var(--text-dim, #9b9ba3); }
+.cc-fr-field select {
+  background: var(--surface2, #202027); color: var(--text, #e8e8ea);
+  border: 1px solid var(--border, #2c2c33); border-radius: var(--r-sm, 6px);
+  padding: 6px 8px; font-size: 12px; font-family: inherit;
+}
+.cc-fr-check { display: flex; align-items: center; gap: 9px; margin: 14px 0 8px; font-size: 13px; cursor: pointer; }
+.cc-fr-foot { display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.cc-fr-dots { display: flex; gap: 6px; margin-right: auto; }
+.cc-fr-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border, #2c2c33); }
+.cc-fr-dot.is-on { background: var(--gold, #f2ff58); }
+.cc-fr-btn {
+  background: var(--surface2, #202027); color: var(--text, #e8e8ea);
+  border: 1px solid var(--border, #2c2c33); border-radius: var(--r-sm, 6px);
+  padding: 7px 15px; font-size: 12px; font-weight: 500; font-family: inherit; cursor: pointer;
+}
+.cc-fr-btn:hover { border-color: var(--border-hover, #3a3a44); }
+.cc-fr-go {
+  background: var(--gold, #f2ff58); color: var(--text-on-gold, #16161b);
+  border-color: transparent; font-weight: 700;
+}
+.cc-fr-go:hover { filter: brightness(1.08); }

@@ -1,0 +1,5 @@
+/* Sub-module: left-panel/text/pairings — font-pairing cards (.fp-*). */
+.fp-grid { display: flex; flex-direction: column; gap: 8px; }
+.fp-card { width: 100%; text-align: left; padding: 13px 14px; border: 1px solid var(--border2); border-radius: var(--r-lg); background: var(--surface2); cursor: pointer; transition: border-color .15s, background .15s; overflow: hidden; }
+.fp-card:hover { border-color: var(--gold); background: rgba(255,255,255,.03); transform: translateY(-1px); }
+.fp-name { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }

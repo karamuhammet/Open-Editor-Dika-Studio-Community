@@ -1,0 +1,188 @@
+[
+  {
+    "id": "r-pen-bezier-info",
+    "category": "canvas",
+    "tags": ["kalem", "pen", "bezier", "eğri", "egri", "curve", "çizim", "cizim", "vektör", "vektor", "path", "anchor"],
+    "title": "Pen tool — Bezier curves (manual instruction)",
+    "scenario": "User asks about using the pen tool or drawing bezier curves.",
+    "recipe": "Kalem araçları AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'5 kalem aracı var:\n1. **Bezier Pen**: Tıkla-sürükle ile eğri çiz. Her tıklama bir anchor point oluşturur, sürükleyerek eğriyi kontrol edersiniz.\n2. **Freeform Pen**: Serbest çizim, mouse takip eder.\n3. **Curvature Pen**: Otomatik düzgün eğriler (tıkla-tıkla, sürükleme yok).\n4. **Anchor Point**: Mevcut path'e nokta ekle/sil/taşı.\n5. **Line Tool**: Düz çizgi segmentleri.\n\nKullanım:\n- Sol panelde Pen Tools butonuna tıklayın\n- Aracı seçin ve canvas'ta çizmeye başlayın\n- ESC ile bitirin\n- Ctrl+Z ile geri alın\n- Shift tuşu ile 45° açı kilidi'"
+  },
+  {
+    "id": "r-paint-brush-info",
+    "category": "canvas",
+    "tags": ["boya", "paint", "fırça", "firca", "brush", "yağlıboya", "yagliboya", "suluboya", "watercolor", "oil", "çizim", "drawing"],
+    "title": "Paint & brush tool (manual instruction)",
+    "scenario": "User asks about painting or using brush tools.",
+    "recipe": "Boya araçları AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'2 boya modu var:\n1. **Oil Paint (Yağlıboya)**: Kalın, dokulu fırça darbeleri. Boyut, opaklık ve renk ayarlanabilir.\n2. **Watercolor (Suluboya)**: Şeffaf, sulandırılmış efekt. Otomatik renk karışımı.\n\nKullanım:\n- Sol panelde Paint/Brush butonuna tıklayın\n- Modu seçin (Oil/Watercolor)\n- Fırça boyutu: slider ile 1-100px\n- Opaklık: 0-100%\n- Renk: renk seçiciden\n- Canvas üzerinde sürükleyerek boyayın\n- Her darbe ayrı bir canvas nesnesi olur\n- Ctrl+Z ile geri alın'"
+  },
+  {
+    "id": "r-image-crop-info",
+    "category": "image",
+    "tags": ["kırp", "kirp", "crop", "kes", "cut", "trim", "kırpma", "kirpma", "resize image", "resim kes"],
+    "title": "Crop / trim image (manual instruction)",
+    "scenario": "User wants to crop or trim an image to a specific area.",
+    "recipe": "Resim kırpma AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Resmi kırpmak için:\n1. Canvas'taki resmi seçin (tıklayın)\n2. Sağ panelde veya üst toolbar'da Crop butonuna tıklayın\n3. Kırpma çerçevesini sürükleyerek boyutlandırın\n4. Enter tuşu ile onayla, ESC ile iptal\n5. Kırpma geri alınabilir (Ctrl+Z)\n\nAlternatif: Perspective Warp ile perspektif düzeltme de yapılabilir.'"
+  },
+  {
+    "id": "r-image-perspective-info",
+    "category": "image",
+    "tags": ["perspektif", "perspective", "warp", "eğ", "eg", "yamuk", "düzelt", "duzelt", "açı düzelt", "aci duzelt"],
+    "title": "Perspective warp image (manual instruction)",
+    "scenario": "User wants to apply perspective correction or distortion to an image.",
+    "recipe": "Perspektif düzeltme AI tool'larıyla yapılamaz. Kullanıcıya bilgi ver:\n\n'Perspektif düzeltme için:\n1. Resmi seçin\n2. Sağ panelde Perspective / Warp butonuna tıklayın\n3. 4 köşe noktasını sürükleyerek perspektifi ayarlayın\n4. Gerçek zamanlı önizleme gösterilir\n5. Enter ile onayla\n\nKullanım alanları:\n- Eğri çekilmiş fotoğrafları düzeltme\n- Mockup efekti (telefon/laptop ekranına yerleştirme)\n- 3D perspektif efekti'"
+  },
+  {
+    "id": "r-selection-lasso-info",
+    "category": "canvas",
+    "tags": ["lasso", "kement", "serbest seçim", "free select", "polygon select", "çokgen seçim", "cokgen secim", "seçim aracı", "secim araci"],
+    "title": "Selection tools — lasso & polygon (manual instruction)",
+    "scenario": "User asks about advanced selection tools.",
+    "recipe": "Gelişmiş seçim araçları AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'3 gelişmiş seçim aracı var:\n1. **Quick Select**: Tıklama ile otomatik benzer nesneleri seç\n2. **Lasso Select**: Serbest çizimle alan belirle, içindeki tüm nesneler seçilir\n3. **Polygon Select**: Köşe noktalarına tıklayarak çokgen alan belirle\n\nTemel seçim:\n- Tık: tekli seçim\n- Shift+tık: çoklu seçim\n- Ctrl+A: tümünü seç\n- Boşluğa tık: seçimi kaldır'"
+  },
+  {
+    "id": "r-wireframe-template-info",
+    "category": "canvas",
+    "tags": ["wireframe", "tel çerçeve", "tel cerceve", "mockup", "prototip", "prototype", "web tasarım", "web tasarim", "sayfa düzeni", "sayfa duzeni"],
+    "title": "Wireframe templates & elements (manual instruction)",
+    "scenario": "User wants to create wireframes or web page mockups.",
+    "recipe": "Wireframe araçları AI tool'larıyla kontrol edilemez. Kullanıcıya bilgi ver:\n\n'Wireframe modu:\n1. Ürün tipini \"Wireframe\" olarak değiştirin (1440x900)\n2. 6 hazır wireframe template: Landing Page, Blog, Portfolio, E-commerce, Dashboard, Mobile App\n3. Wireframe UI elemanları: Header, Hero Section, Card Grid, Sidebar, Footer, Nav Bar, Form, Button, Image Placeholder, Text Block\n4. Gri tonları varsayılan renk paleti\n5. Lo-fi (düşük detay) tasarım için optimize\n\nVeya setProductType ile:\n```tool\n{\"tool\": \"setProductType\", \"params\": {\"type\": \"wireframe\"}}\n```'"
+  },
+  {
+    "id": "r-page-management",
+    "category": "canvas",
+    "tags": ["sayfa", "page", "çoklu sayfa", "coklu sayfa", "multi page", "yeni sayfa", "new page", "sayfa ekle", "add page", "sayfa sil", "sayfa kopyala"],
+    "title": "Multi-page management",
+    "scenario": "User asks about adding, removing, or switching between pages.",
+    "recipe": "Çoklu sayfa yönetimi:\n\n'Sayfa işlemleri:\n- **Yeni sayfa ekle**: Ctrl+Shift+N veya alt bar'daki + butonu\n- **Sayfa kopyala**: Ctrl+Shift+D (mevcut sayfayı klon)\n- **Sayfalar arası geçiş**: Alt+S (ileri), Alt+A (geri)\n- **Sayfa numarasına atla**: Alt+Shift+1-9\n- **Sayfa silme**: Sayfa sekmesini sağ tıklayın → Sil\n\nSayfaları gruplama:\n- Sayfa sekmesini grup chip'ine sürükleyin\n- Gruplar lifecycle'a sahip: Active → Warm → Sleeping → Frozen\n\nKartvizit ön-arka yüz için:\n1. İlk sayfa = ön yüz\n2. Ctrl+Shift+N ile yeni sayfa = arka yüz'",
+    "tools": []
+  },
+  {
+    "id": "r-custom-shape-info",
+    "category": "shape",
+    "tags": ["özel şekil", "ozel sekil", "custom shape", "hazır şekil", "hazir sekil", "yıldız", "yildiz", "ok", "kalp", "heart", "arrow", "star", "polygon", "çokgen"],
+    "title": "Custom / advanced shapes (manual instruction)",
+    "scenario": "User wants advanced shapes like stars, arrows, hearts, polygons.",
+    "recipe": "AI addShape aracı 6 temel şekli destekler: rect, circle, triangle, ellipse, diamond, line.\n\nDaha gelişmiş şekiller için:\n\n'Sol paneldeki Shapes butonuna tıklayın. 30+ hazır custom shape var:\n- Yıldız (star): 4, 5, 6, 8 kollu\n- Ok (arrow): sağ, sol, yukarı, aşağı, çift yönlü\n- Kalp (heart)\n- Paralelkenar\n- Beşgen (pentagon), altıgen (hexagon), sekizgen (octagon)\n- Artı (+), çarpı (×)\n- Konuşma balonu (speech bubble)\n- Bulut (cloud)\n- Yıldırım (lightning bolt)\n\nHer şekil renk, boyut, stroke ayarlanabilir.'\n\nTemel şekiller AI ile eklenebilir:\n```tool\n{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 60, \"fill\": \"#f2ff58\"}}\n```"
+  },
+  {
+    "id": "r-google-fonts-info",
+    "category": "text",
+    "tags": ["font yükle", "font yukle", "google fonts", "font ekle", "yeni font", "font ara", "font indir", "font download"],
+    "title": "Load / search Google Fonts",
+    "scenario": "User wants to load new fonts or search for specific Google Fonts.",
+    "recipe": "Google Fonts yönetimi:\n\n'50 font önceden yüklü. Daha fazlası için:\n1. Settings → Google Fonts bölümüne gidin\n2. Font adı arayın (ör: \"Bebas\", \"Pacifico\")\n3. Önizleme ile beğendiğiniz fontu seçin\n4. Load butonuna tıklayın — font IndexedDB'ye kaydedilir\n5. Artık addText'te fontFamily olarak kullanabilirsiniz\n\nPopüler fontlar (zaten yüklü):\nInter, Roboto, Montserrat, Poppins, Playfair Display, Bebas Neue, Caveat, Pacifico, JetBrains Mono\n\nFont kullanma:\n```tool\n{\"tool\": \"addText\", \"params\": {\"text\": \"Example\", \"fontFamily\": \"Bebas Neue\", \"fontSize\": 48}}\n```'"
+  },
+  {
+    "id": "r-import-dika-info",
+    "category": "export",
+    "tags": ["import", "içe aktar", "ice aktar", "aç", "ac", "yükle", "yukle", "dosya aç", "dosya ac", ".dika"],
+    "title": "Import .dika project file",
+    "scenario": "User asks how to import or open a previously saved project.",
+    "recipe": "Proje dosyası açma AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Kayıtlı projeyi açmak için:\n1. Export panelini açın (Ctrl+E)\n2. Import sekmesine geçin\n3. .dika dosyasını seçin veya sürükleyin\n4. Proje tüm sayfalar, nesneler ve ayarlarla yüklenir\n\nAlternatif import formatları:\n- SVG dosyası → vektör olarak import\n- PNG/JPG → resim olarak canvas'a ekle\n\nNOT: Import mevcut canvas'ın üzerine yazar. Mevcut çalışmanızı önce kaydedin.'"
+  },
+  {
+    "id": "r-bulk-export-info",
+    "category": "export",
+    "tags": ["toplu", "bulk", "hepsi", "all pages", "tüm sayfalar", "tum sayfalar", "çoklu export", "coklu export", "zip", "topluca"],
+    "title": "Bulk export all pages",
+    "scenario": "User wants to export all pages at once.",
+    "recipe": "Toplu export AI tool'larıyla yapılamaz. Kullanıcıya yönlendirme yap:\n\n'Tüm sayfaları toplu export:\n1. Export panelini açın (Ctrl+E)\n2. \"All Pages\" veya \"Tüm Sayfalar\" seçeneğini işaretleyin\n3. Format seçin:\n   - PNG/WebP: Her sayfa ayrı dosya → ZIP olarak indirilir\n   - PDF: Tüm sayfalar tek PDF dosyasında\n   - PSD: Her sayfa ayrı PSD → ZIP\n4. Çözünürlük seçin (1x-4x)\n5. Download butonuna tıklayın\n\nPDF baskı için: 3x çözünürlük önerilir.\nZIP içinde dosyalar sıralı isimlendirilir: page-1.png, page-2.png...'"
+  },
+  {
+    "id": "r-shortcuts-overview",
+    "category": "canvas",
+    "tags": ["kısayol", "kisayol", "shortcut", "keyboard", "tuş", "tus", "klavye", "hotkey"],
+    "title": "Keyboard shortcuts quick reference",
+    "scenario": "User asks about keyboard shortcuts.",
+    "recipe": "Temel kısayollar:\n\n**Genel:**\n- Ctrl+Z: Geri al | Ctrl+Y: İleri al\n- Ctrl+C/V/X: Kopyala/Yapıştır/Kes\n- Ctrl+D: Kopyala (duplicate)\n- Ctrl+A: Tümü seç | Delete: Sil\n- Ctrl+G: Grupla | Ctrl+Shift+G: Grubu çöz\n- Ctrl+E: Export | Ctrl+S: Kaydet\n\n**Katman:**\n- ] Öne getir | [ Arkaya gönder\n- Ctrl+] En üste | Ctrl+[ En alta\n\n**Sayfa:**\n- Ctrl+Shift+N: Yeni sayfa\n- Ctrl+Shift+D: Sayfa kopyala\n- Alt+S/A: Sonraki/önceki sayfa\n- Alt+Shift+1-9: Sayfaya atla\n\n**Panel:**\n- Alt+1-7: Sol panel flyout'ları\n- Ctrl+Shift+L: Katmanlar paneli\n- ?: Kısayollar overlay\n\n**Canvas:**\n- Ctrl+\\': Grid aç/kapat\n- Space+sürükle: Pan\n- Ctrl+mousewheel: Zoom'"
+  },
+  {
+    "id": "r-scenario-wedding",
+    "category": "card",
+    "tags": ["düğün", "dugun", "wedding", "davetiye", "invitation", "evlilik", "nişan", "nisan", "engagement"],
+    "title": "Wedding invitation card design",
+    "scenario": "User wants to design a wedding invitation card.",
+    "recipe": "Düğün davetiyesi tasarımı (700x400):\n\nStep 1: Arka plan + İsimler\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#fdf6e3\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Ahmet & Ayşe\", \"fontSize\": 36, \"fontFamily\": \"Great Vibes\", \"fill\": \"#2d2d2d\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 80}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Evleniyoruz!\", \"fontSize\": 14, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 130, \"charSpacing\": 40}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 80, \"height\": 1, \"fill\": \"#d4442a\", \"left\": 310, \"top\": 165}}]\n```\n\nStep 2: Tarih + Mekan\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"15 Haziran 2025 — Saat 18:00\", \"fontSize\": 14, \"fill\": \"#555555\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 200}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Grand Ballroom Hotel\\nIstanbul, Beşiktaş\", \"fontSize\": 12, \"fill\": \"#777777\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 250, \"lineHeight\": 1.6}}]\n```\n\nÖneriler:\n- Font: Great Vibes, Dancing Script, Sacramento (el yazısı)\n- Renkler: Cream (#fdf6e3), Gold (#d4442a), Blush (#f5c6c6)\n- Dekoratif çizgi veya çiçek ikonu eklenebilir",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-scenario-restaurant-menu",
+    "category": "card",
+    "tags": ["restoran", "restaurant", "menü", "menu", "yemek", "food", "cafe", "kafe", "yemek listesi"],
+    "title": "Restaurant menu card design",
+    "scenario": "User wants to design a restaurant menu card.",
+    "recipe": "Restoran menü kartı (A4: 794x1123):\n\nStep 1: Boyut + Arka plan + Başlık\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 794, \"height\": 1123}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a0f00\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"MENÜ\", \"fontSize\": 48, \"fontWeight\": \"bold\", \"fontFamily\": \"Playfair Display\", \"fill\": \"#ffd700\", \"textAlign\": \"center\", \"width\": 694, \"left\": 50, \"top\": 60, \"charSpacing\": 60}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 100, \"height\": 2, \"fill\": \"#ffd700\", \"left\": 347, \"top\": 130}}]\n```\n\nStep 2: Kategori + Yemekler\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"BAŞLANGIÇLAR\", \"fontSize\": 18, \"fontWeight\": \"bold\", \"fill\": \"#ffd700\", \"left\": 60, \"top\": 180, \"charSpacing\": 30, \"width\": 300}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Mercimek Çorbası .............. 45₺\\nHumus Tabağı ................... 55₺\\nSigara Böreği .................. 50₺\", \"fontSize\": 13, \"fill\": \"#cccccc\", \"left\": 60, \"top\": 220, \"width\": 350, \"lineHeight\": 2.0}}]\n```",
+    "tools": ["setCanvasSize", "setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-scenario-event-poster",
+    "category": "social",
+    "tags": ["etkinlik", "event", "afiş", "afis", "poster", "konser", "concert", "parti", "party", "duyuru", "festival"],
+    "title": "Event poster / concert flyer",
+    "scenario": "User wants to design an event poster or concert flyer.",
+    "recipe": "Etkinlik afişi (1080x1920 story boyutu):\n\n```tool\n[{\"tool\": \"setCanvasSize\", \"params\": {\"width\": 1080, \"height\": 1920}}, {\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a0a0f\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"LIVE\\nCONCERT\", \"fontSize\": 96, \"fontWeight\": \"bold\", \"fontFamily\": \"Bebas Neue\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 500, \"lineHeight\": 1.0}}, {\"tool\": \"addText\", \"params\": {\"text\": \"DJ PHOENIX\", \"fontSize\": 48, \"fill\": \"#ff3344\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 730, \"charSpacing\": 40}}, {\"tool\": \"addText\", \"params\": {\"text\": \"15 Mart 2025 | 21:00\\nKlub Arena — Istanbul\", \"fontSize\": 22, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 900, \"left\": 90, \"top\": 1500, \"lineHeight\": 1.6}}]\n```\n\nDekorasyon: Büyük daire veya şerit eklenebilir.\nFont: Bebas Neue, Anton, Oswald — kalın ve dikkat çekici.",
+    "tools": ["setCanvasSize", "setBackground", "addText"]
+  },
+  {
+    "id": "r-scenario-thank-you",
+    "category": "card",
+    "tags": ["teşekkür", "tesekkur", "thank you", "thanks", "tebrik", "congratulation", "kutlama", "celebration"],
+    "title": "Thank you / greeting card",
+    "scenario": "User wants to design a thank you or greeting card.",
+    "recipe": "Teşekkür kartı (700x400):\n\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#fdf6e3\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Thank You\", \"fontSize\": 48, \"fontFamily\": \"Great Vibes\", \"fill\": \"#d4442a\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 100}}, {\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 60, \"height\": 2, \"fill\": \"#d4442a\", \"left\": 320, \"top\": 175}}, {\"tool\": \"addText\", \"params\": {\"text\": \"for your kindness and support\", \"fontSize\": 16, \"fill\": \"#666666\", \"textAlign\": \"center\", \"width\": 600, \"left\": 50, \"top\": 200, \"fontFamily\": \"Lora\"}}]\n```\n\nTürkçe versiyon:\n```tool\n[{\"tool\": \"addText\", \"params\": {\"text\": \"Teşekkürler\", \"fontSize\": 42, \"fontFamily\": \"Great Vibes\", \"fill\": \"#d4442a\", \"textAlign\": \"center\", \"width\": 600}}]\n```",
+    "tools": ["setBackground", "addText", "addShape"]
+  },
+  {
+    "id": "r-brand-set-info",
+    "category": "brand",
+    "tags": ["marka seti", "brand set", "marka kiti", "brand kit", "kurumsal", "corporate", "marka rehberi", "brand guide"],
+    "title": "Brand set creation and usage",
+    "scenario": "User asks about brand sets or maintaining brand consistency.",
+    "recipe": "Marka seti (Brand Set) bilgisi:\n\n'dika studio marka seti sistemi:\n1. Settings → Brand Sets bölümüne gidin\n2. Yeni marka seti oluşturun:\n   - Şirket adı\n   - Birincil renk (primary)\n   - İkincil renk (secondary)\n   - Aksan renk (accent)\n   - Birincil font\n   - İkincil font\n   - Logo (upload)\n3. Kaydedin — artık tasarımlarınızda tek tıkla uygulayabilirsiniz\n\nMarka tutarlılığı için AI önerisi:\n- Aynı 3 renk: bg + text + accent\n- Max 2 font family\n- Tutarlı margin ve spacing\n- Logo her zaman aynı köşede\n\nAI bu bilgileri biliyorsa tutarlı tasarımlar üretir.'"
+  },
+  {
+    "id": "r-text-effect-glow-info",
+    "category": "effect",
+    "tags": ["glow", "parlama", "neon", "ışık", "isik", "aydınlık", "aydinlik", "bright glow", "text glow"],
+    "title": "Text glow / neon effect (manual instruction)",
+    "scenario": "User wants glowing or neon text effect.",
+    "recipe": "Neon/glow efekti bilgisi:\n\n'Neon metin efekti için:\n1. Canvas'ta metni seçin\n2. Sağ panelde Text Effects bölümünü açın\n3. Glow seçeneğini açın\n4. Ayarlar:\n   - Blur: 10-30px (parıltı büyüklüğü)\n   - Color: parlak neon renk (#00ff00, #ff00ff, #00aaff)\n   - Intensity: 1-5\n5. Koyu arka plan üzerinde en iyi görünür'\n\nAI ile neon benzeri görünüm:\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#0a0a0f\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"NEON\", \"fontSize\": 72, \"fontWeight\": \"bold\", \"fill\": \"#00ff88\"}}, {\"tool\": \"modifySelected\", \"params\": {\"stroke\": \"#00ff88\", \"strokeWidth\": 1}}]\n```\nGerçek glow efekti için sağ paneli kullanın.",
+    "tools": ["setBackground", "addText", "modifySelected"]
+  },
+  {
+    "id": "r-sound-effects-info",
+    "category": "canvas",
+    "tags": ["ses", "sound", "efekt", "müzik", "muzik", "audio", "ses efekti"],
+    "title": "Sound effects info",
+    "scenario": "User asks about sound effects in dika studio.",
+    "recipe": "Ses efektleri bilgisi:\n\n'dika studio işlem yapıldığında kısa ses efektleri çalabilir:\n- Nesne ekleme: kısa \"pop\" sesi\n- Silme: \"swoosh\" sesi\n- Undo: \"ding\" sesi\n- Export: \"success\" sesi\n\nAçma/Kapatma: Settings → Sound Effects toggle\n\nBu tamamen dekoratif ve isteğe bağlıdır.'",
+    "tools": []
+  },
+  {
+    "id": "r-scenario-business-back",
+    "category": "card",
+    "tags": ["arka yüz", "arka yuz", "back side", "çift yüz", "cift yuz", "dual", "iki taraf", "ikinci yüz", "back of card"],
+    "title": "Business card back side design",
+    "scenario": "User wants to design the back side of a business card.",
+    "recipe": "Kartvizit arka yüz tasarımı — yeni sayfa olarak:\n\n'Arka yüz için Ctrl+Shift+N ile yeni sayfa ekleyin, sonra:'\n\nMinimal arka yüz (logo + slogan ortada):\n```tool\n[{\"tool\": \"setBackground\", \"params\": {\"color\": \"#1a1a2e\"}}, {\"tool\": \"addText\", \"params\": {\"text\": \"COMPANY\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 640, \"left\": 30, \"top\": 150, \"charSpacing\": 60}}, {\"tool\": \"addText\", \"params\": {\"text\": \"Design • Create • Inspire\", \"fontSize\": 12, \"fill\": \"#888888\", \"textAlign\": \"center\", \"width\": 640, \"left\": 30, \"top\": 200, \"charSpacing\": 20}}]\n```\n\nAlternatif — QR kodlu arka yüz:\n1. Arka planı ayarla\n2. QR kodu ekle (UI'dan)\n3. Website URL'si yazısı ekle\n\nİpucu: Arka yüz genellikle ön yüzden daha sade olmalı.",
+    "tools": ["setBackground", "addText"]
+  },
+  {
+    "id": "r-composition-badge-label",
+    "category": "composition",
+    "tags": ["rozet", "badge", "etiket", "label", "tag", "sticker", "pill", "yuvarlak etiket"],
+    "title": "Badge / label / pill element",
+    "scenario": "User wants to create badge-like elements (colored pills, labels, tags).",
+    "recipe": "Badge/rozet/etiket oluşturma (shape + text):\n\nPill/badge:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 120, \"height\": 36, \"fill\": \"#ff3344\", \"left\": 540, \"top\": 30}}, {\"tool\": \"addText\", \"params\": {\"text\": \"YENİ\", \"fontSize\": 13, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 120, \"left\": 540, \"top\": 38}}]\n```\n\nDaire badge:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"circle\", \"radius\": 30, \"fill\": \"#ffd700\", \"left\": 600, \"top\": 20}}, {\"tool\": \"addText\", \"params\": {\"text\": \"%50\", \"fontSize\": 14, \"fontWeight\": \"bold\", \"fill\": \"#000000\", \"textAlign\": \"center\", \"width\": 60, \"left\": 600, \"top\": 35}}]\n```\n\nKullanım: İndirim badge, \"Yeni\" etiketi, \"Premium\" rozeti.",
+    "tools": ["addShape", "addText"]
+  },
+  {
+    "id": "r-composition-overlay-box",
+    "category": "composition",
+    "tags": ["overlay", "üst yazı", "ust yazi", "metin kutusu", "text box", "banner text", "kutu içi yazı", "kutu ici yazi", "card overlay"],
+    "title": "Text overlay with background box",
+    "scenario": "User wants text with a semi-transparent colored box behind it.",
+    "recipe": "Metin kutusu (yarı saydam arka plan + text):\n\nKoyu overlay:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 500, \"height\": 120, \"fill\": \"#000000\", \"left\": 100, \"top\": 150}}, {\"tool\": \"modifySelected\", \"params\": {\"opacity\": 0.7}}, {\"tool\": \"addText\", \"params\": {\"text\": \"OVERLAY TEXT\", \"fontSize\": 36, \"fontWeight\": \"bold\", \"fill\": \"#ffffff\", \"textAlign\": \"center\", \"width\": 460, \"left\": 120, \"top\": 185}}]\n```\n\nRenkli overlay:\n```tool\n[{\"tool\": \"addShape\", \"params\": {\"shape\": \"rect\", \"width\": 400, \"height\": 60, \"fill\": \"#f2ff58\", \"left\": 150, \"top\": 170}}, {\"tool\": \"addText\", \"params\": {\"text\": \"FEATURED\", \"fontSize\": 24, \"fontWeight\": \"bold\", \"fill\": \"#0a0a0f\", \"textAlign\": \"center\", \"width\": 400, \"left\": 150, \"top\": 183}}]\n```\n\nOverlay kutusu resmin üzerinde metin okumayı kolaylaştırır.",
+    "tools": ["addShape", "modifySelected", "addText"]
+  }
+]

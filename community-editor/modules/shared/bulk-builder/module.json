@@ -1,0 +1,7 @@
+{
+  "id": "shared.bulk-builder",
+  "children": [
+    "engine",
+    "products"
+  ]
+}

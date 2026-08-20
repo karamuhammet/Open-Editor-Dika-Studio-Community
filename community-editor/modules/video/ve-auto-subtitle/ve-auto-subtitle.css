@@ -1,0 +1,149 @@
+.ve-auto-subtitle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.74);
+  font-family: Geist, Inter, system-ui, sans-serif;
+}
+
+.ve-auto-subtitle-dialog {
+  width: min(560px, 100%);
+  max-height: min(760px, calc(100vh - 40px));
+  overflow-y: auto;
+  padding: 28px 30px;
+  color: var(--text, #ededf0);
+  background: var(--surface2, #1b1b1f);
+  border: 1px solid var(--border, #303038);
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+}
+
+.ve-auto-subtitle-eyebrow {
+  margin-bottom: 6px;
+  color: var(--text-dim, #8b8b94);
+  font: 600 10px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: 0.14em;
+}
+
+.ve-auto-subtitle-dialog h3 {
+  margin: 0 0 22px;
+  color: var(--text, #ededf0);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.ve-auto-subtitle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ve-auto-subtitle-field {
+  min-width: 0;
+}
+
+.ve-auto-subtitle-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 16px;
+  padding: 12px;
+  cursor: pointer;
+  background: var(--surface, #131316);
+  border: 1px solid var(--border, #303038);
+  border-radius: 8px;
+}
+
+.ve-auto-subtitle-check input {
+  margin: 3px 0 0;
+  accent-color: var(--gold, #f2ff58);
+}
+
+.ve-auto-subtitle-check span {
+  display: grid;
+  gap: 3px;
+}
+
+.ve-auto-subtitle-check strong {
+  color: var(--text, #ededf0);
+  font-size: 13px;
+}
+
+.ve-auto-subtitle-check small {
+  color: var(--text-dim, #9898a1);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ve-auto-subtitle-info {
+  min-height: 34px;
+  margin: 16px 0 4px;
+  color: var(--text-dim, #9898a1);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ve-auto-subtitle-progress {
+  display: none;
+  margin: 18px 0 0;
+}
+
+.ve-auto-subtitle-progress-text {
+  margin-bottom: 8px;
+  color: var(--text-dim, #aaa);
+  font-size: 13px;
+}
+
+.ve-auto-subtitle-progress-track {
+  height: 6px;
+  overflow: hidden;
+  background: var(--surface3, #232328);
+  border-radius: 3px;
+}
+
+.ve-auto-subtitle-progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--gold, #f2ff58);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.ve-auto-subtitle-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.ve-auto-subtitle-dialog button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.45;
+}
+
+.ve-auto-subtitle-dialog select:focus-visible,
+.ve-auto-subtitle-dialog button:focus-visible,
+.ve-auto-subtitle-dialog input:focus-visible {
+  outline: 2px solid var(--gold, #f2ff58);
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .ve-auto-subtitle-dialog {
+    padding: 22px 20px;
+  }
+
+  .ve-auto-subtitle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ve-auto-subtitle-progress-fill {
+    transition: none;
+  }
+}

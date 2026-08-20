@@ -1,0 +1,276 @@
+/* system/register-wizard - full screen, and it takes the editor's own tokens rather than a second
+   palette. The setup wizard (system/first-run) is the visual base the owner asked to copy; this is
+   that language at full size: one column, one question, a progress bar that means something. */
+
+.cc-rw-ov {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483100;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg, #16161b);
+  color: var(--text, #e8e8ea);
+  font-family: inherit;
+  overflow-y: auto;
+}
+
+.cc-rw-progress { height: 3px; width: 100%; background: var(--surface3, #212128); flex: 0 0 auto; overflow: hidden; }
+/* scaleX, not width. Animating width lays out the element on every frame, and this bar animates at
+   exactly the moment the editor is still booting (canvas, fonts, 304 modules), which is the worst
+   time to ask for layout. A transform is composited and looks identical. */
+.cc-rw-progress-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--gold, #f2ff58);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .28s ease;
+}
+
+.cc-rw-top {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.cc-rw-brand { display: flex; align-items: center; gap: 8px; }
+.cc-rw-mark { height: 22px; width: auto; display: block; opacity: .95; }
+.cc-rw-topright { display: flex; align-items: center; gap: 14px; }
+.cc-rw-count { font-size: 12px; color: var(--text-faint, #6e6e78); font-variant-numeric: tabular-nums; }
+
+.cc-rw-main { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 8px 22px 24px; }
+.cc-rw-col { width: 100%; max-width: 680px; margin: 0 auto; text-align: center; }
+.cc-rw-mediaslot { display: none; }
+
+/* layout: "split" - the question keeps the left column, the picture takes the right. */
+@media (min-width: 900px) {
+  .cc-rw-main.is-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .cc-rw-main.is-split .cc-rw-col { max-width: 520px; margin: 0; text-align: left; }
+  .cc-rw-main.is-split .cc-rw-mediaslot { display: block; }
+  /* mediaSide: "left" flips it with one class, never a second markup path. */
+  .cc-rw-main.is-split.is-left .cc-rw-col { order: 2; }
+  .cc-rw-main.is-split.is-left .cc-rw-mediaslot { order: 1; }
+}
+
+.cc-rw-media {
+  position: relative;
+  width: 100%;
+  /* 4:3, MEASURED against the images this actually shows rather than picked for looks: every slide
+     in the seeded set is 480x360 (1.33) except the 1120x520 hero. A portrait frame was tried first
+     and `object-fit: cover` cut the middle out of every landscape mockup, so the panel showed a
+     cropped fragment of a business card with the type sliced through. */
+  aspect-ratio: 4 / 3;
+  max-height: 68vh;
+  border-radius: var(--r-lg, 14px);
+  border: 1px solid var(--border, #2c2c33);
+  background: var(--surface, #1d1d23);
+  overflow: hidden;
+}
+.cc-rw-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+.cc-rw-slide.is-on { opacity: 1; }
+.cc-rw-media-cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 20px 18px 16px;
+  /* A flat scrim, not a gradient: the shape ban covers the cover curtain too. */
+  background: color-mix(in srgb, #000 62%, transparent);
+}
+.cc-rw-media-cap p { margin: 0; font-size: 13px; line-height: 1.55; color: #fff; }
+.cc-rw-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.cc-rw-tags span {
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #fff 22%, transparent);
+  background: color-mix(in srgb, #000 40%, transparent);
+  font-size: 11px;
+  font-weight: 500;
+  color: color-mix(in srgb, #fff 88%, transparent);
+}
+
+.cc-rw-title {
+  font-size: clamp(22px, 3.2vw, 34px);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+.cc-rw-sub { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--text-dim, #9b9ba3); }
+.cc-rw-body { margin-top: 28px; text-align: left; }
+
+.cc-rw-list { margin: 0; padding-left: 20px; color: var(--text-dim, #9b9ba3); font-size: 14px; line-height: 1.75; }
+.cc-rw-list li { margin: 4px 0; }
+
+/* ── options ───────────────────────────────────────────────────────────── */
+
+.cc-rw-opts { display: flex; flex-direction: column; gap: 8px; }
+.cc-rw-opts.is-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.cc-rw-opt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 42px 14px 16px;
+  border-radius: var(--r-md, 8px);
+  /* Solid border, never dashed: the shape ban applies here too. */
+  border: 1px solid var(--border, #2c2c33);
+  background: var(--surface, #1d1d23);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.cc-rw-opt:hover { border-color: var(--border-strong, #3a3a44); background: var(--surface2, #232329); }
+.cc-rw-opt:focus-visible { outline: 2px solid var(--gold, #f2ff58); outline-offset: 2px; }
+.cc-rw-opt.is-card { min-height: 84px; justify-content: center; }
+.cc-rw-opt.is-on { border-color: var(--gold, #f2ff58); background: color-mix(in srgb, var(--gold, #f2ff58) 9%, var(--surface, #1d1d23)); }
+
+.cc-rw-opt-label { font-size: 14px; font-weight: 600; }
+.cc-rw-opt-desc { font-size: 12px; line-height: 1.5; color: var(--text-dim, #9b9ba3); }
+
+/* A real tick, not a colour change: on a busy grid a border tint alone is not an answer somebody
+   can see at a glance. */
+.cc-rw-tick {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong, #3a3a44);
+  background: transparent;
+}
+.cc-rw-opt.is-on .cc-rw-tick {
+  border-color: transparent;
+  background: var(--gold, #f2ff58);
+  box-shadow: inset 0 0 0 2px var(--surface, #1d1d23), inset 0 0 0 3px var(--gold, #f2ff58);
+}
+
+/* ── fields ────────────────────────────────────────────────────────────── */
+
+/* Two-up, and FIXED at two rather than auto-fit. `auto-fit` decided the column count from the
+   available width, so `is-full` spanning "all columns" meant one column on a narrow panel and two on
+   a wide one: the same field was full width or half depending on the window. A named track count is
+   what makes `grid-column: 1 / -1` mean the same thing every time. */
+.cc-rw-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.cc-rw-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cc-rw-field.is-full { grid-column: 1 / -1; }
+.cc-rw-flabel { font-size: 12px; color: var(--text-dim, #9b9ba3); }
+.cc-rw-req { color: var(--gold, #f2ff58); }
+.cc-rw-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border-radius: var(--r-md, 8px);
+  border: 1px solid var(--border, #2c2c33);
+  background: var(--surface, #1d1d23);
+  color: var(--text, #e8e8ea);
+  font: inherit;
+  font-size: 14px;
+}
+.cc-rw-input:focus { outline: none; border-color: var(--gold, #f2ff58); }
+.cc-rw-check {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-dim, #9b9ba3);
+  cursor: pointer;
+}
+.cc-rw-check input { margin-top: 2px; accent-color: var(--gold, #f2ff58); }
+.cc-rw-check.is-full { grid-column: 1 / -1; }
+.cc-rw-link { color: var(--gold, #f2ff58); text-decoration: underline; text-underline-offset: 2px; }
+.cc-rw-link:hover { filter: brightness(1.1); }
+
+.cc-rw-error {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #ff9b6b;
+  text-align: left;
+}
+
+/* ── footer ────────────────────────────────────────────────────────────── */
+
+.cc-rw-foot {
+  position: sticky;
+  bottom: 0;
+  flex: 0 0 auto;
+  border-top: 1px solid var(--border, #2c2c33);
+  background: var(--bg, #16161b);
+}
+.cc-rw-footin {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 14px 22px;
+  box-sizing: border-box;
+}
+
+.cc-rw-ghost {
+  padding: 9px 14px;
+  border-radius: var(--r-md, 8px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-dim, #9b9ba3);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.cc-rw-ghost:hover { color: var(--text, #e8e8ea); background: var(--surface2, #232329); }
+
+/* Volt is a FILL, never a border. */
+.cc-rw-go {
+  min-width: 168px;
+  padding: 11px 24px;
+  border-radius: var(--r-md, 8px);
+  border: 1px solid transparent;
+  background: var(--gold, #f2ff58);
+  color: #16161b;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cc-rw-go:hover:not(:disabled) { filter: brightness(1.08); }
+.cc-rw-go:disabled { opacity: .38; cursor: not-allowed; }
+
+@media (max-width: 620px) {
+  .cc-rw-fields { grid-template-columns: 1fr; }
+  .cc-rw-opts.is-grid { grid-template-columns: 1fr; }
+  .cc-rw-go { min-width: 0; flex: 1 1 auto; }
+}

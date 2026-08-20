@@ -1,0 +1,11 @@
+{
+  "children": [
+    "emoji",
+    "gif",
+    "icons",
+    "lottie",
+    "shapes",
+    "stickers"
+  ],
+  "id": "left-panel.items"
+}

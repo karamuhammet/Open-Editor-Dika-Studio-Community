@@ -1,0 +1,6 @@
+{
+  "id": "video.video-editor.events",
+  "children": [
+    "binding"
+  ]
+}

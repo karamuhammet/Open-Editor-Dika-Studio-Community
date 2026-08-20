@@ -1,0 +1,68 @@
+name: Build macOS release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macos-v1-release
+  cancel-in-progress: false
+
+jobs:
+  build-macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: macos-15-intel
+          - arch: arm64
+            runner: macos-15
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: community-desktop/package-lock.json
+
+      - name: Install desktop dependencies
+        working-directory: community-desktop
+        run: npm ci
+
+      - name: Build and ad-hoc sign app
+        working-directory: community-desktop
+        run: |
+          npx electron-builder --mac dir --${{ matrix.arch }} --publish never
+          app_path="$(find dist -maxdepth 2 -type d -name 'dika.studio.app' -print -quit)"
+          test -n "$app_path"
+          codesign --force --deep --sign - "$app_path"
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+          npx electron-builder --mac dmg --${{ matrix.arch }} --prepackaged "$app_path" --publish never
+
+      - name: Verify DMG
+        run: |
+          test -f community-desktop/dist/dika-studio-1.0.0-${{ matrix.arch }}.dmg
+          shasum -a 256 community-desktop/dist/dika-studio-1.0.0-${{ matrix.arch }}.dmg
+
+      - name: Preserve build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dika-studio-macos-${{ matrix.arch }}
+          path: community-desktop/dist/dika-studio-1.0.0-${{ matrix.arch }}.dmg
+          if-no-files-found: error
+
+      - name: Upload DMG to v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v1.0.0 community-desktop/dist/dika-studio-1.0.0-${{ matrix.arch }}.dmg --clobber

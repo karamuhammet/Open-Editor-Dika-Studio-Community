@@ -1,0 +1,27 @@
+# THE BUILD OUTPUT IS NOT THE SOURCE, and here that distinction is 2 GB.
+#
+# `dist/` holds win-unpacked, linux-unpacked, the AppImage staging tree and the installers - every one
+# of them a full copy of the editor plus an Electron runtime. Committing it would push the binaries
+# into git history, where they stay forever even after a later delete, and it would put the previous
+# build's copies (`dist/_prev-*`) there too.
+#
+# The source-available promise is satisfied by the SOURCE being here and by the release carrying
+# the licence.
+# Binaries belong on the Releases page, attached to a tag, where the signed manifest already points.
+dist/
+node_modules/
+
+# electron-builder's own scratch: a per-run debug dump that names absolute paths on the build machine.
+builder-debug.yml
+dist_electron/
+
+# The signed release documents are produced per build from a key that is not in this repository.
+# They are published by attaching them to a release, never by committing them.
+*.pem
+payload.json
+stable.json
+beta.json
+
+*.log
+.DS_Store
+Thumbs.db

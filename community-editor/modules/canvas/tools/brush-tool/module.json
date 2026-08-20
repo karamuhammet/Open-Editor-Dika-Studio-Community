@@ -1,0 +1,10 @@
+{
+  "id": "canvas.tools.brush-tool",
+  "children": [
+    "bar",
+    "convert",
+    "core",
+    "myshapes",
+    "paint"
+  ]
+}

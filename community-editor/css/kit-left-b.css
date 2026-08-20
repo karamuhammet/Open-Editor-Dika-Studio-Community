@@ -1,0 +1,32 @@
+/* ============================================================
+   dika studio editor — KIT LEFT PANELS B (E4): Icons · Items · Media.
+   Icons/Media live in styles.css (head); Items is a loader module
+   (runtime). Uniform !important wins for both. radius → kit, font
+   → Geist, volt focus rings. (These panels were already mostly
+   volt + token-based; mainly radius/font normalization.)
+   ============================================================ */
+
+/* ---- ICONS (.icon-*) ---- */
+.icon-cell { border-radius: var(--r-md) !important; }
+.icon-search { font-family: var(--font-ui) !important; }
+.icon-search:focus { box-shadow: var(--ring-dim) !important; }
+.icon-cell:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }
+
+/* ---- ITEMS (.items-*) ---- */
+.items-emoji-tab { border-radius: var(--r-pill) !important; }
+.items-search-input, .items-load-more, .items-slider-cell, .items-emoji-grid-cell,
+.items-gif-cell, .items-sticker-cell { border-radius: var(--r-md) !important; }
+.items-masonry-cell { border-radius: var(--r-lg) !important; }
+.items-search-input:focus { box-shadow: var(--ring-dim) !important; }
+.items-slider-cell:focus-visible, .items-emoji-grid-cell:focus-visible,
+.items-load-more:focus-visible { outline: none !important; box-shadow: var(--ring) !important; }
+
+/* ---- MEDIA (.gallery-*, .gal-*, .media-*, .img-*, .stock-*) ---- */
+.gallery-cell, .stock-result-cell, .gal-audio-card,
+.gal-upload-cell, .img-cat-card, .stock-no-key, .media-upload-zone {
+  border-radius: var(--r-md) !important;
+}
+.media-search, .gal-search, .img-search, .stock-search { font-family: var(--font-ui) !important; }
+.gallery-cell:focus-visible, .stock-result-cell:focus-visible {
+  outline: none !important; box-shadow: var(--ring) !important;
+}

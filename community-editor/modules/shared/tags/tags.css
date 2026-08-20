@@ -1,0 +1,2 @@
+/* shared/tags — data layer (G0) has no UI of its own; tag chips/modal styles live in
+   shared/tag-modal (G1) and scene/frame-tags (G2). Kept so the loader's <name>.css link never 404s. */

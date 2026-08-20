@@ -1,0 +1,2 @@
+/* tools/mockups (Device Mockups) — cards are styled inline + via .mockup-card in styles.css.
+   No module-specific CSS yet; this file exists so the loader never 404s on mockups.css. */
